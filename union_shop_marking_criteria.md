@@ -4,26 +4,26 @@
 
 | Feature | Description | Marks (%) | Reference |
 |---------|-------------|-----------|-----------|
-| **Basic (38%)** |
-| Static Homepage | Homepage layout and widgets with static content (hardcoded data acceptable, it does not have to be responsive so aim for mobile view) | 5% | [Homepage](https://shop.upsu.net/) |
-| Static Navbar | Top navigation bar with menu (the links do not have to work at this stage, it does not have to be responsive either so aim for mobile view) | 5% | [Homepage](https://shop.upsu.net/) |
-| About Us Page | Static about us page with company information (a separate page to the home page) | 4% | [About Us](https://shop.upsu.net/pages/about-us) |
-| Footer | Footer with dummy links and other information present in at least one of your pages | 3% | [Homepage](https://shop.upsu.net/) |
-| Dummy collections page | A separate page displaying various collections of products(hardcoded dummy data acceptable) | 3% | [Collections](https://shop.upsu.net/collections/) |
-| Dummy collection page | At least one separate page displaying all the products within one collection including the relevant dropdowns and filters (hardcoded dummy data acceptable, the widgets do not have to function at this stage) | 5% | [Collection Example](https://shop.upsu.net/collections/clothing-2) |
-| Dummy product | At least one separate product page showing details and images of a product alongside the relevant dropdowns, buttons and other widgets (hardcoded dummy data acceptable, , the widgets do not have to function at this stage) | 5% | [Product Exmple](https://shop.upsu.net/collections/clothing-2/products/classic-hoodie) |
-| Sale Collection | A separate page showing the products on sale with their discounted prices and other relevant widgets and promotional messaging (hardcoded dummy data acceptable, the widgets do not have to function at this stage) | 4% | [Sale Items](https://shop.upsu.net/collections/sale-items) |
-| Authentication UI | A separate page for login/signup (the widgets do not have to function at this stage) | 4% | [Sign In](https://shop.upsu.net/account/login) |
-| **Intermediate (34%)** |
-| Dynamic Collections | The collections page shoudl now be dynamically populated from data models or services. The sorting, filtering, pagination and other widgets must function also.  | 5% | [Collections](https://shop.upsu.net/collections/) |
-| Dynamic Product Listings | The page listing products for each collection should now be populated from data models or services. The sorting, filtering, pagination and other widgets must function also. | 8% | [Collection Example](https://shop.upsu.net/collections/autumn-favourites) |
-| Individual Product Pages | The images and information on individual product pages populated from data models or services. All the widgets (e.g., the dropdowns and counters) must also function based on the data/services. (The add to cart/buy buttons do not have to work yet.) | 8% | [Product Example](https://shop.upsu.net/collections/autumn-favourites/products/classic-sweatshirt-1) |
-| Shopping cart | The ability to add items to cart, view the cart in a separate page, and all the relevant cart functionality (the checkout buttons should place the order without handling real monetary transactions) | 10% | [Cart](https://shop.upsu.net/cart) |
-| Print Shack | Implement [the text-personalistion page](https://shop.upsu.net/products/personalise-text) in addition to [the associated about page](https://shop.upsu.net/pages/personalisation). The displayed form must dynamically updated based on the selected fields. | 3% | [Personalisation](https://shop.upsu.net/products/personalise-text) |
-| **Advanced (25% total)** |
-| Authentication system | Full user authentication and account management (you can implement this with other externatl authentications, not just Shop). Try signing up with the website and view the account dashboard to gather the full list of functionalities. | 8% | [Account](https://shopify.com/22645997643/account/orders) |
-| Cart Management | Full cart functionality - quantity editing, removal, calculations, persistence | 6% | [Cart](https://shop.upsu.net/cart) |
-| Search System | Complete search functionality (the search button should also be available from both the navbar and the footer). | 4% | [Search](https://shop.upsu.net/search) |
+| **Basic (45%)** |
+| Static Homepage | Homepage layout and widgets with static content (hardcoded data* acceptable, mobile view focus) | 6% | [Homepage](https://shop.upsu.net/) |
+| Static Navbar | Top navigation bar with menu (links do not have to work at this stage, mobile view focus) | 6% | [Homepage](https://shop.upsu.net/) |
+| About Us Page | Static about us page with company information (separate page from homepage) | 5% | [About Us](https://shop.upsu.net/pages/about-us) |
+| Footer | Footer with dummy links and information present in at least one page | 4% | [Homepage](https://shop.upsu.net/) |
+| Dummy Collections Page | Page displaying various collections of products (hardcoded data* acceptable) | 5% | [Collections](https://shop.upsu.net/collections/) |
+| Dummy Collection Page | Page displaying products within one collection including dropdowns and filters (hardcoded data* acceptable, widgets do not have to function) | 6% | [Collection Example](https://shop.upsu.net/collections/autumn-favourites) |
+| Dummy Product Page | Product page showing details and images with dropdowns, buttons and widgets (hardcoded data* acceptable, widgets do not have to function) | 4% | [Product Example](https://shop.upsu.net/collections/autumn-favourites/products/classic-sweatshirt-1) |
+| Sale Collection | Page showing sale products with discounted prices and promotional messaging (hardcoded data* acceptable, widgets do not have to function) | 5% | [Sale Items](https://shop.upsu.net/collections/sale-items) |
+| Authentication UI | Login/signup page with the relevant forms (widgets do not have to function) | 4% | [Sign In](https://shop.upsu.net/account/login) |
+| **Intermediate (30%)** |
+| Dynamic Collections | Collections page populated from data models or services with functioning sorting, filtering, pagination widgets | 6% | [Collections](https://shop.upsu.net/collections/) |
+| Dynamic Product Listings | Product listings of a collection populated from data models or services with functioning sorting, filtering, pagination widgets | 7% | [Autumn Favourites](https://shop.upsu.net/collections/autumn-favourites) |
+| Functional Product Pages | Product pages populated from data models or services with functioning dropdowns and counters (add to cart buttons do not have to work yet) | 7% | [Product Example](https://shop.upsu.net/collections/autumn-favourites/products/classic-sweatshirt-1) |
+| Shopping Cart | Add items to cart, view cart page, basic cart functionality (checkout buttons should place order without real monetary transactions) | 7% | [Cart](https://shop.upsu.net/cart) |
+| Print Shack Forms | [Text personalisation page](https://shop.upsu.net/products/personalise-text) with [associated about page](https://shop.upsu.net/pages/personalisation), the form must dynamically update based on selected fields | 3% | [Personalisation](https://shop.upsu.net/products/personalise-text) |
+| **Advanced (25%)** |
+| Authentication system | Full user authentication and account management (you can implement this with other externatl authentications, not just Shop). This includes the account dashboard and all relevant functionality. | 8% | [Account](https://shop.upsu.net/account) |
+| Cart Management | Full cart functionality including quantity editing/removal, price calculations and persistence | 6% | [Cart](https://shop.upsu.net/cart) |
+| Search System | Complete search functionality (search buttons should function on the navbar and the footer). | 4% | [Search](https://shop.upsu.net/search) |
 
 ## Additional Considerations
 
