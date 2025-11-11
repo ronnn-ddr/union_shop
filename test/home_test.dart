@@ -67,5 +67,55 @@ void main() {
       // Check that footer is present
       expect(find.text('Powered by Flutter'), findsOneWidget);
     });
+
+    testWidgets('should hide navigation buttons on mobile', (tester) async {
+      tester.view.physicalSize = const Size(600, 800); // Set mobile size
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
+      await tester.pumpWidget(const UnionShopApp());
+      await tester.pump();
+
+      // Check that navigation buttons are hidden on mobile
+      expect(find.text('Home'), findsNothing);
+      expect(find.text('Shop'), findsNothing);
+      expect(find.text('The Print Shack'),
+          findsOneWidget); // Still appears in hero section
+      expect(find.text('SALE!'), findsNothing);
+      expect(find.text('About'), findsNothing);
+      expect(find.text('UPSU.net'), findsNothing);
+    });
+
+    testWidgets('should show drawer navigation on mobile', (tester) async {
+      tester.view.physicalSize = const Size(600, 800); // Set mobile size
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
+      await tester.pumpWidget(const UnionShopApp());
+      await tester.pump();
+
+      // Check that menu icon is present
+      expect(find.byIcon(Icons.menu), findsOneWidget);
+
+      // Tap the menu icon to open drawer
+      await tester.tap(find.byIcon(Icons.menu));
+      await tester.pumpAndSettle();
+
+      // Check that drawer is open with navigation items
+      expect(find.text('Union Shop'), findsOneWidget); // Drawer header
+      expect(find.text('Home'), findsAtLeast(1)); // In drawer
+      expect(find.text('Shop'), findsAtLeast(1)); // In drawer
+      expect(
+          find.text('The Print Shack'), findsAtLeast(2)); // In drawer and hero
+      expect(find.text('SALE!'), findsAtLeast(1)); // In drawer
+      expect(find.text('About'), findsAtLeast(1)); // In drawer
+      expect(find.text('UPSU.net'), findsAtLeast(1)); // In drawer
+    });
   });
 }

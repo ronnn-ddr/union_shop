@@ -140,5 +140,68 @@ void main() {
       // Check that footer is present
       expect(find.text('Powered by Flutter'), findsOneWidget);
     });
+
+    testWidgets('should hide navigation buttons on mobile about page',
+        (tester) async {
+      tester.view.physicalSize = const Size(600, 800); // Set mobile size
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
+      await tester.pumpWidget(const UnionShopApp());
+      await tester.pump();
+
+      // Navigate to about page
+      await tester.tap(find.byIcon(Icons.menu));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('About'));
+      await tester.pumpAndSettle();
+
+      // Check that navigation buttons are hidden on mobile
+      expect(find.text('Home'), findsNothing);
+      expect(find.text('Shop'), findsNothing);
+      expect(find.text('The Print Shack'),
+          findsNothing); // Not in header on mobile
+      expect(find.text('SALE!'), findsNothing);
+      expect(find.text('About'), findsNothing);
+      expect(find.text('UPSU.net'), findsNothing);
+    });
+
+    testWidgets('should show drawer navigation on mobile about page',
+        (tester) async {
+      tester.view.physicalSize = const Size(600, 800); // Set mobile size
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
+      await tester.pumpWidget(const UnionShopApp());
+      await tester.pump();
+
+      // Navigate to about page via drawer
+      await tester.tap(find.byIcon(Icons.menu));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('About'));
+      await tester.pumpAndSettle();
+
+      // Check that menu icon is present
+      expect(find.byIcon(Icons.menu), findsOneWidget);
+
+      // Tap the menu icon to open drawer
+      await tester.tap(find.byIcon(Icons.menu));
+      await tester.pumpAndSettle();
+
+      // Check that drawer is open with navigation items
+      expect(find.text('Union Shop'), findsOneWidget); // Drawer header
+      expect(find.text('Home'), findsAtLeast(1)); // In drawer
+      expect(find.text('Shop'), findsAtLeast(1)); // In drawer
+      expect(find.text('The Print Shack'), findsAtLeast(1)); // In drawer
+      expect(find.text('SALE!'), findsAtLeast(1)); // In drawer
+      expect(find.text('About'), findsAtLeast(1)); // In drawer
+      expect(find.text('UPSU.net'), findsAtLeast(1)); // In drawer
+    });
   });
 }
