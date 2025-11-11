@@ -232,6 +232,15 @@ union_shop/
 
 ## 🎨 Customization
 
+### Assets
+The app uses local asset images for products and hero sections. Assets are configured in `pubspec.yaml`:
+```yaml
+flutter:
+  assets:
+    - assets/images/
+```
+
+
 ### Fonts
 The app uses the WorkSans variable font family. Font files are located in `assets/fonts/`:
 - `WorkSans-VariableFont_wght.ttf` (regular)

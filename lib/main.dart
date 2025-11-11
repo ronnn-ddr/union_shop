@@ -324,7 +324,7 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         Positioned.fill(
                           child: Image.asset(
-                            'assets/Personalisation.png',
+                            'assets/images/Personalisation.png',
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) {
                               return Container(
@@ -428,22 +428,22 @@ class HomeScreen extends StatelessWidget {
                         ProductCard(
                           title: 'Classic Rainbow Hoodies',
                           price: '£30.00',
-                          imageUrl: 'assets/RainbowHoodie.png',
+                          imageUrl: 'assets/images/RainbowHoodie.png',
                         ),
                         ProductCard(
                           title: 'Graduation Hoodies',
                           price: '£35.00',
-                          imageUrl: 'assets/GraduationHoodie.png',
+                          imageUrl: 'assets/images/GraduationHoodie.png',
                         ),
                         ProductCard(
                           title: 'Classic Cap',
                           price: '£12.00',
-                          imageUrl: 'assets/ClassicCap.png',
+                          imageUrl: 'assets/images/ClassicCap.png',
                         ),
                         ProductCard(
                           title: 'Heavyweight Shorts',
                           price: '£20.00',
-                          imageUrl: 'assets/HeavyweightShorts.png',
+                          imageUrl: 'assets/images/HeavyweightShorts.png',
                         ),
                       ],
                     ),
