@@ -14,7 +14,7 @@ void main() {
             'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!'),
         findsOneWidget,
       );
-      expect(find.text('The Print Shack'), findsOneWidget);
+      expect(find.text('The Print Shack'), findsAtLeast(1));
       expect(find.text('PRODUCTS SECTION'), findsOneWidget);
       expect(find.text('FIND OUT MORE'), findsOneWidget);
     });
@@ -44,6 +44,20 @@ void main() {
       expect(find.byIcon(Icons.search), findsOneWidget);
       expect(find.byIcon(Icons.shopping_bag_outlined), findsOneWidget);
       expect(find.byIcon(Icons.menu), findsOneWidget);
+    });
+
+    testWidgets('should display navigation bar with buttons', (tester) async {
+      await tester.pumpWidget(const UnionShopApp());
+      await tester.pump();
+
+      // Check that navigation buttons are present in the header bar
+      expect(find.text('Home'), findsAtLeast(1));
+      expect(find.text('Shop'), findsAtLeast(1));
+      expect(find.text('The Print Shack'),
+          findsAtLeast(2)); // Appears in nav and hero
+      expect(find.text('SALE!'), findsAtLeast(1));
+      expect(find.text('About'), findsAtLeast(1));
+      expect(find.text('UPSU.net'), findsAtLeast(1));
     });
 
     testWidgets('should display footer', (tester) async {
