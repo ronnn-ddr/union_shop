@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
     // This is the event handler for buttons that don't work yet
   }
 
-  Widget _buildFooterSection(String title, List<String> items) {
+  Widget _buildFooterSection(String title, dynamic items) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -59,7 +59,10 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        ...items.map((item) => Padding(
+        ...items.map((item) {
+          if (item is String) {
+            // Simple text item
+            return Padding(
               padding: const EdgeInsets.only(bottom: 4),
               child: Text(
                 item,
@@ -69,7 +72,28 @@ class HomeScreen extends StatelessWidget {
                   fontFamily: 'WorkSans',
                 ),
               ),
-            )),
+            );
+          } else if (item is Map<String, dynamic>) {
+            // Clickable item
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: GestureDetector(
+                onTap: item['onTap'] as VoidCallback?,
+                child: Text(
+                  item['text'] as String,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: item['onTap'] != null ? Colors.blue : Colors.grey,
+                    fontFamily: 'WorkSans',
+                    decoration:
+                        item['onTap'] != null ? TextDecoration.underline : null,
+                  ),
+                ),
+              ),
+            );
+          }
+          return const SizedBox.shrink();
+        }),
       ],
     );
   }
@@ -498,30 +522,48 @@ class HomeScreen extends StatelessWidget {
                                 _buildFooterSection('Opening Hours', [
                                   '(Term Time)',
                                   'Monday - Friday: 9:00 AM - 4:00 PM',
-                                  '(Outside of Term Time / Consolidation Weeks)',
+                                  "(Outside of Term Time / Consolidation Weeks)",
                                   'Monday - Friday: 9:00 AM - 3:00 PM',
                                 ]),
                                 const SizedBox(height: 24),
                                 _buildFooterSection('Help and Information', [
-                                  'Search',
-                                  'Terms & Conditions of Sale Policy',
+                                  {
+                                    'text': 'Search',
+                                    'onTap': placeholderCallbackForButtons
+                                  },
+                                  {
+                                    'text': 'Terms & Conditions of Sale Policy',
+                                    'onTap': placeholderCallbackForButtons
+                                  },
                                 ]),
                               ],
                             )
                           : Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                _buildFooterSection('Opening Hours', [
-                                  '(Term Time)',
-                                  'Monday - Friday: 9:00 AM - 4:00 PM',
-                                  '(Outside of Term Time / Consolidation Weeks)',
-                                  'Monday - Friday: 9:00 AM - 3:00 PM',
-                                ]),
-                                const SizedBox(height: 24),
-                                _buildFooterSection('Help and Information', [
-                                  'Search',
-                                  'Terms & Conditions of Sale Policy',
-                                ]),
+                                Expanded(
+                                  child: _buildFooterSection('Opening Hours', [
+                                    '(Term Time)',
+                                    'Monday - Friday: 9:00 AM - 4:00 PM',
+                                    '(Outside of Term Time / Consolidation Weeks)',
+                                    'Monday - Friday: 9:00 AM - 3:00 PM',
+                                  ]),
+                                ),
+                                const SizedBox(width: 24),
+                                Expanded(
+                                  child: _buildFooterSection(
+                                      'Help and Information', [
+                                    {
+                                      'text': 'Search',
+                                      'onTap': placeholderCallbackForButtons
+                                    },
+                                    {
+                                      'text':
+                                          'Terms & Conditions of Sale Policy',
+                                      'onTap': placeholderCallbackForButtons
+                                    },
+                                  ]),
+                                ),
                               ],
                             );
                     },
