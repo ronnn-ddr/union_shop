@@ -45,6 +45,35 @@ class HomeScreen extends StatelessWidget {
     // This is the event handler for buttons that don't work yet
   }
 
+  Widget _buildFooterSection(String title, List<String> items) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            fontFamily: 'WorkSans',
+          ),
+        ),
+        const SizedBox(height: 12),
+        ...items.map((item) => Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Text(
+                item,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey,
+                  fontFamily: 'WorkSans',
+                ),
+              ),
+            )),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 800;
@@ -457,14 +486,58 @@ class HomeScreen extends StatelessWidget {
               width: double.infinity,
               color: Colors.grey[50],
               padding: const EdgeInsets.all(24),
-              child: const Text(
-                'Powered by Flutter',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'WorkSans',
-                ),
+              child: Column(
+                children: [
+                  // Footer sections
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isMobile = constraints.maxWidth < 600;
+                      return isMobile
+                          ? Column(
+                              children: [
+                                _buildFooterSection('Opening Hours', [
+                                  '(Term Time)',
+                                  'Monday - Friday: 9:00 AM - 4:00 PM',
+                                  '(Outside of Term Time / Consolidation Weeks)',
+                                  'Monday - Friday: 9:00 AM - 3:00 PM',
+                                ]),
+                                const SizedBox(height: 24),
+                                _buildFooterSection('Help and Information', [
+                                  'Search',
+                                  'Terms & Conditions of Sale Policy',
+                                ]),
+                              ],
+                            )
+                          : Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _buildFooterSection('Opening Hours', [
+                                  '(Term Time)',
+                                  'Monday - Friday: 9:00 AM - 4:00 PM',
+                                  '(Outside of Term Time / Consolidation Weeks)',
+                                  'Monday - Friday: 9:00 AM - 3:00 PM',
+                                ]),
+                                const SizedBox(height: 24),
+                                _buildFooterSection('Help and Information', [
+                                  'Search',
+                                  'Terms & Conditions of Sale Policy',
+                                ]),
+                              ],
+                            );
+                    },
+                  ),
+                  const SizedBox(height: 24),
+                  // Bottom section with powered by
+                  const Text(
+                    'Powered by Flutter',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'WorkSans',
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
