@@ -43,7 +43,73 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 800;
     return Scaffold(
+      drawer: isMobile
+          ? Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  const DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Color(0xFF4d2963),
+                    ),
+                    child: Text(
+                      'Union Shop',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    title: const Text('Home'),
+                    onTap: () {
+                      Navigator.pop(context); // close drawer
+                      navigateToHome(context);
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Shop'),
+                    onTap: () {
+                      Navigator.pop(context);
+                      placeholderCallbackForButtons();
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('The Print Shack'),
+                    onTap: () {
+                      Navigator.pop(context);
+                      placeholderCallbackForButtons();
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('SALE!',
+                        style: TextStyle(
+                            color: Colors.red, fontWeight: FontWeight.bold)),
+                    onTap: () {
+                      Navigator.pop(context);
+                      placeholderCallbackForButtons();
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('About'),
+                    onTap: () {
+                      Navigator.pop(context);
+                      placeholderCallbackForButtons();
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('UPSU.net'),
+                    onTap: () {
+                      Navigator.pop(context);
+                      placeholderCallbackForButtons();
+                    },
+                  ),
+                ],
+              ),
+            )
+          : null,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -91,7 +157,67 @@ class HomeScreen extends StatelessWidget {
                               },
                             ),
                           ),
-                          const Spacer(),
+                          // Navigation buttons
+                          Expanded(
+                            child: isMobile
+                                ? const SizedBox.shrink()
+                                : Wrap(
+                                    alignment: WrapAlignment.center,
+                                    spacing: 8.0,
+                                    runSpacing: 4.0,
+                                    children: [
+                                      TextButton(
+                                        onPressed:
+                                            placeholderCallbackForButtons,
+                                        child: const Text('Home',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 12)),
+                                      ),
+                                      TextButton(
+                                        onPressed:
+                                            placeholderCallbackForButtons,
+                                        child: const Text('Shop',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 12)),
+                                      ),
+                                      TextButton(
+                                        onPressed:
+                                            placeholderCallbackForButtons,
+                                        child: const Text('The Print Shack',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 12)),
+                                      ),
+                                      TextButton(
+                                        onPressed:
+                                            placeholderCallbackForButtons,
+                                        child: const Text('SALE!',
+                                            style: TextStyle(
+                                                color: Colors.red,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12)),
+                                      ),
+                                      TextButton(
+                                        onPressed:
+                                            placeholderCallbackForButtons,
+                                        child: const Text('About',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 12)),
+                                      ),
+                                      TextButton(
+                                        onPressed:
+                                            placeholderCallbackForButtons,
+                                        child: const Text('UPSU.net',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 12)),
+                                      ),
+                                    ],
+                                  ),
+                          ),
                           ConstrainedBox(
                             constraints: const BoxConstraints(maxWidth: 600),
                             child: Row(
@@ -136,18 +262,23 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                   onPressed: placeholderCallbackForButtons,
                                 ),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.menu,
-                                    size: 18,
-                                    color: Colors.grey,
+                                Builder(
+                                  builder: (context) => IconButton(
+                                    icon: const Icon(
+                                      Icons.menu,
+                                      size: 18,
+                                      color: Colors.grey,
+                                    ),
+                                    padding: const EdgeInsets.all(8),
+                                    constraints: const BoxConstraints(
+                                      minWidth: 32,
+                                      minHeight: 32,
+                                    ),
+                                    onPressed: isMobile
+                                        ? () =>
+                                            Scaffold.of(context).openDrawer()
+                                        : placeholderCallbackForButtons,
                                   ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
                                 ),
                               ],
                             ),
