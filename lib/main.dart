@@ -63,25 +63,29 @@ class HomeScreen extends StatelessWidget {
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 24,
+                        fontFamily: 'WorkSans',
                       ),
                     ),
                   ),
                   ListTile(
-                    title: const Text('Home'),
+                    title: const Text('Home',
+                        style: TextStyle(fontFamily: 'WorkSans')),
                     onTap: () {
                       Navigator.pop(context); // close drawer
                       navigateToHome(context);
                     },
                   ),
                   ListTile(
-                    title: const Text('Shop'),
+                    title: const Text('Shop',
+                        style: TextStyle(fontFamily: 'WorkSans')),
                     onTap: () {
                       Navigator.pop(context);
                       placeholderCallbackForButtons();
                     },
                   ),
                   ListTile(
-                    title: const Text('The Print Shack'),
+                    title: const Text('The Print Shack',
+                        style: TextStyle(fontFamily: 'WorkSans')),
                     onTap: () {
                       Navigator.pop(context);
                       placeholderCallbackForButtons();
@@ -90,21 +94,25 @@ class HomeScreen extends StatelessWidget {
                   ListTile(
                     title: const Text('SALE!',
                         style: TextStyle(
-                            color: Colors.red, fontWeight: FontWeight.bold)),
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'WorkSans')),
                     onTap: () {
                       Navigator.pop(context);
                       placeholderCallbackForButtons();
                     },
                   ),
                   ListTile(
-                    title: const Text('About'),
+                    title: const Text('About',
+                        style: TextStyle(fontFamily: 'WorkSans')),
                     onTap: () {
                       Navigator.pop(context); // close drawer
                       Navigator.pushNamed(context, '/about');
                     },
                   ),
                   ListTile(
-                    title: const Text('UPSU.net'),
+                    title: const Text('UPSU.net',
+                        style: TextStyle(fontFamily: 'WorkSans')),
                     onTap: () {
                       Navigator.pop(context);
                       placeholderCallbackForButtons();
@@ -131,7 +139,10 @@ class HomeScreen extends StatelessWidget {
                     child: const Text(
                       'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontFamily: 'WorkSans'),
                     ),
                   ),
                   // Main header
@@ -176,7 +187,8 @@ class HomeScreen extends StatelessWidget {
                                         child: const Text('Home',
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 12)),
+                                                fontSize: 12,
+                                                fontFamily: 'WorkSans')),
                                       ),
                                       TextButton(
                                         onPressed:
@@ -184,7 +196,8 @@ class HomeScreen extends StatelessWidget {
                                         child: const Text('Shop',
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 12)),
+                                                fontSize: 12,
+                                                fontFamily: 'WorkSans')),
                                       ),
                                       TextButton(
                                         onPressed:
@@ -192,7 +205,8 @@ class HomeScreen extends StatelessWidget {
                                         child: const Text('The Print Shack',
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 12)),
+                                                fontSize: 12,
+                                                fontFamily: 'WorkSans')),
                                       ),
                                       TextButton(
                                         onPressed:
@@ -201,7 +215,8 @@ class HomeScreen extends StatelessWidget {
                                             style: TextStyle(
                                                 color: Colors.red,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 12)),
+                                                fontSize: 12,
+                                                fontFamily: 'WorkSans')),
                                       ),
                                       TextButton(
                                         onPressed: () => Navigator.pushNamed(
@@ -209,7 +224,8 @@ class HomeScreen extends StatelessWidget {
                                         child: const Text('About',
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 12)),
+                                                fontSize: 12,
+                                                fontFamily: 'WorkSans')),
                                       ),
                                       TextButton(
                                         onPressed:
@@ -217,7 +233,8 @@ class HomeScreen extends StatelessWidget {
                                         child: const Text('UPSU.net',
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 12)),
+                                                fontSize: 12,
+                                                fontFamily: 'WorkSans')),
                                       ),
                                     ],
                                   ),
@@ -344,6 +361,7 @@ class HomeScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                             height: 1.2,
+                            fontFamily: 'WorkSans',
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -353,6 +371,7 @@ class HomeScreen extends StatelessWidget {
                             fontSize: 20,
                             color: Colors.white,
                             height: 1.5,
+                            fontFamily: 'WorkSans',
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -368,7 +387,10 @@ class HomeScreen extends StatelessWidget {
                           ),
                           child: const Text(
                             'FIND OUT MORE',
-                            style: TextStyle(fontSize: 14, letterSpacing: 1),
+                            style: TextStyle(
+                                fontSize: 14,
+                                letterSpacing: 1,
+                                fontFamily: 'WorkSans'),
                           ),
                         ),
                       ],
@@ -391,6 +413,7 @@ class HomeScreen extends StatelessWidget {
                         fontSize: 20,
                         color: Colors.black,
                         letterSpacing: 1,
+                        fontFamily: 'WorkSans',
                       ),
                     ),
                     const SizedBox(height: 48),
@@ -440,6 +463,7 @@ class HomeScreen extends StatelessWidget {
                   color: Colors.grey,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
+                  fontFamily: 'WorkSans',
                 ),
               ),
             ),
@@ -491,13 +515,15 @@ class ProductCard extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 title,
-                style: const TextStyle(fontSize: 14, color: Colors.black),
+                style: const TextStyle(
+                    fontSize: 14, color: Colors.black, fontFamily: 'WorkSans'),
                 maxLines: 2,
               ),
               const SizedBox(height: 4),
               Text(
                 price,
-                style: const TextStyle(fontSize: 13, color: Colors.grey),
+                style: const TextStyle(
+                    fontSize: 13, color: Colors.grey, fontFamily: 'WorkSans'),
               ),
             ],
           ),

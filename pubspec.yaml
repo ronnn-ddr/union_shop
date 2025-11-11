@@ -20,10 +20,10 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/
+    - assets/images
   fonts:
-    - family: YourFontFamily
+    - family: WorkSans
       fonts:
-        - asset: assets/fonts/your-font-regular.ttf
-        - asset: assets/fonts/your-font-bold.ttf
-          weight: 700
+        - asset: assets/fonts/WorkSans-VariableFont_wght.ttf
+        - asset: assets/fonts/WorkSans-Italic-VariableFont_wght.ttf
+          style: italic

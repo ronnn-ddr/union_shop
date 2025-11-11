@@ -33,25 +33,29 @@ class AboutPage extends StatelessWidget {
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 24,
+                        fontFamily: 'WorkSans',
                       ),
                     ),
                   ),
                   ListTile(
-                    title: const Text('Home'),
+                    title: const Text('Home',
+                        style: TextStyle(fontFamily: 'WorkSans')),
                     onTap: () {
                       Navigator.pop(context); // close drawer
                       navigateToHome(context);
                     },
                   ),
                   ListTile(
-                    title: const Text('Shop'),
+                    title: const Text('Shop',
+                        style: TextStyle(fontFamily: 'WorkSans')),
                     onTap: () {
                       Navigator.pop(context);
                       placeholderCallbackForButtons();
                     },
                   ),
                   ListTile(
-                    title: const Text('The Print Shack'),
+                    title: const Text('The Print Shack',
+                        style: TextStyle(fontFamily: 'WorkSans')),
                     onTap: () {
                       Navigator.pop(context);
                       placeholderCallbackForButtons();
@@ -60,21 +64,25 @@ class AboutPage extends StatelessWidget {
                   ListTile(
                     title: const Text('SALE!',
                         style: TextStyle(
-                            color: Colors.red, fontWeight: FontWeight.bold)),
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'WorkSans')),
                     onTap: () {
                       Navigator.pop(context);
                       placeholderCallbackForButtons();
                     },
                   ),
                   ListTile(
-                    title: const Text('About'),
+                    title: const Text('About',
+                        style: TextStyle(fontFamily: 'WorkSans')),
                     onTap: () {
                       Navigator.pop(context);
                       Navigator.pushNamed(context, '/about');
                     },
                   ),
                   ListTile(
-                    title: const Text('UPSU.net'),
+                    title: const Text('UPSU.net',
+                        style: TextStyle(fontFamily: 'WorkSans')),
                     onTap: () {
                       Navigator.pop(context);
                       placeholderCallbackForButtons();
@@ -101,7 +109,10 @@ class AboutPage extends StatelessWidget {
                     child: const Text(
                       'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontFamily: 'WorkSans'),
                     ),
                   ),
                   // Main header
@@ -146,7 +157,8 @@ class AboutPage extends StatelessWidget {
                                         child: const Text('Home',
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 12)),
+                                                fontSize: 12,
+                                                fontFamily: 'WorkSans')),
                                       ),
                                       TextButton(
                                         onPressed:
@@ -154,7 +166,8 @@ class AboutPage extends StatelessWidget {
                                         child: const Text('Shop',
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 12)),
+                                                fontSize: 12,
+                                                fontFamily: 'WorkSans')),
                                       ),
                                       TextButton(
                                         onPressed:
@@ -162,7 +175,8 @@ class AboutPage extends StatelessWidget {
                                         child: const Text('The Print Shack',
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 12)),
+                                                fontSize: 12,
+                                                fontFamily: 'WorkSans')),
                                       ),
                                       TextButton(
                                         onPressed:
@@ -171,7 +185,8 @@ class AboutPage extends StatelessWidget {
                                             style: TextStyle(
                                                 color: Colors.red,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 12)),
+                                                fontSize: 12,
+                                                fontFamily: 'WorkSans')),
                                       ),
                                       TextButton(
                                         onPressed: () => Navigator.pushNamed(
@@ -179,7 +194,8 @@ class AboutPage extends StatelessWidget {
                                         child: const Text('About',
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 12)),
+                                                fontSize: 12,
+                                                fontFamily: 'WorkSans')),
                                       ),
                                       TextButton(
                                         onPressed:
@@ -187,7 +203,8 @@ class AboutPage extends StatelessWidget {
                                         child: const Text('UPSU.net',
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 12)),
+                                                fontSize: 12,
+                                                fontFamily: 'WorkSans')),
                                       ),
                                     ],
                                   ),
@@ -279,6 +296,7 @@ class AboutPage extends StatelessWidget {
                         fontSize: 50,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
+                        fontFamily: 'WorkSans',
                       ),
                     ),
                   ),
@@ -289,6 +307,7 @@ class AboutPage extends StatelessWidget {
                       fontSize: 18,
                       height: 1.6,
                       color: Colors.black87,
+                      fontFamily: 'WorkSans',
                     ),
                   ),
                 ],
@@ -305,6 +324,7 @@ class AboutPage extends StatelessWidget {
                   color: Colors.grey,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
+                  fontFamily: 'WorkSans',
                 ),
               ),
             ),
