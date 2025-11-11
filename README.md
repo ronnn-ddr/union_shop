@@ -254,16 +254,6 @@ The app uses the WorkSans variable font family. Font files are located in `asset
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
-
-This project is part of the University of Portsmouth coursework and is not licensed for commercial use.
-
-## 📞 Support
-
-For questions or support:
-- **Email**: hello@upsu.net
-- **Website**: https://shop.upsu.net
-- **Location**: University of Portsmouth Students' Union
 
 ---
 
