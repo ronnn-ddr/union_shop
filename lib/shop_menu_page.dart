@@ -4,12 +4,18 @@ class ShopMenuPage extends StatelessWidget {
   const ShopMenuPage({super.key});
 
   void _onCategoryTap(BuildContext context, String category) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Coming soon: $category products'),
-        duration: const Duration(seconds: 2),
-      ),
-    );
+    switch (category) {
+      case 'Clothing':
+        Navigator.pushNamed(context, '/clothing');
+        break;
+      default:
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Coming soon: $category products'),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+    }
   }
 
   @override
