@@ -31,7 +31,7 @@ class ShopMenuPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Shop Categories',
+          'Store Categories',
           style: TextStyle(fontFamily: 'WorkSans'),
         ),
         backgroundColor: const Color(0xFF4d2963),
@@ -65,17 +65,56 @@ class ShopMenuPage extends StatelessWidget {
                     child: InkWell(
                       onTap: () => _onCategoryTap(context, category),
                       borderRadius: BorderRadius.circular(8),
-                      child: Center(
-                        child: Text(
-                          category,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'WorkSans',
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+                      child: category == 'Clothing'
+                          ? Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                Image.asset(
+                                  'assets/images/RainbowHoodie.png',
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      color: Colors.grey[300],
+                                      child: const Center(
+                                        child: Icon(Icons.image_not_supported,
+                                            color: Colors.grey),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  left: 0,
+                                  right: 0,
+                                  child: Container(
+                                    color: Colors.black.withOpacity(0.6),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8, horizontal: 12),
+                                    child: Text(
+                                      category,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: 'WorkSans',
+                                        color: Colors.white,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Center(
+                              child: Text(
+                                category,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'WorkSans',
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
                     ),
                   );
                 }).toList(),
