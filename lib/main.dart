@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/product_page.dart';
 import 'package:union_shop/about_page.dart';
+import 'package:union_shop/shop_menu_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -24,7 +25,8 @@ class UnionShopApp extends StatelessWidget {
       // In your browser, try this link: http://localhost:49856/#/product
       routes: {
         '/product': (context) => const ProductPage(),
-        '/about': (context) => const AboutPage()
+        '/about': (context) => const AboutPage(),
+        '/shop': (context) => const ShopMenuPage(),
       },
     );
   }
@@ -133,7 +135,7 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(fontFamily: 'WorkSans')),
                     onTap: () {
                       Navigator.pop(context);
-                      placeholderCallbackForButtons();
+                      Navigator.pushNamed(context, '/shop');
                     },
                   ),
                   ListTile(
@@ -244,8 +246,8 @@ class HomeScreen extends StatelessWidget {
                                                 fontFamily: 'WorkSans')),
                                       ),
                                       TextButton(
-                                        onPressed:
-                                            placeholderCallbackForButtons,
+                                        onPressed: () => Navigator.pushNamed(
+                                            context, '/shop'),
                                         child: const Text('Shop',
                                             style: TextStyle(
                                                 color: Colors.black,
