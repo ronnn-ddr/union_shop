@@ -220,8 +220,8 @@ class _ClothingPageState extends State<ClothingPage> {
                                     runSpacing: 4.0,
                                     children: [
                                       TextButton(
-                                        onPressed:
-                                            placeholderCallbackForButtons,
+                                        onPressed: () =>
+                                            navigateToHome(context),
                                         child: const Text('Home',
                                             style: TextStyle(
                                                 color: Colors.black,
