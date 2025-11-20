@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
 import 'package:union_shop/product_page.dart';
+import 'package:union_shop/models/cart.dart';
 
 void main() {
   group('Product Page Tests', () {
     Widget createTestWidget() {
-      return const MaterialApp(home: ProductPage());
+      return ChangeNotifierProvider(
+        create: (context) => Cart(),
+        child: const MaterialApp(home: ProductPage()),
+      );
     }
 
     testWidgets('should display product page with basic elements', (
@@ -98,12 +103,19 @@ void main() {
       await tester.pumpWidget(createTestWidget());
       await tester.pump();
 
+      // Select a size first
+      await tester.tap(find.byType(DropdownButton<String>));
+      await tester.pump();
+      await tester.tap(find.text('M').last);
+      await tester.pump();
+
       // Tap add to cart
       await tester.tap(find.text('ADD TO CART'));
       await tester.pump();
 
       // Check snackbar
-      expect(find.text('Added to cart!'), findsOneWidget);
+      expect(find.text('Added 1 Rainbow Hoodie(s) (Size: M) to cart!'),
+          findsOneWidget);
     });
   });
 }

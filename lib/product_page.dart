@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'widgets/header_widget.dart';
 import 'widgets/footer_widget.dart';
+import 'models/cart.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
@@ -279,11 +281,28 @@ class _ProductPageState extends State<ProductPage> {
                           height: 48,
                           child: ElevatedButton(
                             onPressed: () {
-                              // Validate selection (simple)
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Added to cart!')),
+                              // Validate selection
+                              if (_selectedSize == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Please select a size')),
+                                );
+                                return;
+                              }
+                              // Add to cart
+                              Provider.of<Cart>(context, listen: false).addItem(
+                                id: 'rainbow-hoodie',
+                                title: 'Rainbow Hoodie',
+                                price: '£30.00',
+                                imageUrl: 'assets/images/RainbowHoodie.png',
+                                size: _selectedSize!,
+                                quantity: _quantity,
                               );
-                              // TODO: integrate with cart model
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text(
+                                        'Added $_quantity Rainbow Hoodie(s) (Size: $_selectedSize) to cart!')),
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF4d2963),
