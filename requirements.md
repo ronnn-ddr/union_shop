@@ -53,7 +53,5 @@ The Rainbow Hoodie Product Page feature updates the existing `lib/product_page.d
 - Convert `ProductPage` to a `StatefulWidget` and add state fields for size and quantity.
 - Implement the size selector (`DropdownButton<String>`) and numeric spinbox for quantity.
 - Implement the "Add to Cart" `ElevatedButton` with SnackBar feedback and a TODO for real cart integration.
-- Replace the custom top header with an `AppBar` using `navigateToHome(context)` for the back action.
-- Add responsive padding and layout adjustments using `MediaQuery` or `LayoutBuilder`.
 - Update `Text` widgets to use `fontFamily: 'WorkSans'` and appropriate colors.
 - Add unit/widget tests in `test/product_page_test.dart` covering render and interactions.
