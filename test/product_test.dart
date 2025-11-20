@@ -21,22 +21,36 @@ void main() {
       expect(find.text('ADD TO CART'), findsOneWidget);
     });
 
-    testWidgets('should display header icons', (tester) async {
+    testWidgets('should display header with sale banner and navigation',
+        (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pump();
 
-      // Check that header icons are present
+      // Check sale banner text
+      expect(
+          find.text(
+              'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!'),
+          findsOneWidget);
+
+      // Check navigation buttons
+      expect(find.text('Home'), findsOneWidget);
+      expect(find.text('Shop'), findsOneWidget);
+
+      // Check header icons
       expect(find.byIcon(Icons.search), findsOneWidget);
       expect(find.byIcon(Icons.shopping_bag_outlined), findsOneWidget);
       expect(find.byIcon(Icons.menu), findsOneWidget);
     });
 
-    testWidgets('should display footer', (tester) async {
+    testWidgets('should display footer with opening hours and powered by',
+        (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pump();
 
-      // Check that footer is present
-      expect(find.text('Placeholder Footer'), findsOneWidget);
+      // Check footer content
+      expect(find.text('Powered by Flutter'), findsOneWidget);
+      expect(find.text('Opening Hours'), findsOneWidget);
+      expect(find.text('Help and Information'), findsOneWidget);
     });
 
     testWidgets('should allow size selection', (tester) async {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'widgets/header_widget.dart';
+import 'widgets/footer_widget.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
@@ -12,7 +14,8 @@ class _ProductPageState extends State<ProductPage> {
   // Local UI state for size and quantity
   String? _selectedSize;
   int _quantity = 1;
-  TextEditingController _quantityController = TextEditingController(text: '1');
+  final TextEditingController _quantityController =
+      TextEditingController(text: '1');
 
   @override
   void initState() {
@@ -25,14 +28,6 @@ class _ProductPageState extends State<ProductPage> {
     super.dispose();
   }
 
-  void navigateToHome(BuildContext context) {
-    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-  }
-
-  void placeholderCallbackForButtons() {
-    // This is the event handler for buttons that don't work yet
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,117 +35,7 @@ class _ProductPageState extends State<ProductPage> {
         child: Column(
           children: [
             // Header
-            Container(
-              height: 100,
-              color: Colors.white,
-              child: Column(
-                children: [
-                  // Top banner
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    color: const Color(0xFF4d2963),
-                    child: const Text(
-                      'PLACEHOLDER HEADER TEXT',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                  ),
-                  // Main header
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              navigateToHome(context);
-                            },
-                            child: Image.network(
-                              'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                              height: 18,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Container(
-                                  color: Colors.grey[300],
-                                  width: 18,
-                                  height: 18,
-                                  child: const Center(
-                                    child: Icon(Icons.image_not_supported,
-                                        color: Colors.grey),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          const Spacer(),
-                          ConstrainedBox(
-                            constraints: const BoxConstraints(maxWidth: 600),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.search,
-                                    size: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
-                                ),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.person_outline,
-                                    size: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
-                                ),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.shopping_bag_outlined,
-                                    size: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
-                                ),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.menu,
-                                    size: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            const HeaderWidget(),
 
             // Product details (responsive: image left, info right on wide screens)
             Container(
@@ -211,6 +96,7 @@ class _ProductPageState extends State<ProductPage> {
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
+                            fontFamily: 'WorkSans',
                           ),
                         ),
                         const SizedBox(height: 12),
@@ -220,6 +106,7 @@ class _ProductPageState extends State<ProductPage> {
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF4d2963),
+                            fontFamily: 'WorkSans',
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -235,7 +122,9 @@ class _ProductPageState extends State<ProductPage> {
                                 children: [
                                   const Text('Size',
                                       style: TextStyle(
-                                          fontSize: 14, color: Colors.black)),
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontFamily: 'WorkSans')),
                                   const SizedBox(height: 8),
                                   Container(
                                     height: 48,
@@ -279,7 +168,9 @@ class _ProductPageState extends State<ProductPage> {
                                   children: [
                                     const Text('Quantity',
                                         style: TextStyle(
-                                            fontSize: 14, color: Colors.black)),
+                                            fontSize: 14,
+                                            color: Colors.black,
+                                            fontFamily: 'WorkSans')),
                                     const SizedBox(height: 8),
                                     Container(
                                       height: 48,
@@ -412,6 +303,7 @@ class _ProductPageState extends State<ProductPage> {
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
                             color: Colors.black,
+                            fontFamily: 'WorkSans',
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -421,6 +313,17 @@ class _ProductPageState extends State<ProductPage> {
                             fontSize: 16,
                             color: Colors.grey,
                             height: 1.5,
+                            fontFamily: 'WorkSans',
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          '• Material: Cotton\n• Sizes: S, M, L, XL\n• Care Instructions: Machine wash cold',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey,
+                            height: 1.5,
+                            fontFamily: 'WorkSans',
                           ),
                         ),
                       ],
@@ -452,19 +355,7 @@ class _ProductPageState extends State<ProductPage> {
             ),
 
             // Footer
-            Container(
-              width: double.infinity,
-              color: Colors.grey[50],
-              padding: const EdgeInsets.all(24),
-              child: const Text(
-                'Placeholder Footer',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
+            const FooterWidget(),
           ],
         ),
       ),
