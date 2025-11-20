@@ -137,7 +137,7 @@ class ProductPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Product image
+                  // Product image (use local asset for Rainbow Hoodie)
                   Container(
                     height: 300,
                     width: double.infinity,
@@ -147,8 +147,8 @@ class ProductPage extends StatelessWidget {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                      child: Image.asset(
+                        'assets/images/RainbowHoodie.png',
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
