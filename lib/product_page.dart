@@ -209,7 +209,129 @@ class _ProductPageState extends State<ProductPage> {
                             color: Color(0xFF4d2963),
                           ),
                         ),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 16),
+
+                        // Option controls: Size (full width) and Quantity (compact, right)
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Size column: label + dropdown (expand)
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text('Size', style: TextStyle(fontSize: 14, color: Colors.black)),
+                                  const SizedBox(height: 8),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey.shade300),
+                                      borderRadius: BorderRadius.circular(6),
+                                      color: Colors.white,
+                                    ),
+                                      child: DropdownButton<String>(
+                                        isExpanded: true,
+                                        value: _selectedSize,
+                                        underline: const SizedBox.shrink(),
+                                        items: ['S', 'M', 'L', 'XL']
+                                            .map((s) => DropdownMenuItem(value: s, child: Text(s)))
+                                            .toList(),
+                                        onChanged: (value) {
+                                          if (value == null) return;
+                                          setState(() {
+                                            _selectedSize = value;
+                                          });
+                                        },
+                                      ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                              const SizedBox(width: 16),
+
+                              // Quantity column: label + spinbox
+                              Flexible(
+                                fit: FlexFit.loose,
+                                child: ConstrainedBox(
+                                  constraints: const BoxConstraints(maxWidth: 88),
+                                  child: SizedBox(
+                                    width: 88,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        const Text('Quantity', style: TextStyle(fontSize: 14, color: Colors.black)),
+                                        const SizedBox(height: 8),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(color: Colors.grey.shade300),
+                                            borderRadius: BorderRadius.circular(6),
+                                            color: Colors.white,
+                                          ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            IconButton(
+                                              padding: EdgeInsets.zero,
+                                              constraints: const BoxConstraints.tightFor(width: 28, height: 28),
+                                              icon: const Icon(Icons.remove, size: 14),
+                                              onPressed: () {
+                                                setState(() {
+                                                  if (_quantity > 1) _quantity--;
+                                                });
+                                              },
+                                            ),
+                                            Container(
+                                              padding: const EdgeInsets.symmetric(horizontal: 6),
+                                              child: Text(
+                                                '$_quantity',
+                                                style: const TextStyle(fontSize: 16),
+                                              ),
+                                            ),
+                                            IconButton(
+                                              padding: EdgeInsets.zero,
+                                              constraints: const BoxConstraints.tightFor(width: 28, height: 28),
+                                              icon: const Icon(Icons.add, size: 14),
+                                              onPressed: () {
+                                                setState(() {
+                                                  if (_quantity < 99) _quantity++;
+                                                });
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        // Add to Cart button (full width)
+                        SizedBox(
+                          width: double.infinity,
+                          height: 48,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // Validate selection (simple)
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Added to cart!')),
+                              );
+                              // TODO: integrate with cart model
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF4d2963),
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                            ),
+                            child: const Text('ADD TO CART', style: TextStyle(letterSpacing: 1.2)),
+                          ),
+                        ),
+
+                        const SizedBox(height: 20),
                         const Text(
                           'Description',
                           style: TextStyle(
@@ -226,23 +348,6 @@ class _ProductPageState extends State<ProductPage> {
                             color: Colors.grey,
                             height: 1.5,
                           ),
-                        ),
-                        const SizedBox(height: 12),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text('• Material: 100% Cotton',
-                                style: TextStyle(
-                                    fontSize: 16, color: Colors.grey)),
-                            SizedBox(height: 6),
-                            Text('• Sizes: S, M, L, XL',
-                                style: TextStyle(
-                                    fontSize: 16, color: Colors.grey)),
-                            SizedBox(height: 6),
-                            Text('• Care Instructions: Machine washable',
-                                style: TextStyle(
-                                    fontSize: 16, color: Colors.grey)),
-                          ],
                         ),
                       ],
                     ),
