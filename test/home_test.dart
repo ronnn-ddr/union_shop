@@ -24,7 +24,7 @@ void main() {
       await tester.pump();
 
       // Check that product cards are displayed
-      expect(find.text('Classic Rainbow Hoodies'), findsOneWidget);
+      expect(find.text('Rainbow Hoodie'), findsOneWidget);
       expect(find.text('Graduation Hoodies'), findsOneWidget);
       expect(find.text('Classic Cap'), findsOneWidget);
       expect(find.text('Heavyweight Shorts'), findsOneWidget);

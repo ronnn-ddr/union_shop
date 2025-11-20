@@ -14,7 +14,7 @@ class _ClothingPageState extends State<ClothingPage> {
 
   final List<Map<String, String>> _products = [
     {
-      'title': 'Classic Hoodie',
+      'title': 'Rainbow Hoodie',
       'price': '£25.00',
       'image': 'assets/images/RainbowHoodie.png'
     },

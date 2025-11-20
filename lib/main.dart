@@ -248,7 +248,7 @@ class HomeScreen extends StatelessWidget {
                       mainAxisSpacing: 48,
                       children: const [
                         ProductCard(
-                          title: 'Classic Rainbow Hoodies',
+                          title: 'Rainbow Hoodie',
                           price: '£30.00',
                           imageUrl: 'assets/images/RainbowHoodie.png',
                         ),
