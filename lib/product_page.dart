@@ -130,17 +130,18 @@ class ProductPage extends StatelessWidget {
               ),
             ),
 
-            // Product details
+            // Product details (responsive: image left, info right on wide screens)
             Container(
               color: Colors.white,
               padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Product image (use local asset for Rainbow Hoodie)
-                  Container(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final isWide = constraints.maxWidth >= 600;
+
+                  // Image widget (square)
+                  final productImage = Container(
+                    width: isWide ? 300 : double.infinity,
                     height: 300,
-                    width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: Colors.grey[200],
@@ -174,53 +175,84 @@ class ProductPage extends StatelessWidget {
                         },
                       ),
                     ),
-                  ),
+                  );
 
-                  const SizedBox(height: 24),
-
-                  // Product name
-                  const Text(
-                    'Placeholder Product Name',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                  final productInfoContent = Padding(
+                    padding: EdgeInsets.only(left: isWide ? 24 : 0, top: isWide ? 0 : 24),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Rainbow Hoodie',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        const Text(
+                          '£30.00',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF4d2963),
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        const Text(
+                          'Description',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Introducing our new Rainbow Hoodie! With a prominent Rainbow print, this hoodie is a must have!',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey,
+                            height: 1.5,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text('• Material: 100% Cotton', style: TextStyle(fontSize: 16, color: Colors.grey)),
+                            SizedBox(height: 6),
+                            Text('• Sizes: S, M, L, XL', style: TextStyle(fontSize: 16, color: Colors.grey)),
+                            SizedBox(height: 6),
+                            Text('• Care Instructions: Machine washable', style: TextStyle(fontSize: 16, color: Colors.grey)),
+                          ],
+                        ),
+                      ],
                     ),
-                  ),
+                  );
 
-                  const SizedBox(height: 12),
+                  if (isWide) {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        productImage,
+                        // Wrap info in Expanded when in a Row to take remaining space
+                        Expanded(child: productInfoContent),
+                      ],
+                    );
+                  }
 
-                  // Product price
-                  const Text(
-                    '£15.00',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF4d2963),
-                    ),
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  // Product description
-                  const Text(
-                    'Description',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'This is a placeholder description for the product. Students should replace this with real product information and implement proper data management.',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
-                      height: 1.5,
-                    ),
-                  ),
-                ],
+                  // Narrow layout: image above, info below (no Expanded)
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      productImage,
+                      const SizedBox(height: 24),
+                      productInfoContent,
+                    ],
+                  );
+                },
               ),
             ),
 
