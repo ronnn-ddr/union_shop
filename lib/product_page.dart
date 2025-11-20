@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
@@ -9,8 +10,20 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   // Local UI state for size and quantity
-  String _selectedSize = 'M';
+  String? _selectedSize;
   int _quantity = 1;
+  TextEditingController _quantityController = TextEditingController(text: '1');
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _quantityController.dispose();
+    super.dispose();
+  }
 
   void navigateToHome(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
@@ -220,91 +233,150 @@ class _ProductPageState extends State<ProductPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text('Size', style: TextStyle(fontSize: 14, color: Colors.black)),
+                                  const Text('Size',
+                                      style: TextStyle(
+                                          fontSize: 14, color: Colors.black)),
                                   const SizedBox(height: 8),
                                   Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                                    height: 48,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12),
                                     decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey.shade300),
+                                      border: Border.all(
+                                          color: Colors.grey.shade300),
                                       borderRadius: BorderRadius.circular(6),
                                       color: Colors.white,
                                     ),
-                                      child: DropdownButton<String>(
-                                        isExpanded: true,
-                                        value: _selectedSize,
-                                        underline: const SizedBox.shrink(),
-                                        items: ['S', 'M', 'L', 'XL']
-                                            .map((s) => DropdownMenuItem(value: s, child: Text(s)))
-                                            .toList(),
-                                        onChanged: (value) {
-                                          if (value == null) return;
-                                          setState(() {
-                                            _selectedSize = value;
-                                          });
-                                        },
-                                      ),
+                                    child: DropdownButton<String>(
+                                      isExpanded: true,
+                                      value: _selectedSize,
+                                      hint: const Text('Select size'),
+                                      underline: const SizedBox.shrink(),
+                                      items: ['S', 'M', 'L', 'XL']
+                                          .map((s) => DropdownMenuItem(
+                                              value: s, child: Text(s)))
+                                          .toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _selectedSize = value;
+                                        });
+                                      },
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
-                              const SizedBox(width: 16),
+                            const SizedBox(width: 16),
 
-                              // Quantity column: label + spinbox
-                              Flexible(
-                                fit: FlexFit.loose,
-                                child: ConstrainedBox(
-                                  constraints: const BoxConstraints(maxWidth: 88),
-                                  child: SizedBox(
-                                    width: 88,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        const Text('Quantity', style: TextStyle(fontSize: 14, color: Colors.black)),
-                                        const SizedBox(height: 8),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            border: Border.all(color: Colors.grey.shade300),
-                                            borderRadius: BorderRadius.circular(6),
-                                            color: Colors.white,
+                            // Quantity column: label + spinbox
+                            Flexible(
+                              fit: FlexFit.loose,
+                              child: ConstrainedBox(
+                                constraints:
+                                    const BoxConstraints(maxWidth: 120),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text('Quantity',
+                                        style: TextStyle(
+                                            fontSize: 14, color: Colors.black)),
+                                    const SizedBox(height: 8),
+                                    Container(
+                                      height: 48,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Colors.grey.shade300),
+                                        borderRadius: BorderRadius.circular(6),
+                                        color: Colors.white,
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          IconButton(
+                                            padding: EdgeInsets.zero,
+                                            constraints:
+                                                const BoxConstraints.tightFor(
+                                                    width: 28, height: 28),
+                                            icon: const Icon(Icons.remove,
+                                                size: 14),
+                                            onPressed: () {
+                                              setState(() {
+                                                if (_quantity > 1) {
+                                                  _quantity--;
+                                                  _quantityController.text =
+                                                      _quantity.toString();
+                                                }
+                                              });
+                                            },
                                           ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            IconButton(
-                                              padding: EdgeInsets.zero,
-                                              constraints: const BoxConstraints.tightFor(width: 28, height: 28),
-                                              icon: const Icon(Icons.remove, size: 14),
-                                              onPressed: () {
-                                                setState(() {
-                                                  if (_quantity > 1) _quantity--;
-                                                });
-                                              },
-                                            ),
-                                            Container(
-                                              padding: const EdgeInsets.symmetric(horizontal: 6),
-                                              child: Text(
-                                                '$_quantity',
-                                                style: const TextStyle(fontSize: 16),
+                                          Expanded(
+                                            child: SizedBox(
+                                              height: 28,
+                                              child: TextField(
+                                                controller: _quantityController,
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                textAlign: TextAlign.center,
+                                                textAlignVertical:
+                                                    TextAlignVertical.center,
+                                                decoration:
+                                                    const InputDecoration(
+                                                  border: InputBorder.none,
+                                                  contentPadding:
+                                                      EdgeInsets.symmetric(
+                                                          vertical: 6),
+                                                ),
+                                                inputFormatters: [
+                                                  FilteringTextInputFormatter
+                                                      .digitsOnly,
+                                                ],
+                                                onChanged: (value) {
+                                                  int? v = int.tryParse(value);
+                                                  if (v != null &&
+                                                      v >= 1 &&
+                                                      v <= 99) {
+                                                    _quantity = v;
+                                                  } else {
+                                                    _quantityController.text =
+                                                        _quantity.toString();
+                                                    _quantityController
+                                                            .selection =
+                                                        TextSelection.collapsed(
+                                                            offset:
+                                                                _quantityController
+                                                                    .text
+                                                                    .length);
+                                                  }
+                                                },
                                               ),
                                             ),
-                                            IconButton(
-                                              padding: EdgeInsets.zero,
-                                              constraints: const BoxConstraints.tightFor(width: 28, height: 28),
-                                              icon: const Icon(Icons.add, size: 14),
-                                              onPressed: () {
-                                                setState(() {
-                                                  if (_quantity < 99) _quantity++;
-                                                });
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                        ),
-                                      ],
+                                          ),
+                                          IconButton(
+                                            padding: EdgeInsets.zero,
+                                            constraints:
+                                                const BoxConstraints.tightFor(
+                                                    width: 28, height: 28),
+                                            icon:
+                                                const Icon(Icons.add, size: 14),
+                                            onPressed: () {
+                                              setState(() {
+                                                if (_quantity < 99) {
+                                                  _quantity++;
+                                                  _quantityController.text =
+                                                      _quantity.toString();
+                                                }
+                                              });
+                                            },
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
                               ),
+                            ),
                           ],
                         ),
 
@@ -325,9 +397,11 @@ class _ProductPageState extends State<ProductPage> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF4d2963),
                               foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4)),
                             ),
-                            child: const Text('ADD TO CART', style: TextStyle(letterSpacing: 1.2)),
+                            child: const Text('ADD TO CART',
+                                style: TextStyle(letterSpacing: 1.2)),
                           ),
                         ),
 
