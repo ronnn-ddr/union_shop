@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
+
+  @override
+  State<ProductPage> createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+  // Local UI state for size and quantity
+  String _selectedSize = 'M';
+  int _quantity = 1;
 
   void navigateToHome(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
@@ -178,7 +187,8 @@ class ProductPage extends StatelessWidget {
                   );
 
                   final productInfoContent = Padding(
-                    padding: EdgeInsets.only(left: isWide ? 24 : 0, top: isWide ? 0 : 24),
+                    padding: EdgeInsets.only(
+                        left: isWide ? 24 : 0, top: isWide ? 0 : 24),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -221,11 +231,17 @@ class ProductPage extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
-                            Text('• Material: 100% Cotton', style: TextStyle(fontSize: 16, color: Colors.grey)),
+                            Text('• Material: 100% Cotton',
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.grey)),
                             SizedBox(height: 6),
-                            Text('• Sizes: S, M, L, XL', style: TextStyle(fontSize: 16, color: Colors.grey)),
+                            Text('• Sizes: S, M, L, XL',
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.grey)),
                             SizedBox(height: 6),
-                            Text('• Care Instructions: Machine washable', style: TextStyle(fontSize: 16, color: Colors.grey)),
+                            Text('• Care Instructions: Machine washable',
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.grey)),
                           ],
                         ),
                       ],
