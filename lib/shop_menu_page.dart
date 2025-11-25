@@ -22,6 +22,7 @@ class ShopMenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDesktop = MediaQuery.of(context).size.width >= 600;
     final categories = [
       'Clothing',
       'Merchandise',
@@ -51,9 +52,10 @@ class ShopMenuPage extends StatelessWidget {
                   const SizedBox(height: 24),
                   Expanded(
                     child: GridView.count(
-                      crossAxisCount: 3,
+                      crossAxisCount: isDesktop ? 5 : 3,
                       crossAxisSpacing: 16,
                       mainAxisSpacing: 16,
+                      childAspectRatio: 0.75,
                       children: categories.map((category) {
                         return Card(
                           elevation: 4,
@@ -70,11 +72,13 @@ class ShopMenuPage extends StatelessWidget {
                                       Image.asset(
                                         'assets/images/RainbowHoodie.png',
                                         fit: BoxFit.cover,
-                                        errorBuilder: (context, error, stackTrace) {
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
                                           return Container(
                                             color: Colors.grey[300],
                                             child: const Center(
-                                              child: Icon(Icons.image_not_supported,
+                                              child: Icon(
+                                                  Icons.image_not_supported,
                                                   color: Colors.grey),
                                             ),
                                           );
