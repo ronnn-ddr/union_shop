@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/login_page.dart';
+import 'package:union_shop/widgets/header_widget.dart';
+import 'package:union_shop/widgets/footer_widget.dart';
 
 void main() {
   testWidgets('LoginPage renders correctly', (WidgetTester tester) async {
@@ -205,5 +207,18 @@ void main() {
 
     expect(find.text('Passwords do not match'), findsOneWidget);
     expect(find.text('Sign up successful!'), findsNothing);
+  });
+
+  testWidgets('Header and footer are present', (WidgetTester tester) async {
+    tester.view.physicalSize = const Size(1080, 1920);
+    tester.view.devicePixelRatio = 1.0;
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: LoginPage(),
+      ),
+    );
+
+    expect(find.byType(HeaderWidget), findsOneWidget);
+    expect(find.byType(FooterWidget), findsOneWidget);
   });
 }
