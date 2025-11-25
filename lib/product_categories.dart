@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'widgets/header_widget.dart';
 import 'widgets/footer_widget.dart';
 
-class ShopMenuPage extends StatelessWidget {
-  const ShopMenuPage({super.key});
+class ProductCategories extends StatelessWidget {
+  const ProductCategories({super.key});
 
   void _onCategoryTap(BuildContext context, String category) {
     switch (category) {
