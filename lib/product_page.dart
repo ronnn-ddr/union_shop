@@ -32,6 +32,17 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    final product =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ??
+            {
+              'name': 'Rainbow Hoodie',
+              'image': 'assets/images/RainbowHoodie.png',
+              'price': 30.00,
+              'description':
+                  'Introducing our new Rainbow Hoodie! With a prominent Rainbow print, this hoodie is a must have!',
+              'material': '100% Cotton',
+              'sizes': ['S', 'M', 'L', 'XL'],
+            };
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -58,7 +69,7 @@ class _ProductPageState extends State<ProductPage> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.asset(
-                        'assets/images/RainbowHoodie.png',
+                        product['image'],
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
@@ -92,9 +103,9 @@ class _ProductPageState extends State<ProductPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Rainbow Hoodie',
-                          style: TextStyle(
+                        Text(
+                          product['name'],
+                          style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
@@ -102,9 +113,9 @@ class _ProductPageState extends State<ProductPage> {
                           ),
                         ),
                         const SizedBox(height: 12),
-                        const Text(
-                          '£30.00',
-                          style: TextStyle(
+                        Text(
+                          '£${product['price'].toStringAsFixed(2)}',
+                          style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF4d2963),
@@ -143,7 +154,7 @@ class _ProductPageState extends State<ProductPage> {
                                       value: _selectedSize,
                                       hint: const Text('Select size'),
                                       underline: const SizedBox.shrink(),
-                                      items: ['S', 'M', 'L', 'XL']
+                                      items: (product['sizes'] as List<String>)
                                           .map((s) => DropdownMenuItem(
                                               value: s, child: Text(s)))
                                           .toList(),
@@ -291,17 +302,20 @@ class _ProductPageState extends State<ProductPage> {
                               }
                               // Add to cart
                               Provider.of<Cart>(context, listen: false).addItem(
-                                id: 'rainbow-hoodie',
-                                title: 'Rainbow Hoodie',
-                                price: '£30.00',
-                                imageUrl: 'assets/images/RainbowHoodie.png',
+                                id: product['name']
+                                    .toLowerCase()
+                                    .replaceAll(' ', '-'),
+                                title: product['name'],
+                                price:
+                                    '£${product['price'].toStringAsFixed(2)}',
+                                imageUrl: product['image'],
                                 size: _selectedSize!,
                                 quantity: _quantity,
                               );
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                     content: Text(
-                                        'Added $_quantity Rainbow Hoodie(s) (Size: $_selectedSize) to cart!')),
+                                        'Added $_quantity ${product['name']}(s) (Size: $_selectedSize) to cart!')),
                               );
                             },
                             style: ElevatedButton.styleFrom(
@@ -326,9 +340,9 @@ class _ProductPageState extends State<ProductPage> {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        const Text(
-                          'Introducing our new Rainbow Hoodie! With a prominent Rainbow print, this hoodie is a must have!',
-                          style: TextStyle(
+                        Text(
+                          product['description'],
+                          style: const TextStyle(
                             fontSize: 16,
                             color: Colors.grey,
                             height: 1.5,
