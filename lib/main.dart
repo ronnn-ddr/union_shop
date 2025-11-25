@@ -36,6 +36,7 @@ class UnionShopApp extends StatelessWidget {
           '/about': (context) => const AboutPage(),
           '/shop': (context) => const ShopMenuPage(),
           '/clothing': (context) => const ClothingPage(),
+          '/sale': (context) => SalePage(),
         },
       ),
     );
@@ -111,7 +112,7 @@ class HomeScreen extends StatelessWidget {
                             fontFamily: 'WorkSans')),
                     onTap: () {
                       Navigator.pop(context);
-                      placeholderCallbackForButtons();
+                      Navigator.pushNamed(context, '/sale');
                     },
                   ),
                   ListTile(

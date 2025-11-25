@@ -107,12 +107,7 @@ The Sale Page feature introduces a new screen in `lib/sale_page.dart` to showcas
 - Add GridView.builder to SalePage.
 - Add product card widgets to SalePage.
 - Define sample sale products list in SalePage.
-- Modify ProductPage to extract product data from route arguments.
-- Update ProductPage UI to use dynamic product data.
-- Add import for SalePage in `lib/main.dart`.
-- Add '/sale' route in `lib/main.dart`.
-- Update drawer navigation to '/sale'.
-- Implement responsive grid and styling in SalePage.
+- Use existing formatting from the clothing oage
 - Create `test/sale_page_test.dart` file.
 - Add unit/widget tests in `test/sale_page_test.dart` for SalePage rendering.
 - Add unit/widget tests in `test/sale_page_test.dart` for navigation.

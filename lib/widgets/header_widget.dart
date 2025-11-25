@@ -93,7 +93,8 @@ class HeaderWidget extends StatelessWidget {
                                         fontFamily: 'WorkSans')),
                               ),
                               TextButton(
-                                onPressed: placeholderCallbackForButtons,
+                                onPressed: () =>
+                                    Navigator.pushNamed(context, '/sale'),
                                 child: const Text('SALE!',
                                     style: TextStyle(
                                         color: Colors.red,

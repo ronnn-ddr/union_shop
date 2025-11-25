@@ -148,7 +148,15 @@ class SaleProductCard extends StatelessWidget {
                 SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () {
-                    // TODO: Navigate to product
+                    Navigator.pushNamed(context, '/product', arguments: {
+                      'name': title,
+                      'image': imageUrl,
+                      'price': double.parse(salePrice.substring(1)),
+                      'originalPrice': double.parse(originalPrice.substring(1)),
+                      'description': description,
+                      'material': '100% Cotton',
+                      'sizes': ['S', 'M', 'L', 'XL'],
+                    });
                   },
                   child: Text('View Details',
                       style: TextStyle(color: Colors.white)),
