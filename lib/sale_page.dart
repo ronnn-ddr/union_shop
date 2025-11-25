@@ -29,8 +29,8 @@ class SalePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final isMobile = screenWidth < 600;
-    final padding = isMobile ? 16.0 : 32.0;
+    final isDesktop = screenWidth >= 600;
+    final padding = isDesktop ? 32.0 : 16.0;
 
     return Scaffold(
       body: Column(
@@ -69,7 +69,7 @@ class SalePage extends StatelessWidget {
                     padding: EdgeInsets.all(padding),
                     child: GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: isMobile ? 2 : 3,
+                        crossAxisCount: isDesktop ? 5 : 3,
                         crossAxisSpacing: 16.0,
                         mainAxisSpacing: 16.0,
                         childAspectRatio: 0.75,
