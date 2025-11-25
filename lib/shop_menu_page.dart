@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'widgets/header_widget.dart';
+import 'widgets/footer_widget.dart';
 
 class ShopMenuPage extends StatelessWidget {
   const ShopMenuPage({super.key});
@@ -29,99 +31,99 @@ class ShopMenuPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Store Categories',
-          style: TextStyle(fontFamily: 'WorkSans'),
-        ),
-        backgroundColor: const Color(0xFF4d2963),
-        foregroundColor: Colors.white,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Choose a Category',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'WorkSans',
-              ),
-            ),
-            const SizedBox(height: 24),
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 3,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                children: categories.map((category) {
-                  return Card(
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+      body: Column(
+        children: [
+          const HeaderWidget(),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Choose a Category',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'WorkSans',
                     ),
-                    child: InkWell(
-                      onTap: () => _onCategoryTap(context, category),
-                      borderRadius: BorderRadius.circular(8),
-                      child: category == 'Clothing'
-                          ? Stack(
-                              fit: StackFit.expand,
-                              children: [
-                                Image.asset(
-                                  'assets/images/RainbowHoodie.png',
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Container(
-                                      color: Colors.grey[300],
-                                      child: const Center(
-                                        child: Icon(Icons.image_not_supported,
-                                            color: Colors.grey),
+                  ),
+                  const SizedBox(height: 24),
+                  Expanded(
+                    child: GridView.count(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
+                      children: categories.map((category) {
+                        return Card(
+                          elevation: 4,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: InkWell(
+                            onTap: () => _onCategoryTap(context, category),
+                            borderRadius: BorderRadius.circular(8),
+                            child: category == 'Clothing'
+                                ? Stack(
+                                    fit: StackFit.expand,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/RainbowHoodie.png',
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (context, error, stackTrace) {
+                                          return Container(
+                                            color: Colors.grey[300],
+                                            child: const Center(
+                                              child: Icon(Icons.image_not_supported,
+                                                  color: Colors.grey),
+                                            ),
+                                          );
+                                        },
                                       ),
-                                    );
-                                  },
-                                ),
-                                Positioned(
-                                  bottom: 0,
-                                  left: 0,
-                                  right: 0,
-                                  child: Container(
-                                    color: Colors.black.withOpacity(0.6),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 8, horizontal: 12),
+                                      Positioned(
+                                        bottom: 0,
+                                        left: 0,
+                                        right: 0,
+                                        child: Container(
+                                          color: Colors.black.withOpacity(0.6),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8, horizontal: 12),
+                                          child: Text(
+                                            category,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: 'WorkSans',
+                                              color: Colors.white,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Center(
                                     child: Text(
                                       category,
                                       style: const TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 18,
                                         fontWeight: FontWeight.w600,
                                         fontFamily: 'WorkSans',
-                                        color: Colors.white,
                                       ),
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
-                                ),
-                              ],
-                            )
-                          : Center(
-                              child: Text(
-                                category,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'WorkSans',
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
+                          ),
+                        );
+                      }).toList(),
                     ),
-                  );
-                }).toList(),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+          const FooterWidget(),
+        ],
       ),
     );
   }
