@@ -37,28 +37,59 @@ class SalePage extends StatelessWidget {
         children: [
           const HeaderWidget(),
           Expanded(
-            child: Container(
-              color: Colors.white,
-              padding: EdgeInsets.all(padding),
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: isMobile ? 2 : 3,
-                  crossAxisSpacing: 16.0,
-                  mainAxisSpacing: 16.0,
-                  childAspectRatio: 0.75,
+            child: Column(
+              children: [
+                Center(
+                  child: Text(
+                    'SALE',
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontFamily: 'WorkSans',
+                    ),
+                  ),
                 ),
-                itemCount: saleProducts.length,
-                itemBuilder: (context, index) {
-                  final product = saleProducts[index];
-                  return SaleProductCard(
-                    title: product['name'],
-                    originalPrice: '£${product['originalPrice'].toStringAsFixed(2)}',
-                    salePrice: '£${product['price'].toStringAsFixed(2)}',
-                    imageUrl: product['image'],
-                    description: product['description'],
-                  );
-                },
-              ),
+                const SizedBox(height: 16),
+                Center(
+                  child: Text(
+                    "Don't miss out! Get yours before they're all gone! All prices shown are inclusive of the discount.",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                      fontFamily: 'WorkSans',
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: 32),
+                Expanded(
+                  child: Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.all(padding),
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: isMobile ? 2 : 3,
+                        crossAxisSpacing: 16.0,
+                        mainAxisSpacing: 16.0,
+                        childAspectRatio: 0.75,
+                      ),
+                      itemCount: saleProducts.length,
+                      itemBuilder: (context, index) {
+                        final product = saleProducts[index];
+                        return SaleProductCard(
+                          title: product['name'],
+                          originalPrice:
+                              '£${product['originalPrice'].toStringAsFixed(2)}',
+                          salePrice: '£${product['price'].toStringAsFixed(2)}',
+                          imageUrl: product['image'],
+                          description: product['description'],
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           const FooterWidget(),
