@@ -54,3 +54,58 @@ The Rainbow Hoodie Product Page feature updates the existing `lib/product_page.d
 - Implement the size selector (`DropdownButton<String>`) and numeric spinbox for quantity.
 - Implement the "Add to Cart" `ElevatedButton` with SnackBar feedback and a TODO for real cart integration.
 - Add unit/widget tests in `test/product_page_test.dart` covering render and interactions.
+
+### Feature Requirements Document: Sale Page
+
+#### 1. Feature Description and Purpose
+The Sale Page feature introduces a new screen in `lib/sale_page.dart` to showcase products on sale in a responsive grid layout. Each product card displays an image, name, sale price, original price (struck through), and a brief description, with a "View Details" button that navigates to the updated ProductPage with dynamic product data. The ProductPage is modified to accept product data via route arguments, enabling reuse for multiple products. The goal is to highlight discounted items, encourage purchases, and maintain consistent styling and navigation across the app.
+
+#### 2. User Stories
+- Browse Sale Products
+	- As a customer, I want to view a grid of products on sale so I can discover discounted items.
+
+- View Product Details on Sale Page
+	- As a customer, I want to see each sale product's image, name, sale price, original price, and description so I can compare options.
+
+- Navigate to Detailed View
+	- As a customer, I want to tap "View Details" on a sale product to view its full details on the ProductPage.
+
+- Responsive Layout
+	- As a customer, I want the sale page to adapt to my device (2 columns on mobile, 3 on desktop) for easy browsing.
+
+- Consistent Styling
+	- As a customer, I want the sale page to match the app's design (WorkSans font, theme colors) and include headers/footers like other pages.
+
+#### 3. Acceptance Criteria
+
+##### UI and Display
+- [ ] Sale page uses a `Scaffold` with an `AppBar` titled "Sale" and a `GridView.builder` for product cards.
+- [ ] Each product card is a `Card` with `Image.asset` (with error fallback), bold name text, `Row` for prices (sale in black, original struck-through in grey), truncated description, and "View Details" `ElevatedButton`.
+- [ ] Sample sale products include at least Rainbow Hoodie and one other (e.g., Union T-Shirt), stored as a list of maps with keys: 'name', 'image', 'price', 'originalPrice', 'description', 'material', 'sizes'.
+
+##### Interactive Elements
+- [ ] "View Details" button navigates to '/product' with product data as arguments.
+- [ ] ProductPage accepts dynamic data via `ModalRoute.of(context)?.settings.arguments`, falling back to Rainbow Hoodie if none provided.
+
+##### Structure and Navigation
+- [ ] Add '/sale' route to `lib/main.dart` routes map.
+- [ ] Sale page includes headers and footers similar to other pages (e.g., AppBar and a footer Container).
+- [ ] ProductPage updates to use dynamic data for image, title, price, description, material, sizes, etc.
+
+##### Styling and Responsiveness
+- [ ] All `Text` widgets use `fontFamily: 'WorkSans'`.
+- [ ] Colors: black for titles, grey for descriptions, theme color (Color(0xFF4d2963)) for buttons.
+- [ ] Grid adjusts columns based on `MediaQuery` (2 for <600px, 3 for >=600px); padding responsive (16px mobile, 32px desktop).
+
+##### Integration and Testing
+- [ ] App builds and runs; `flutter analyze` and `flutter test` succeed.
+- [ ] Add unit/widget tests in `test/sale_page_test.dart` for rendering grid, navigation, and interactions.
+- [ ] ProductPage tests updated to cover dynamic data.
+
+#### 4. Subtasks
+- Create `lib/sale_page.dart` with Scaffold, AppBar, GridView.builder, and product cards.
+- Define sample sale products list in SalePage.
+- Update `lib/product_page.dart` to accept and use dynamic product data from route arguments.
+- Add '/sale' route to `lib/main.dart`.
+- Implement responsive grid and styling in SalePage.
+- Add unit/widget tests in `test/sale_page_test.dart` for SalePage and updated ProductPage.
