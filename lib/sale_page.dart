@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'widgets/header_widget.dart';
+import 'widgets/footer_widget.dart';
 
 class SalePage extends StatelessWidget {
   // Sample sale products
@@ -31,32 +33,36 @@ class SalePage extends StatelessWidget {
     final padding = isMobile ? 16.0 : 32.0;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Sale', style: TextStyle(fontFamily: 'WorkSans')),
-        backgroundColor: Color(0xFF4d2963),
-      ),
-      body: Container(
-        color: Colors.white,
-        padding: EdgeInsets.all(padding),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: isMobile ? 2 : 3,
-            crossAxisSpacing: 16.0,
-            mainAxisSpacing: 16.0,
-            childAspectRatio: 0.75,
+      body: Column(
+        children: [
+          const HeaderWidget(),
+          Expanded(
+            child: Container(
+              color: Colors.white,
+              padding: EdgeInsets.all(padding),
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: isMobile ? 2 : 3,
+                  crossAxisSpacing: 16.0,
+                  mainAxisSpacing: 16.0,
+                  childAspectRatio: 0.75,
+                ),
+                itemCount: saleProducts.length,
+                itemBuilder: (context, index) {
+                  final product = saleProducts[index];
+                  return SaleProductCard(
+                    title: product['name'],
+                    originalPrice: '£${product['originalPrice'].toStringAsFixed(2)}',
+                    salePrice: '£${product['price'].toStringAsFixed(2)}',
+                    imageUrl: product['image'],
+                    description: product['description'],
+                  );
+                },
+              ),
+            ),
           ),
-          itemCount: saleProducts.length,
-          itemBuilder: (context, index) {
-            final product = saleProducts[index];
-            return SaleProductCard(
-              title: product['name'],
-              originalPrice: '£${product['originalPrice'].toStringAsFixed(2)}',
-              salePrice: '£${product['price'].toStringAsFixed(2)}',
-              imageUrl: product['image'],
-              description: product['description'],
-            );
-          },
-        ),
+          const FooterWidget(),
+        ],
       ),
     );
   }
