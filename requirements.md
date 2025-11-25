@@ -112,3 +112,56 @@ The Sale Page feature introduces a new screen in `lib/sale_page.dart` to showcas
 - Add unit/widget tests in `test/sale_page_test.dart` for SalePage rendering.
 - Add unit/widget tests in `test/sale_page_test.dart` for navigation.
 - Update ProductPage tests to cover dynamic data.
+
+### Feature Requirements Document: Login/Sign-Up Page
+
+#### 1. Feature Description and Purpose
+The Login/Sign-Up Page feature introduces a new screen in `lib/login_page.dart` for user authentication. The page includes tabbed forms for login and sign-up, with fields for email, password, and additional details for sign-up. The forms are non-functional (no backend), showing SnackBar feedback on button press. The goal is to provide a UI foundation for future authentication integration, maintaining app consistency with HeaderWidget and FooterWidget.
+
+#### 2. User Stories
+- Login
+	- As a user, I want to enter my email and password to log in so I can access my account.
+
+- Sign Up
+	- As a new user, I want to create an account by providing name, email, password, and confirmation so I can register.
+
+- Form Validation
+	- As a user, I want basic validation on fields (e.g., email format, password match) so I know if my input is correct.
+
+- Feedback
+	- As a user, I want a confirmation message after submitting the form so I know the action was attempted.
+
+#### 3. Acceptance Criteria
+
+##### UI and Display
+- [ ] Page uses HeaderWidget and FooterWidget for consistency.
+- [ ] Centered Container with TabBar for "Login" and "Sign Up" tabs, using TabBarView.
+- [ ] Login tab: TextFormField for email and password with labels.
+- [ ] Sign-Up tab: TextFormField for name, email, password, confirm password with labels.
+
+##### Interactive Elements
+- [ ] Login button shows SnackBar "Login successful!" on press.
+- [ ] Sign-Up button shows SnackBar "Sign up successful!" on press.
+- [ ] Basic validation: Email regex, password length >=6, confirm password matches.
+
+##### Structure and Navigation
+- [ ] Add '/login' route to `lib/main.dart`.
+- [ ] Page accessible via '/login'; update HeaderWidget to add a shortcut in the existing person button.
+
+##### Styling and Responsiveness
+- [ ] All Text uses 'WorkSans' font; labels black, hints grey.
+- [ ] Buttons use theme color (Color(0xFF4d2963)).
+- [ ] Responsive padding with MediaQuery (16px mobile, 32px desktop).
+
+##### Integration and Testing
+- [ ] App builds and runs; `flutter analyze` and `flutter test` succeed.
+- [ ] Add unit/widget tests in `test/login_page_test.dart` for form rendering and interactions.
+
+#### 4. Subtasks
+- Create `lib/login_page.dart` with Scaffold, HeaderWidget, FooterWidget.
+- Add TabBar and TabBarView for Login and Sign-Up.
+- Implement Login form with TextFormField and validation.
+- Implement Sign-Up form with TextFormField and validation.
+- Add buttons with SnackBar feedback.
+- Add '/login' route to `lib/main.dart`.
+- Create `test/login_page_test.dart` with tests for rendering and button presses.
