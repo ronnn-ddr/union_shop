@@ -15,6 +15,11 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   final _loginFormKey = GlobalKey<FormState>();
   final _loginEmailController = TextEditingController();
   final _loginPasswordController = TextEditingController();
+  final _signupFormKey = GlobalKey<FormState>();
+  final _signupNameController = TextEditingController();
+  final _signupEmailController = TextEditingController();
+  final _signupPasswordController = TextEditingController();
+  final _signupConfirmPasswordController = TextEditingController();
 
   @override
   void initState() {
@@ -27,6 +32,10 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     _tabController.dispose();
     _loginEmailController.dispose();
     _loginPasswordController.dispose();
+    _signupNameController.dispose();
+    _signupEmailController.dispose();
+    _signupPasswordController.dispose();
+    _signupConfirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -113,8 +122,108 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                             ],
                           ),
                         ),
-                        // Sign-Up Form - placeholder for now
-                        const Center(child: Text('Sign Up Form')),
+                        // Sign-Up Form
+                        Form(
+                          key: _signupFormKey,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              TextFormField(
+                                controller: _signupNameController,
+                                decoration: const InputDecoration(
+                                  labelText: 'Name',
+                                  labelStyle: TextStyle(
+                                    fontFamily: 'WorkSans',
+                                    color: Colors.black,
+                                  ),
+                                  hintStyle: TextStyle(
+                                    fontFamily: 'WorkSans',
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your name';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              TextFormField(
+                                controller: _signupEmailController,
+                                decoration: const InputDecoration(
+                                  labelText: 'Email',
+                                  labelStyle: TextStyle(
+                                    fontFamily: 'WorkSans',
+                                    color: Colors.black,
+                                  ),
+                                  hintStyle: TextStyle(
+                                    fontFamily: 'WorkSans',
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your email';
+                                  }
+                                  final emailRegex =
+                                      RegExp(r'^[^@]+@[^@]+\.[^@]+');
+                                  if (!emailRegex.hasMatch(value)) {
+                                    return 'Please enter a valid email';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              TextFormField(
+                                controller: _signupPasswordController,
+                                decoration: const InputDecoration(
+                                  labelText: 'Password',
+                                  labelStyle: TextStyle(
+                                    fontFamily: 'WorkSans',
+                                    color: Colors.black,
+                                  ),
+                                  hintStyle: TextStyle(
+                                    fontFamily: 'WorkSans',
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                obscureText: true,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your password';
+                                  }
+                                  if (value.length < 6) {
+                                    return 'Password must be at least 6 characters';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              TextFormField(
+                                controller: _signupConfirmPasswordController,
+                                decoration: const InputDecoration(
+                                  labelText: 'Confirm Password',
+                                  labelStyle: TextStyle(
+                                    fontFamily: 'WorkSans',
+                                    color: Colors.black,
+                                  ),
+                                  hintStyle: TextStyle(
+                                    fontFamily: 'WorkSans',
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                obscureText: true,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please confirm your password';
+                                  }
+                                  if (value != _signupPasswordController.text) {
+                                    return 'Passwords do not match';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
