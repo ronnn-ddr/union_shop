@@ -119,6 +119,22 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                   return null;
                                 },
                               ),
+                              const SizedBox(height: 20),
+                              ElevatedButton(
+                                onPressed: () {
+                                  if (_loginFormKey.currentState!.validate()) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('Login successful!')),
+                                    );
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFF4d2963),
+                                  foregroundColor: Colors.white,
+                                ),
+                                child: const Text('Login'),
+                              ),
                             ],
                           ),
                         ),
@@ -220,6 +236,22 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                   }
                                   return null;
                                 },
+                              ),
+                              const SizedBox(height: 20),
+                              ElevatedButton(
+                                onPressed: () {
+                                  if (_signupFormKey.currentState!.validate()) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('Sign up successful!')),
+                                    );
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFF4d2963),
+                                  foregroundColor: Colors.white,
+                                ),
+                                child: const Text('Sign Up'),
                               ),
                             ],
                           ),
