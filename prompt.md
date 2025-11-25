@@ -48,3 +48,29 @@ Additional requirements:
 - Include headers and footers similar to other pages in the app, such as an AppBar header and a footer (e.g., a Container at the bottom with copyright text or links).
 
 Provide the new code for `lib/sale_page.dart`, updated code for [`lib/product_page.dart`](lib/product_page.dart ) (to accept dynamic data), any necessary changes to [`lib/main.dart`](lib/main.dart ) for routing if needed, and ensure the app builds and runs without errors. Include unit tests for the new functionality in `test/sale_page_test.dart` if possible. Add brief comments explaining the changes and how they integrate with the existing code.
+
+# Login/Sign-Up Page Feature
+
+Create a detailed Flutter login/sign-up page for the Union Shop app. The main entry point is in [`lib/main.dart`](lib/main.dart ), which sets up a MaterialApp with routes including '/login' leading to the LoginPage. The app has screens like home screen ([`lib/main.dart`](lib/main.dart ) HomeScreen), product page ([`lib/product_page.dart`](lib/product_page.dart )), about page ([`lib/about_page.dart`](lib/about_page.dart )), shop menu page ([`lib/shop_menu_page.dart`](lib/shop_menu_page.dart )), clothing page ([`lib/clothing_page.dart`](lib/clothing_page.dart )), and sale page ([`lib/sale_page.dart`](lib/sale_page.dart )). The app uses HeaderWidget and FooterWidget for consistency.
+
+The login/sign-up page should be a new screen in `lib/login_page.dart`; create it to display forms for user login and sign-up, with tabs or sections to switch between them. The forms should include fields for email, password, and for sign-up additional fields like confirm password and name. Buttons for "Login" and "Sign Up" should be present, but functionality is not required yet (just show a SnackBar on press).
+
+Specifically:
+
+1. **Page Layout**: Use a Scaffold with the existing `lib/widgets/header_widget` at the top and `lib/widgets/footer_widget` at the bottom, and a centered Container with a Column containing a TabBar or buttons to switch between Login and Sign-Up tabs. Use TabBarView for the forms.
+
+2. **Login Form**: Include TextFormField for email and password, with labels and basic validation (e.g., email format, password length). An ElevatedButton for "Login" that shows a SnackBar "Login successful!".
+
+3. **Sign-Up Form**: Include TextFormField for name, email, password, confirm password, with validation. An ElevatedButton for "Sign Up" that shows a SnackBar "Sign up successful!".
+
+4. **Navigation Integration**: Add '/login' route to [`lib/main.dart`](lib/main.dart ). Update HeaderWidget to have a login button if needed.
+
+Additional requirements:
+- Use Flutter widgets like TextFormField, ElevatedButton, TabBar, TabBarView for layout.
+- Ensure the page is responsive: Use MediaQuery for padding adjustments on mobile vs. desktop.
+- Styling: Update all Text widgets to use 'WorkSans' font family, background color white, text colors black for labels and grey for hints, theme color (Color(0xFF4d2963)) for buttons.
+- Navigation: Integrate with existing routes; the page is accessed via '/login' and the person icon in the header.
+- Handle edge cases: Basic form validation, but no backend integration.
+- Integrate seamlessly with existing code; for example, use similar styling to other pages.
+
+Provide the new code for `lib/login_page.dart`, any necessary changes to [`lib/main.dart`](lib/main.dart ) for routing, and ensure the app builds and runs without errors. Include unit tests for the new functionality in `test/login_page_test.dart` if possible. Add brief comments explaining the changes and how they integrate with the existing code.
