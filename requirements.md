@@ -163,5 +163,5 @@ The Login/Sign-Up Page feature introduces a new screen in `lib/login_page.dart` 
 - Implement Login form with TextFormField and validation.
 - Implement Sign-Up form with TextFormField and validation.
 - Add buttons with SnackBar feedback.
-- Add '/login' route to `lib/main.dart`.
+- Add '/login' route to `lib/main.dart` along with a shortcut in the header, the person icon.
 - Create `test/login_page_test.dart` with tests for rendering and button presses.
