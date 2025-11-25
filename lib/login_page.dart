@@ -13,8 +13,26 @@ class LoginPage extends StatelessWidget {
         children: [
           HeaderWidget(),
           Expanded(
-            child: Center(
-              child: Text('Login Page Placeholder'),
+            child: DefaultTabController(
+              length: 2,
+              child: Column(
+                children: [
+                  TabBar(
+                    tabs: [
+                      Tab(text: 'Login'),
+                      Tab(text: 'Sign Up'),
+                    ],
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      children: [
+                        Center(child: Text('Login Form')),
+                        Center(child: Text('Sign Up Form')),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           FooterWidget(),
