@@ -38,7 +38,10 @@ class UnionShopApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => const HomeScreen());
           } else if (uri.path.startsWith('/product')) {
             final id = uri.pathSegments.length > 1 ? uri.pathSegments[1] : null;
-            final product = id != null ? products.firstWhere((p) => p.id == id, orElse: () => products[0]) : products[0];
+            final product = id != null
+                ? products.firstWhere((p) => p.id == id,
+                    orElse: () => products[0])
+                : products[0];
             return MaterialPageRoute(
               builder: (context) => const ProductPage(),
               settings: RouteSettings(name: settings.name, arguments: product),
@@ -46,9 +49,11 @@ class UnionShopApp extends StatelessWidget {
           } else if (uri.path == '/about') {
             return MaterialPageRoute(builder: (context) => const AboutPage());
           } else if (uri.path == '/shop') {
-            return MaterialPageRoute(builder: (context) => const ProductCategories());
+            return MaterialPageRoute(
+                builder: (context) => const ProductCategories());
           } else if (uri.path == '/clothing') {
-            return MaterialPageRoute(builder: (context) => const ClothingPage());
+            return MaterialPageRoute(
+                builder: (context) => const ClothingPage());
           } else if (uri.path == '/sale') {
             return MaterialPageRoute(builder: (context) => SalePage());
           } else if (uri.path == '/login') {

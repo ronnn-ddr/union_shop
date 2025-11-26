@@ -88,6 +88,7 @@ Update `lib/product_page.dart` to accept a Product object via ModalRoute argumen
 Update `lib/sale_page.dart` to use the list of products from the data file instead of hardcoded maps, and pass the Product object when navigating to ProductPage. In the product cards, display Row for prices (salePrice in black if available, price struck-through in grey).
 
 Ensure that other pages using product data, like clothing_page.dart or product_categories.dart, are updated accordingly if they reference products. Specifically, update clothing_page.dart to display products from the data source instead of hardcoded items, filtering for clothing category if applicable.
+- Update navigation in `lib/main.dart` to use product IDs for direct links to specific products, pulling information from the dataset.
 
 Specifically:
 

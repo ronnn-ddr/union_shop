@@ -221,6 +221,7 @@ The Product Data Model feature introduces a structured data model for products i
 - Update `lib/sale_page.dart` to use Product list instead of hardcoded maps.
 - Ensure existing header and footer widgets are used in updated pages.
 - Update `lib/clothing_page.dart` and other category pages (e.g., `lib/product_categories.dart`) to pull products from the data source instead of hardcoded data, adding category filtering if necessary.
+- Update navigation in `lib/main.dart` to use product IDs for direct links to specific products, pulling information from the dataset.
 - Create `test/product_model_test.dart` and add unit tests for Product class instantiation, equality, and toString.
 - Create `test/product_model_test.dart` and add unit tests for the products data source list.
 - Update `test/product_page_test.dart` to include tests for rendering with dynamic Product data via arguments.

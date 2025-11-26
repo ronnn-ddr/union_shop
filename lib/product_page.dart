@@ -34,8 +34,8 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    final product = ModalRoute.of(context)?.settings.arguments as Product? ??
-        products[0];
+    final product =
+        ModalRoute.of(context)?.settings.arguments as Product? ?? products[0];
     final displayPrice = product.salePrice ?? product.price;
     return Scaffold(
       body: SingleChildScrollView(
