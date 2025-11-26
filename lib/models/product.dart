@@ -6,6 +6,7 @@ class Product {
   final String description;
   final String material;
   final List<String> sizes;
+  final List<String> collections;
 
   const Product({
     required this.name,
@@ -15,10 +16,11 @@ class Product {
     required this.description,
     required this.material,
     required this.sizes,
+    required this.collections,
   });
 
   @override
   String toString() {
-    return 'Product(name: $name, image: $image, price: $price, salePrice: $salePrice, description: $description, material: $material, sizes: $sizes)';
+    return 'Product(name: $name, image: $image, price: $price, salePrice: $salePrice, description: $description, material: $material, sizes: $sizes, collections: $collections)';
   }
 }

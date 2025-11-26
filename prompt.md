@@ -79,7 +79,7 @@ Provide the new code for `lib/login_page.dart`, any necessary changes to [`lib/m
 
 Create a data model for products in the Union Shop app to replace hardcoded data. The main entry point is in [`lib/main.dart`](lib/main.dart ), which sets up a MaterialApp with routes. The app has screens like home screen ([`lib/main.dart`](lib/main.dart ) HomeScreen), product page ([`lib/product_page.dart`](lib/product_page.dart )), about page ([`lib/about_page.dart`](lib/about_page.dart )), shop menu page ([`lib/shop_menu_page.dart`](lib/shop_menu_page.dart )), clothing page ([`lib/clothing_page.dart`](lib/clothing_page.dart )), sale page ([`lib/sale_page.dart`](lib/sale_page.dart )), and login page ([`lib/login_page.dart`](lib/login_page.dart )). Currently, product data is hardcoded in various places, such as strings and maps in product_page.dart and sale_page.dart.
 
-Create a Product model class in `lib/models/product.dart` with fields for name, image, price, salePrice (optional for sales), description, material, sizes (list of strings), and any other relevant attributes. Make it a data class with appropriate constructors, toString, and equality methods if needed.
+Create a Product model class in `lib/models/product.dart` with fields for name, image, price, salePrice (optional for sales), description, material, sizes (list of strings), and collections (list of strings for multiple collections, but can have one). Make it a data class with appropriate constructors, toString, and equality methods if needed.
 
 Then, create a list of Product instances in a new file `lib/data/products.dart` or integrate it into `lib/main.dart`, containing sample products like the Rainbow Hoodie and others used in the app.
 
@@ -91,7 +91,7 @@ Ensure that other pages using product data, like clothing_page.dart or product_c
 
 Specifically:
 
-1. **Product Model**: Define a class Product with final fields: String name, String image, double price, double? salePrice, String description, String material, List<String> sizes.
+1. **Product Model**: Define a class Product with final fields: String name, String image, double price, double? salePrice, String description, String material, List<String> sizes, List<String> collections.
 
 2. **Data Source**: Create a list of Product objects in `lib/data/products.dart`, e.g., Rainbow Hoodie with appropriate values.
 

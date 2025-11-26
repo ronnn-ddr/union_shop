@@ -173,7 +173,7 @@ The Product Data Model feature introduces a structured data model for products i
 
 #### 2. User Stories
 - Define Product Structure
-	- As a developer, I want a Product class with fields for name, image, price, salePrice, description, material, sizes so I can represent products consistently.
+	- As a developer, I want a Product class with fields for name, image, price, salePrice, description, material, sizes, collections so I can represent products consistently.
 
 - Create Product Data Source
 	- As a developer, I want a list of Product instances in a dedicated file so I can manage sample data centrally.
@@ -190,7 +190,7 @@ The Product Data Model feature introduces a structured data model for products i
 #### 3. Acceptance Criteria
 
 ##### UI and Display
-- [ ] Product class in `lib/models/product.dart` has final fields: String name, String image, double price, double? salePrice, String description, String material, List<String> sizes.
+- [ ] Product class in `lib/models/product.dart` has final fields: String name, String image, double price, double? salePrice, String description, String material, List<String> sizes, List<String> collections.
 - [ ] Data source in `lib/data/products.dart` contains a list of Product instances, including Rainbow Hoodie and others with appropriate values.
 - [ ] ProductPage displays salePrice if available, otherwise price; uses Product properties for all details.
 - [ ] SalePage uses Product list for grid; cards show salePrice in black, price struck-through in grey if salePrice exists.
