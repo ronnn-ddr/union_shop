@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/widgets/header_widget.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
+import 'package:union_shop/data/products.dart';
+import 'package:union_shop/models/product.dart';
 
 class ClothingPage extends StatefulWidget {
   const ClothingPage({super.key});
@@ -11,14 +13,6 @@ class ClothingPage extends StatefulWidget {
 
 class _ClothingPageState extends State<ClothingPage> {
   String _selectedFilter = 'All Products';
-
-  final List<Map<String, String>> _products = [
-    {
-      'title': 'Rainbow Hoodie',
-      'price': '£25.00',
-      'image': 'assets/images/RainbowHoodie.png'
-    },
-  ];
 
   void navigateToHome(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
@@ -34,6 +28,11 @@ class _ClothingPageState extends State<ClothingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final clothingProducts =
+        products.where((p) => p.collections.contains('Clothing')).toList();
+    final filteredProducts = _selectedFilter == 'All Products'
+        ? clothingProducts
+        : clothingProducts.where((p) => p.salePrice != null).toList();
     final isMobile = MediaQuery.of(context).size.width < 800;
     return Scaffold(
       drawer: isMobile
@@ -170,13 +169,9 @@ class _ClothingPageState extends State<ClothingPage> {
                       crossAxisCount: 3,
                       crossAxisSpacing: 24,
                       mainAxisSpacing: 48,
-                      children: _products.map((product) {
-                        return ProductCard(
-                          title: product['title']!,
-                          price: product['price']!,
-                          imageUrl: product['image']!,
-                        );
-                      }).toList(),
+                      children: filteredProducts
+                          .map((product) => ProductCard(product: product))
+                          .toList(),
                     ),
                     const SizedBox(height: 40),
                   ],
@@ -194,29 +189,26 @@ class _ClothingPageState extends State<ClothingPage> {
 }
 
 class ProductCard extends StatelessWidget {
-  final String title;
-  final String price;
-  final String imageUrl;
+  final Product product;
 
   const ProductCard({
     super.key,
-    required this.title,
-    required this.price,
-    required this.imageUrl,
+    required this.product,
   });
 
   @override
   Widget build(BuildContext context) {
+    final displayPrice = product.salePrice ?? product.price;
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/product');
+        Navigator.pushNamed(context, '/product/${product.id}');
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: Image.asset(
-              imageUrl,
+              product.image,
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
                 return Container(
@@ -233,14 +225,14 @@ class ProductCard extends StatelessWidget {
             children: [
               const SizedBox(height: 4),
               Text(
-                title,
+                product.name,
                 style: const TextStyle(
                     fontSize: 14, color: Colors.black, fontFamily: 'WorkSans'),
                 maxLines: 2,
               ),
               const SizedBox(height: 4),
               Text(
-                price,
+                '£${displayPrice.toStringAsFixed(2)}',
                 style: const TextStyle(
                     fontSize: 13, color: Colors.grey, fontFamily: 'WorkSans'),
               ),
