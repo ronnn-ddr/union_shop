@@ -211,7 +211,7 @@ The Product Data Model feature introduces a structured data model for products i
 ##### Integration and Testing
 - [ ] App builds and runs; `flutter analyze` and `flutter test` succeed.
 - [ ] Add unit tests in `test/product_model_test.dart` for Product class and data source.
-- [ ] Update tests in `test/product_page_test.dart` and `test/sale_page_test.dart` to cover dynamic data usage.
+- [ ] Update tests in `test/product_test.dart` and `test/sale_page_test.dart` to cover dynamic data usage.
 - [ ] Modify any affected existing tests to accommodate the new data model.
 
 #### 4. Subtasks
@@ -226,10 +226,10 @@ The Product Data Model feature introduces a structured data model for products i
 Note: Update `lib/product_categories.dart` to use dynamic data will be handled separately when categories are made non-hardcoded.
 - Create `test/models/product_model_test.dart` and add unit tests for Product class instantiation, equality, and toString.
 - Create `test/models/product_model_test.dart` and add unit tests for the products data source list.
-- Update `test/product_page_test.dart` to include tests for rendering with dynamic Product data via arguments.
-- Update `test/product_page_test.dart` to include tests for fallback to default product when no arguments provided.
+- Update `test/product_test.dart` to include tests for rendering with dynamic Product data via arguments.
+- Update `test/product_test.dart` to include tests for fallback to default product when no arguments provided.
 - Update `test/sale_page_test.dart` to include tests for grid rendering using Product list instead of hardcoded maps.
 - Update `test/sale_page_test.dart` to include tests for navigation passing Product objects to ProductPage.
-- Modify affected tests in `test/product_page_test.dart` to accommodate changes from hardcoded data to the new data model.
+- Modify affected tests in `test/product_test.dart` to accommodate changes from hardcoded data to the new data model.
 - Modify affected tests in `test/sale_page_test.dart` to accommodate changes from hardcoded data to the new data model.
 - Modify affected tests in other relevant test files (e.g., `test/clothing_page_test.dart` if applicable) to accommodate changes from hardcoded data to the new data model.

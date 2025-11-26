@@ -20,7 +20,7 @@ Additional requirements:
 - Handle edge cases: Ensure proper error handling for images and form-like interactions.
 - Integrate seamlessly with existing code; for example, use similar styling to other pages.
 
-Provide the updated code for `lib/product_page.dart`, any necessary changes to `lib/main.dart` for routing if needed, and ensure the app builds and runs without errors. Include unit tests for the new functionality in `test/product_page_test.dart` if possible. Add brief comments explaining the changes and how they integrate with the existing code.
+Provide the updated code for `lib/product_page.dart`, any necessary changes to `lib/main.dart` for routing if needed, and ensure the app builds and runs without errors. Include unit tests for the new functionality in `test/product_test.dart` if possible. Add brief comments explaining the changes and how they integrate with the existing code.
 
 # Sale Page Feature
 
