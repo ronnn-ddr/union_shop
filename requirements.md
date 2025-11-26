@@ -230,5 +230,4 @@ Note: Update `lib/product_categories.dart` to use dynamic data will be handled s
 - Create `test/sale_page_test.dart` and add tests for grid rendering using Product list instead of hardcoded maps.
 - Create `test/sale_page_test.dart` and add tests for navigation passing Product objects to ProductPage.
 - Modify affected tests in `test/sale_page_test.dart` to accommodate changes from hardcoded data to the new data model.
-- Modify affected tests in `test/sale_page_test.dart` to accommodate changes from hardcoded data to the new data model.
 - Modify affected tests in other relevant test files (e.g., `test/clothing_page_test.dart` if applicable) to accommodate changes from hardcoded data to the new data model.

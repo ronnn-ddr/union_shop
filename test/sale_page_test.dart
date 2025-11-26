@@ -35,7 +35,8 @@ void main() {
           if (settings.name!.startsWith('/product/')) {
             final id = settings.name!.substring('/product/'.length);
             final product = products.firstWhere((p) => p.id == id);
-            return MaterialPageRoute(builder: (context) => ProductPage(product: product));
+            return MaterialPageRoute(
+                builder: (context) => ProductPage(product: product));
           }
           return null;
         },

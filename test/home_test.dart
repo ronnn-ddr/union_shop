@@ -23,17 +23,11 @@ void main() {
       await tester.pumpWidget(const UnionShopApp());
       await tester.pump();
 
-      // Check that product cards are displayed
-      expect(find.text('Rainbow Hoodie'), findsOneWidget);
-      expect(find.text('Graduation Hoodies'), findsOneWidget);
-      expect(find.text('Classic Cap'), findsOneWidget);
-      expect(find.text('Heavyweight Shorts'), findsOneWidget);
+      // Check that product cards are displayed (from products data)
+      expect(find.byType(ProductCard), findsNWidgets(4));
 
-      // Check prices are displayed
-      expect(find.text('£30.00'), findsOneWidget);
-      expect(find.text('£35.00'), findsOneWidget);
-      expect(find.text('£12.00'), findsOneWidget);
-      expect(find.text('£20.00'), findsOneWidget);
+      // Check that prices are displayed (at least 4 price texts)
+      expect(find.textContaining('£'), findsAtLeastNWidgets(4));
     });
 
     testWidgets('should display header icons', (tester) async {
