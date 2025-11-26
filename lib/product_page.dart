@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'widgets/header_widget.dart';
 import 'widgets/footer_widget.dart';
 import 'models/cart.dart';
+import 'models/product.dart';
+import 'data/products.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
@@ -32,17 +34,9 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    final product =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ??
-            {
-              'name': 'Rainbow Hoodie',
-              'image': 'assets/images/RainbowHoodie.png',
-              'price': 30.00,
-              'description':
-                  'Introducing our new Rainbow Hoodie! With a prominent Rainbow print, this hoodie is a must have!',
-              'material': '100% Cotton',
-              'sizes': ['S', 'M', 'L', 'XL'],
-            };
+    final product = ModalRoute.of(context)?.settings.arguments as Product? ??
+        products[0];
+    final displayPrice = product.salePrice ?? product.price;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -69,7 +63,7 @@ class _ProductPageState extends State<ProductPage> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.asset(
-                        product['image'],
+                        product.image,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
@@ -104,7 +98,7 @@ class _ProductPageState extends State<ProductPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          product['name'],
+                          product.name,
                           style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -113,15 +107,40 @@ class _ProductPageState extends State<ProductPage> {
                           ),
                         ),
                         const SizedBox(height: 12),
-                        Text(
-                          '£${product['price'].toStringAsFixed(2)}',
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF4d2963),
-                            fontFamily: 'WorkSans',
+                        if (product.salePrice != null)
+                          Row(
+                            children: [
+                              Text(
+                                '£${product.salePrice!.toStringAsFixed(2)}',
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  fontFamily: 'WorkSans',
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                '£${product.price.toStringAsFixed(2)}',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.grey,
+                                  decoration: TextDecoration.lineThrough,
+                                  fontFamily: 'WorkSans',
+                                ),
+                              ),
+                            ],
+                          )
+                        else
+                          Text(
+                            '£${product.price.toStringAsFixed(2)}',
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF4d2963),
+                              fontFamily: 'WorkSans',
+                            ),
                           ),
-                        ),
                         const SizedBox(height: 16),
 
                         // Option controls: Size (full width) and Quantity (compact, right)
@@ -154,7 +173,7 @@ class _ProductPageState extends State<ProductPage> {
                                       value: _selectedSize,
                                       hint: const Text('Select size'),
                                       underline: const SizedBox.shrink(),
-                                      items: (product['sizes'] as List<String>)
+                                      items: product.sizes
                                           .map((s) => DropdownMenuItem(
                                               value: s, child: Text(s)))
                                           .toList(),
@@ -302,20 +321,17 @@ class _ProductPageState extends State<ProductPage> {
                               }
                               // Add to cart
                               Provider.of<Cart>(context, listen: false).addItem(
-                                id: product['name']
-                                    .toLowerCase()
-                                    .replaceAll(' ', '-'),
-                                title: product['name'],
-                                price:
-                                    '£${product['price'].toStringAsFixed(2)}',
-                                imageUrl: product['image'],
+                                id: product.id,
+                                title: product.name,
+                                price: '£${displayPrice.toStringAsFixed(2)}',
+                                imageUrl: product.image,
                                 size: _selectedSize!,
                                 quantity: _quantity,
                               );
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                     content: Text(
-                                        'Added $_quantity ${product['name']}(s) (Size: $_selectedSize) to cart!')),
+                                        'Added $_quantity ${product.name}(s) (Size: $_selectedSize) to cart!')),
                               );
                             },
                             style: ElevatedButton.styleFrom(
@@ -341,7 +357,7 @@ class _ProductPageState extends State<ProductPage> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          product['description'],
+                          product.description,
                           style: const TextStyle(
                             fontSize: 16,
                             color: Colors.grey,
@@ -350,9 +366,9 @@ class _ProductPageState extends State<ProductPage> {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        const Text(
-                          '• Material: Cotton\n• Sizes: S, M, L, XL\n• Care Instructions: Machine wash cold',
-                          style: TextStyle(
+                        Text(
+                          '• Material: ${product.material}\n• Sizes: ${product.sizes.join(', ')}\n• Care Instructions: Machine wash cold',
+                          style: const TextStyle(
                             fontSize: 16,
                             color: Colors.grey,
                             height: 1.5,

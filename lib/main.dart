@@ -9,6 +9,8 @@ import 'package:union_shop/login_page.dart';
 import 'package:union_shop/widgets/header_widget.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
 import 'package:union_shop/models/cart.dart';
+import 'package:union_shop/data/products.dart';
+import 'package:union_shop/models/product.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -30,15 +32,29 @@ class UnionShopApp extends StatelessWidget {
         home: const HomeScreen(),
         // By default, the app starts at the '/' route, which is the HomeScreen
         initialRoute: '/',
-        // When navigating to '/product', build and return the ProductPage
-        // In your browser, try this link: http://localhost:49856/#/product
-        routes: {
-          '/product': (context) => const ProductPage(),
-          '/about': (context) => const AboutPage(),
-          '/shop': (context) => const ProductCategories(),
-          '/clothing': (context) => const ClothingPage(),
-          '/sale': (context) => SalePage(),
-          '/login': (context) => const LoginPage(),
+        onGenerateRoute: (settings) {
+          final uri = Uri.parse(settings.name ?? '/');
+          if (uri.path == '/') {
+            return MaterialPageRoute(builder: (context) => const HomeScreen());
+          } else if (uri.path.startsWith('/product')) {
+            final id = uri.pathSegments.length > 1 ? uri.pathSegments[1] : null;
+            final product = id != null ? products.firstWhere((p) => p.id == id, orElse: () => products[0]) : products[0];
+            return MaterialPageRoute(
+              builder: (context) => const ProductPage(),
+              settings: RouteSettings(name: settings.name, arguments: product),
+            );
+          } else if (uri.path == '/about') {
+            return MaterialPageRoute(builder: (context) => const AboutPage());
+          } else if (uri.path == '/shop') {
+            return MaterialPageRoute(builder: (context) => const ProductCategories());
+          } else if (uri.path == '/clothing') {
+            return MaterialPageRoute(builder: (context) => const ClothingPage());
+          } else if (uri.path == '/sale') {
+            return MaterialPageRoute(builder: (context) => SalePage());
+          } else if (uri.path == '/login') {
+            return MaterialPageRoute(builder: (context) => const LoginPage());
+          }
+          return null;
         },
       ),
     );
@@ -255,27 +271,11 @@ class HomeScreen extends StatelessWidget {
                           MediaQuery.of(context).size.width > 600 ? 2 : 1,
                       crossAxisSpacing: 24,
                       mainAxisSpacing: 48,
-                      children: const [
-                        ProductCard(
-                          title: 'Rainbow Hoodie',
-                          price: '£30.00',
-                          imageUrl: 'assets/images/RainbowHoodie.png',
-                        ),
-                        ProductCard(
-                          title: 'Graduation Hoodies',
-                          price: '£35.00',
-                          imageUrl: 'assets/images/GraduationHoodie.png',
-                        ),
-                        ProductCard(
-                          title: 'Classic Cap',
-                          price: '£12.00',
-                          imageUrl: 'assets/images/ClassicCap.png',
-                        ),
-                        ProductCard(
-                          title: 'Heavyweight Shorts',
-                          price: '£20.00',
-                          imageUrl: 'assets/images/HeavyweightShorts.png',
-                        ),
+                      children: [
+                        ProductCard(product: products[0]),
+                        ProductCard(product: products[1]),
+                        ProductCard(product: products[2]),
+                        ProductCard(product: products[3]),
                       ],
                     ),
                   ],
@@ -293,29 +293,26 @@ class HomeScreen extends StatelessWidget {
 }
 
 class ProductCard extends StatelessWidget {
-  final String title;
-  final String price;
-  final String imageUrl;
+  final Product product;
 
   const ProductCard({
     super.key,
-    required this.title,
-    required this.price,
-    required this.imageUrl,
+    required this.product,
   });
 
   @override
   Widget build(BuildContext context) {
+    final displayPrice = product.salePrice ?? product.price;
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/product');
+        Navigator.pushNamed(context, '/product/${product.id}');
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: Image.asset(
-              imageUrl,
+              product.image,
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
                 return Container(
@@ -332,14 +329,14 @@ class ProductCard extends StatelessWidget {
             children: [
               const SizedBox(height: 4),
               Text(
-                title,
+                product.name,
                 style: const TextStyle(
                     fontSize: 14, color: Colors.black, fontFamily: 'WorkSans'),
                 maxLines: 2,
               ),
               const SizedBox(height: 4),
               Text(
-                price,
+                '£${displayPrice.toStringAsFixed(2)}',
                 style: const TextStyle(
                     fontSize: 13, color: Colors.grey, fontFamily: 'WorkSans'),
               ),
