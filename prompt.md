@@ -111,3 +111,28 @@ Additional requirements:
 - Modify any affected existing tests to accommodate the new data model.
 
 Provide the new code for `lib/models/product.dart`, `lib/data/products.dart`, updated code for [`lib/product_page.dart`](lib/product_page.dart ), [`lib/sale_page.dart`](lib/sale_page.dart ), any necessary changes to [`lib/main.dart`](lib/main.dart ) for data integration, and ensure the app builds and runs without errors. Include unit tests for the new functionality in `test/product_model_test.dart` if possible. Add brief comments explaining the changes and how they integrate with the existing code.
+
+# Collections Data Model Feature (And name change from Category & /shop)
+
+Create a detailed Flutter collections page for the Union Shop app, renaming and updating the existing product categories page. The main entry point is in [`lib/main.dart`](lib/main.dart ), which sets up a MaterialApp with routes including '/shop' leading to the CollectionsPage. The app has screens like home screen ([`lib/main.dart`](lib/main.dart ) HomeScreen), product page ([`lib/product_page.dart`](lib/product_page.dart )), about page ([`lib/about_page.dart`](lib/about_page.dart )), clothing page ([`lib/clothing_page.dart`](lib/clothing_page.dart )), sale page ([`lib/sale_page.dart`](lib/sale_page.dart )), and login page ([`lib/login_page.dart`](lib/login_page.dart )). The app uses HeaderWidget and FooterWidget for consistency.
+
+The collections page should be renamed from `lib/product_categories.dart` to `lib/collections.dart`, and updated to display collections dynamically based on a new data model. Create a Collection model in `lib/models/collection.dart` with fields for name, description, and image. Create a data source in `lib/data/collections.dart` with a list of Collection instances, derived from the unique collections in the products dataset (e.g., 'Clothing', 'Accessories') to ensure consistency.
+
+Specifically:
+
+1. **Rename Files**: Rename `lib/product_categories.dart` to `lib/collections.dart`, and `test/product_categories_test.dart` to `test/collections_test.dart`, keeping the same format and functionality.
+
+2. **Update References**: Change any mentions of "product_categories" or "categories" that link to this page to "Collections" in [`lib/main.dart`](lib/main.dart ), navigation, and other files to maintain functionality.
+
+3. **Make Dynamic**: Replace hardcoded categories with dynamic data from `lib/data/collections.dart`. Display collections as cards or buttons, with name, description, and image. On tap, navigate to the appropriate page (e.g., 'Clothing' to '/collections/clothing'), or show a snackbar for unavailable collections. Ensure collections are tied to the products dataset by deriving them from the unique values in products' collections field.
+
+Additional requirements:
+- Use Flutter widgets like ListView or GridView for displaying collections.
+- Ensure the page is responsive: Use MediaQuery for padding and layout adjustments on mobile vs. desktop.
+- Styling: Update all Text widgets to use 'WorkSans' font family, background color white, text colors black for titles and grey for descriptions, theme color (Color(0xFF4d2963)) for buttons.
+- Navigation: Integrate with existing routes; the page is accessed via '/shop'.
+- Handle edge cases: Ensure proper error handling for images and navigation.
+- Integrate seamlessly with existing code; for example, use similar structures to other models like product.dart.
+- Include headers and footers similar to other pages if applicable.
+
+Provide the new code for `lib/models/collection.dart`, `lib/data/collections.dart`, updated code for [`lib/product_categories.dart`](lib/product_categories.dart ) (renamed to `lib/collections.dart`), any necessary changes to [`lib/main.dart`](lib/main.dart ) for routing and renaming, and ensure the app builds and runs without errors. Create unit tests for the new functionality in `test/product_categories_test.dart` (renamed to `test/collections_test.dart`) if possible. Add brief comments explaining the changes and how they integrate with the existing code.
