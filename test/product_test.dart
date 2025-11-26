@@ -4,20 +4,21 @@ import 'package:provider/provider.dart';
 import 'package:union_shop/product_page.dart';
 import 'package:union_shop/models/cart.dart';
 import 'package:union_shop/data/products.dart';
+import 'package:union_shop/models/product.dart';
 
 void main() {
   group('Product Page Tests', () {
-    Widget createTestWidget() {
+    Widget createTestWidget(Product product) {
       return ChangeNotifierProvider(
         create: (context) => Cart(),
-        child: MaterialApp(home: ProductPage(product: products[0])),
+        child: MaterialApp(home: ProductPage(product: product)),
       );
     }
 
     testWidgets('should display product page with basic elements', (
       tester,
     ) async {
-      await tester.pumpWidget(createTestWidget());
+      await tester.pumpWidget(createTestWidget(products[0]));
       await tester.pump();
 
       // Check that basic UI elements are present
@@ -29,7 +30,7 @@ void main() {
 
     testWidgets('should display header with sale banner and navigation',
         (tester) async {
-      await tester.pumpWidget(createTestWidget());
+      await tester.pumpWidget(createTestWidget(products[0]));
       await tester.pump();
 
       // Check sale banner text
@@ -50,7 +51,7 @@ void main() {
 
     testWidgets('should display footer with opening hours and powered by',
         (tester) async {
-      await tester.pumpWidget(createTestWidget());
+      await tester.pumpWidget(createTestWidget(products[0]));
       await tester.pump();
 
       // Check footer content
@@ -60,7 +61,7 @@ void main() {
     });
 
     testWidgets('should allow size selection', (tester) async {
-      await tester.pumpWidget(createTestWidget());
+      await tester.pumpWidget(createTestWidget(products[0]));
       await tester.pump();
 
       // Initially no size selected
@@ -79,7 +80,7 @@ void main() {
     });
 
     testWidgets('should allow quantity input', (tester) async {
-      await tester.pumpWidget(createTestWidget());
+      await tester.pumpWidget(createTestWidget(products[0]));
       await tester.pump();
 
       // Check initial quantity
@@ -101,7 +102,7 @@ void main() {
     });
 
     testWidgets('should show snackbar on add to cart', (tester) async {
-      await tester.pumpWidget(createTestWidget());
+      await tester.pumpWidget(createTestWidget(products[0]));
       await tester.pump();
 
       // Select a size first
@@ -117,6 +118,19 @@ void main() {
       // Check snackbar
       expect(find.text('Added 1 Rainbow Hoodie(s) (Size: M) to cart!'),
           findsOneWidget);
+    });
+
+    testWidgets('should display different product data dynamically', (
+      tester,
+    ) async {
+      await tester.pumpWidget(createTestWidget(products[1])); // Graduation Hoodies
+      await tester.pump();
+
+      // Check that the product name is different
+      expect(find.text('Graduation Hoodies'), findsOneWidget);
+      expect(find.text('£35.00'), findsOneWidget); // price of Graduation Hoodies
+      expect(find.text('Description'), findsOneWidget);
+      expect(find.text('ADD TO CART'), findsOneWidget);
     });
   });
 }

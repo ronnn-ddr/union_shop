@@ -227,7 +227,6 @@ Note: Update `lib/product_categories.dart` to use dynamic data will be handled s
 - Create `test/models/product_model_test.dart` and add unit tests for Product class instantiation, equality, and toString.
 - Create `test/models/product_model_test.dart` and add unit tests for the products data source list.
 - Update `test/product_test.dart` to include tests for rendering with dynamic Product data via arguments.
-- Update `test/product_test.dart` to include tests for fallback to default product when no arguments provided.
 - Update `test/sale_page_test.dart` to include tests for grid rendering using Product list instead of hardcoded maps.
 - Update `test/sale_page_test.dart` to include tests for navigation passing Product objects to ProductPage.
 - Modify affected tests in `test/product_test.dart` to accommodate changes from hardcoded data to the new data model.
