@@ -224,8 +224,8 @@ The Product Data Model feature introduces a structured data model for products i
 - Modify affected tests in other relevant test files (e.g., `test/clothing_page_test.dart` if applicable) to accommodate changes from hardcoded data to the new data model.
 
 Note: Update `lib/product_categories.dart` to use dynamic data will be handled separately when categories are made non-hardcoded.
-- Create `test/product_model_test.dart` and add unit tests for Product class instantiation, equality, and toString.
-- Create `test/product_model_test.dart` and add unit tests for the products data source list.
+- Create `test/models/product_model_test.dart` and add unit tests for Product class instantiation, equality, and toString.
+- Create `test/models/product_model_test.dart` and add unit tests for the products data source list.
 - Update `test/product_page_test.dart` to include tests for rendering with dynamic Product data via arguments.
 - Update `test/product_page_test.dart` to include tests for fallback to default product when no arguments provided.
 - Update `test/sale_page_test.dart` to include tests for grid rendering using Product list instead of hardcoded maps.
