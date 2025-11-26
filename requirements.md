@@ -165,3 +165,68 @@ The Login/Sign-Up Page feature introduces a new screen in `lib/login_page.dart` 
 - Add buttons with SnackBar feedback.
 - Add '/login' route to `lib/main.dart` along with a shortcut in the header, the person icon.
 - Create `test/login_page_test.dart` with tests for rendering and button presses.
+
+### Feature Requirements Document: Product Data Model
+
+#### 1. Feature Description and Purpose
+The Product Data Model feature introduces a structured data model for products in the Union Shop app, replacing hardcoded strings and maps in files like `lib/product_page.dart` and `lib/sale_page.dart`. A new `Product` class in `lib/models/product.dart` defines product attributes, and a data source in `lib/data/products.dart` provides sample product instances. Updated pages use this model for dynamic data display, improving maintainability and enabling future features like data persistence or API integration.
+
+#### 2. User Stories
+- Define Product Structure
+	- As a developer, I want a Product class with fields for name, image, price, salePrice, description, material, sizes so I can represent products consistently.
+
+- Create Product Data Source
+	- As a developer, I want a list of Product instances in a dedicated file so I can manage sample data centrally.
+
+- Update Product Page for Dynamic Data
+	- As a user, I want the ProductPage to display data from a Product object passed via navigation so I can view different products dynamically.
+
+- Update Sale Page for Model Data
+	- As a user, I want the SalePage to use Product objects for its grid, showing salePrice prominently and price struck-through if applicable.
+
+- Maintain Existing Widgets
+	- As a developer, I want updated pages to continue using existing header and footer widgets where applicable.
+
+#### 3. Acceptance Criteria
+
+##### UI and Display
+- [ ] Product class in `lib/models/product.dart` has final fields: String name, String image, double price, double? salePrice, String description, String material, List<String> sizes.
+- [ ] Data source in `lib/data/products.dart` contains a list of Product instances, including Rainbow Hoodie and others with appropriate values.
+- [ ] ProductPage displays salePrice if available, otherwise price; uses Product properties for all details.
+- [ ] SalePage uses Product list for grid; cards show salePrice in black, price struck-through in grey if salePrice exists.
+
+##### Interactive Elements
+- [ ] ProductPage accepts Product via ModalRoute arguments, with fallback to default product.
+- Update SalePage passes Product object to ProductPage on navigation.
+
+##### Structure and Navigation
+- [ ] No new routes required; updates integrate with existing '/product' and '/sale'.
+- [ ] Updated pages use existing header and footer widgets (`lib/widgets/header_widget.dart` and `lib/widgets/footer_widget.dart`) where applicable.
+- [ ] Category pages like `lib/clothing_page.dart` are updated to pull products from the data source instead of hardcoded data, filtering for relevant categories if needed.
+
+##### Styling and Responsiveness
+- [ ] Maintains existing styling: 'WorkSans' font, theme colors, responsive layouts.
+- [ ] Pricing display handles null salePrice gracefully.
+
+##### Integration and Testing
+- [ ] App builds and runs; `flutter analyze` and `flutter test` succeed.
+- [ ] Add unit tests in `test/product_model_test.dart` for Product class and data source.
+- [ ] Update tests in `test/product_page_test.dart` and `test/sale_page_test.dart` to cover dynamic data usage.
+- [ ] Modify any affected existing tests to accommodate the new data model.
+
+#### 4. Subtasks
+- Create `lib/models/product.dart` with Product class definition.
+- Create `lib/data/products.dart` with list of Product instances.
+- Update `lib/product_page.dart` to accept and use Product object via arguments.
+- Update `lib/sale_page.dart` to use Product list instead of hardcoded maps.
+- Ensure existing header and footer widgets are used in updated pages.
+- Update `lib/clothing_page.dart` and other category pages (e.g., `lib/product_categories.dart`) to pull products from the data source instead of hardcoded data, adding category filtering if necessary.
+- Create `test/product_model_test.dart` and add unit tests for Product class instantiation, equality, and toString.
+- Create `test/product_model_test.dart` and add unit tests for the products data source list.
+- Update `test/product_page_test.dart` to include tests for rendering with dynamic Product data via arguments.
+- Update `test/product_page_test.dart` to include tests for fallback to default product when no arguments provided.
+- Update `test/sale_page_test.dart` to include tests for grid rendering using Product list instead of hardcoded maps.
+- Update `test/sale_page_test.dart` to include tests for navigation passing Product objects to ProductPage.
+- Modify affected tests in `test/product_page_test.dart` to accommodate changes from hardcoded data to the new data model.
+- Modify affected tests in `test/sale_page_test.dart` to accommodate changes from hardcoded data to the new data model.
+- Modify affected tests in other relevant test files (e.g., `test/clothing_page_test.dart` if applicable) to accommodate changes from hardcoded data to the new data model.
