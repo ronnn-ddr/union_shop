@@ -7,6 +7,7 @@ class Product {
   final String material;
   final List<String> sizes;
   final List<String> collections;
+  final String id;
 
   const Product({
     required this.name,
@@ -17,10 +18,11 @@ class Product {
     required this.material,
     required this.sizes,
     required this.collections,
+    required this.id,
   });
 
   @override
   String toString() {
-    return 'Product(name: $name, image: $image, price: $price, salePrice: $salePrice, description: $description, material: $material, sizes: $sizes, collections: $collections)';
+    return 'Product(name: $name, image: $image, price: $price, salePrice: $salePrice, description: $description, material: $material, sizes: $sizes, collections: $collections, id: $id)';
   }
 }

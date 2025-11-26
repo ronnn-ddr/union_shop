@@ -10,6 +10,7 @@ const List<Product> products = [
     material: '100% Cotton',
     sizes: ['S', 'M', 'L', 'XL'],
     collections: ['Clothing'],
+    id: 'rainbow-hoodie',
   ),
   Product(
     name: 'Graduation Hoodies',
@@ -19,6 +20,7 @@ const List<Product> products = [
     material: '100% Cotton',
     sizes: ['S', 'M', 'L', 'XL'],
     collections: ['Clothing'],
+    id: 'graduation-hoodies',
   ),
   Product(
     name: 'Classic Cap',
@@ -28,6 +30,7 @@ const List<Product> products = [
     material: 'Cotton',
     sizes: ['One Size'],
     collections: ['Accessories'],
+    id: 'classic-cap',
   ),
   Product(
     name: 'Heavyweight Shorts',
@@ -37,5 +40,6 @@ const List<Product> products = [
     material: 'Cotton Blend',
     sizes: ['S', 'M', 'L', 'XL'],
     collections: ['Clothing'],
+    id: 'heavyweight-shorts',
   ),
 ];
