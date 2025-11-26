@@ -5,6 +5,7 @@ const List<Product> products = [
     name: 'Rainbow Hoodie',
     image: 'assets/images/RainbowHoodie.png',
     price: 30.0,
+    salePrice: 25.0,
     description:
         'Introducing our new Rainbow Hoodie! With a prominent Rainbow print, this hoodie is a must have!',
     material: '100% Cotton',
@@ -41,5 +42,16 @@ const List<Product> products = [
     sizes: ['S', 'M', 'L', 'XL'],
     collections: ['Clothing'],
     id: 'heavyweight-shorts',
+  ),
+  Product(
+    name: 'Union T-Shirt',
+    image: 'assets/images/UnionTShirt.png',
+    price: 15.0,
+    salePrice: 12.0,
+    description: 'Comfortable cotton t-shirt with Union logo.',
+    material: '100% Cotton',
+    sizes: ['S', 'M', 'L', 'XL'],
+    collections: ['Clothing'],
+    id: 'union-t-shirt',
   ),
 ];

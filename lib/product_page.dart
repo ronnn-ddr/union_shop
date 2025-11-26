@@ -5,10 +5,11 @@ import 'widgets/header_widget.dart';
 import 'widgets/footer_widget.dart';
 import 'models/cart.dart';
 import 'models/product.dart';
-import 'data/products.dart';
 
 class ProductPage extends StatefulWidget {
-  const ProductPage({super.key});
+  final Product product;
+
+  const ProductPage({super.key, required this.product});
 
   @override
   State<ProductPage> createState() => _ProductPageState();
@@ -34,8 +35,7 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    final product =
-        ModalRoute.of(context)?.settings.arguments as Product? ?? products[0];
+    final product = widget.product;
     final displayPrice = product.salePrice ?? product.price;
     return Scaffold(
       body: SingleChildScrollView(

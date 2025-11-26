@@ -43,7 +43,7 @@ class UnionShopApp extends StatelessWidget {
                     orElse: () => products[0])
                 : products[0];
             return MaterialPageRoute(
-              builder: (context) => const ProductPage(),
+              builder: (context) => ProductPage(product: product),
               settings: RouteSettings(name: settings.name, arguments: product),
             );
           } else if (uri.path == '/about') {

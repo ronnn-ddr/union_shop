@@ -1,33 +1,13 @@
 import 'package:flutter/material.dart';
 import 'widgets/header_widget.dart';
 import 'widgets/footer_widget.dart';
+import 'data/products.dart';
+import 'models/product.dart';
 
 class SalePage extends StatelessWidget {
-  // Sample sale products
-  final List<Map<String, dynamic>> saleProducts = [
-    {
-      'name': 'Rainbow Hoodie',
-      'image': 'assets/images/RainbowHoodie.png',
-      'price': 25.00,
-      'originalPrice': 30.00,
-      'description':
-          'Introducing our new Rainbow Hoodie! With a prominent Rainbow print, this hoodie is a must have!',
-      'material': '100% Cotton',
-      'sizes': ['S', 'M', 'L', 'XL'],
-    },
-    {
-      'name': 'Union T-Shirt',
-      'image': 'assets/images/UnionTShirt.png',
-      'price': 12.00,
-      'originalPrice': 15.00,
-      'description': 'Comfortable cotton t-shirt with Union logo.',
-      'material': '100% Cotton',
-      'sizes': ['S', 'M', 'L', 'XL'],
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final saleProducts = products.where((p) => p.salePrice != null).toList();
     final screenWidth = MediaQuery.of(context).size.width;
     final isDesktop = screenWidth >= 600;
     final padding = isDesktop ? 32.0 : 16.0;
@@ -77,14 +57,7 @@ class SalePage extends StatelessWidget {
                       itemCount: saleProducts.length,
                       itemBuilder: (context, index) {
                         final product = saleProducts[index];
-                        return SaleProductCard(
-                          title: product['name'],
-                          originalPrice:
-                              '£${product['originalPrice'].toStringAsFixed(2)}',
-                          salePrice: '£${product['price'].toStringAsFixed(2)}',
-                          imageUrl: product['image'],
-                          description: product['description'],
-                        );
+                        return SaleProductCard(product: product);
                       },
                     ),
                   ),
@@ -100,19 +73,11 @@ class SalePage extends StatelessWidget {
 }
 
 class SaleProductCard extends StatelessWidget {
-  final String title;
-  final String originalPrice;
-  final String salePrice;
-  final String imageUrl;
-  final String description;
+  final Product product;
 
   const SaleProductCard({
     super.key,
-    required this.title,
-    required this.originalPrice,
-    required this.salePrice,
-    required this.imageUrl,
-    required this.description,
+    required this.product,
   });
 
   @override
@@ -124,7 +89,7 @@ class SaleProductCard extends StatelessWidget {
         children: [
           Expanded(
             child: Image.asset(
-              imageUrl,
+              product.image,
               fit: BoxFit.cover,
               width: double.infinity,
               errorBuilder: (context, error, stackTrace) => Container(
@@ -140,7 +105,7 @@ class SaleProductCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  product.name,
                   style: TextStyle(
                     fontFamily: 'WorkSans',
                     fontSize: 18,
@@ -152,7 +117,7 @@ class SaleProductCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      salePrice,
+                      '£${product.salePrice!.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontFamily: 'WorkSans',
                         fontSize: 16,
@@ -161,7 +126,7 @@ class SaleProductCard extends StatelessWidget {
                     ),
                     SizedBox(width: 8),
                     Text(
-                      originalPrice,
+                      '£${product.price.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontFamily: 'WorkSans',
                         fontSize: 14,
@@ -173,7 +138,7 @@ class SaleProductCard extends StatelessWidget {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  description,
+                  product.description,
                   style: TextStyle(
                     fontFamily: 'WorkSans',
                     fontSize: 12,
@@ -185,15 +150,7 @@ class SaleProductCard extends StatelessWidget {
                 SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/product', arguments: {
-                      'name': title,
-                      'image': imageUrl,
-                      'price': double.parse(salePrice.substring(1)),
-                      'originalPrice': double.parse(originalPrice.substring(1)),
-                      'description': description,
-                      'material': '100% Cotton',
-                      'sizes': ['S', 'M', 'L', 'XL'],
-                    });
+                    Navigator.pushNamed(context, '/product/${product.id}');
                   },
                   child: Text('View Details',
                       style: TextStyle(color: Colors.white)),
