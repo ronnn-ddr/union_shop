@@ -47,7 +47,7 @@ Additional requirements:
 - Integrate seamlessly with existing code; for example, use similar styling to other pages.
 - Include headers and footers similar to other pages in the app, such as an AppBar header and a footer (e.g., a Container at the bottom with copyright text or links).
 
-Provide the new code for `lib/sale_page.dart`, updated code for [`lib/product_page.dart`](lib/product_page.dart ) (to accept dynamic data), any necessary changes to [`lib/main.dart`](lib/main.dart ) for routing if needed, and ensure the app builds and runs without errors. Include unit tests for the new functionality in `test/sale_page_test.dart` if possible. Add brief comments explaining the changes and how they integrate with the existing code.
+Provide the new code for `lib/sale_page.dart`, updated code for [`lib/product_page.dart`](lib/product_page.dart ) (to accept dynamic data), any necessary changes to [`lib/main.dart`](lib/main.dart ) for routing if needed, and ensure the app builds and runs without errors. Create unit tests for the new functionality in `test/sale_page_test.dart` if possible. Add brief comments explaining the changes and how they integrate with the existing code.
 
 # Login/Sign-Up Page Feature
 

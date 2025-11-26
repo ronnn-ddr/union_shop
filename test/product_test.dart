@@ -123,12 +123,14 @@ void main() {
     testWidgets('should display different product data dynamically', (
       tester,
     ) async {
-      await tester.pumpWidget(createTestWidget(products[1])); // Graduation Hoodies
+      await tester
+          .pumpWidget(createTestWidget(products[1])); // Graduation Hoodies
       await tester.pump();
 
       // Check that the product name is different
       expect(find.text('Graduation Hoodies'), findsOneWidget);
-      expect(find.text('£35.00'), findsOneWidget); // price of Graduation Hoodies
+      expect(
+          find.text('£35.00'), findsOneWidget); // price of Graduation Hoodies
       expect(find.text('Description'), findsOneWidget);
       expect(find.text('ADD TO CART'), findsOneWidget);
     });
