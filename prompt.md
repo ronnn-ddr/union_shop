@@ -124,7 +124,7 @@ Specifically:
 
 2. **Update References**: Change any mentions of "product_categories" or "categories" that link to this page to "Collections" in [`lib/main.dart`](lib/main.dart ), navigation, and other files to maintain functionality.
 
-3. **Make Dynamic**: Replace hardcoded categories with dynamic data from `lib/data/collections.dart`. Display collections as cards or buttons, with name, description, and image. On tap, navigate to the appropriate page (e.g., 'Clothing' to '/collections/clothing'), or show a snackbar for unavailable collections. Ensure collections are tied to the products dataset by deriving them from the unique values in products' collections field.
+3. **Make Dynamic**: Replace hardcoded categories with dynamic data from `lib/data/collections.dart`. Display collections as cards or buttons, with name, description, and image. On tap, navigate to the appropriate page (e.g., 'Clothing' to '/collection/clothing'), or do nothing for unavailable collections. Ensure collections are tied to the products dataset by deriving them from the unique values in products' collections field. Implement dynamic routing for collections, by renaming the current clothing page to a dynamic collection page that filters products based on the collection ID from the URL, analogous to how ProductPage works with product IDs.
 
 Additional requirements:
 - Use Flutter widgets like ListView or GridView for displaying collections.
