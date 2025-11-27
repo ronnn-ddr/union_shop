@@ -7,18 +7,7 @@ class Collections extends StatelessWidget {
   const Collections({super.key});
 
   void _onCategoryTap(BuildContext context, String category) {
-    switch (category) {
-      case 'Clothing':
-        Navigator.pushNamed(context, '/clothing');
-        break;
-      default:
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Coming soon: $category products'),
-            duration: const Duration(seconds: 2),
-          ),
-        );
-    }
+    Navigator.pushNamed(context, '/collection/${category.toLowerCase()}');
   }
 
   @override
@@ -57,7 +46,8 @@ class Collections extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: InkWell(
-                            onTap: () => _onCategoryTap(context, collection.name),
+                            onTap: () =>
+                                _onCategoryTap(context, collection.name),
                             borderRadius: BorderRadius.circular(8),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -10,7 +10,7 @@ const List<Product> products = [
         'Introducing our new Rainbow Hoodie! With a prominent Rainbow print, this hoodie is a must have!',
     material: '100% Cotton',
     sizes: ['S', 'M', 'L', 'XL'],
-    collections: ['Clothing'],
+    collections: ['clothing'],
     id: 'rainbow-hoodie',
   ),
   Product(
@@ -20,7 +20,7 @@ const List<Product> products = [
     description: 'Celebrate your graduation with our stylish hoodies.',
     material: '100% Cotton',
     sizes: ['S', 'M', 'L', 'XL'],
-    collections: ['Clothing'],
+    collections: ['clothing'],
     id: 'graduation-hoodies',
   ),
   Product(
@@ -30,7 +30,7 @@ const List<Product> products = [
     description: 'A timeless classic cap for everyday wear.',
     material: 'Cotton',
     sizes: ['One Size'],
-    collections: ['Accessories'],
+    collections: ['accessories'],
     id: 'classic-cap',
   ),
   Product(
@@ -40,7 +40,7 @@ const List<Product> products = [
     description: 'Comfortable heavyweight shorts for all activities.',
     material: 'Cotton Blend',
     sizes: ['S', 'M', 'L', 'XL'],
-    collections: ['Clothing'],
+    collections: ['clothing'],
     id: 'heavyweight-shorts',
   ),
   Product(
@@ -51,7 +51,7 @@ const List<Product> products = [
     description: 'Comfortable cotton t-shirt with Union logo.',
     material: '100% Cotton',
     sizes: ['S', 'M', 'L', 'XL'],
-    collections: ['Clothing'],
+    collections: ['clothing'],
     id: 'union-t-shirt',
   ),
 ];

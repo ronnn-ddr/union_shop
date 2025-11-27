@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:union_shop/product_page.dart';
 import 'package:union_shop/about_page.dart';
 import 'package:union_shop/collections.dart';
-import 'package:union_shop/clothing_page.dart';
+import 'package:union_shop/collection_page.dart';
 import 'package:union_shop/sale_page.dart';
 import 'package:union_shop/login_page.dart';
 import 'package:union_shop/widgets/header_widget.dart';
@@ -52,8 +52,15 @@ class UnionShopApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => const Collections());
           } else if (uri.path == '/clothing') {
             return MaterialPageRoute(
-                builder: (context) => const ClothingPage());
-          } else if (uri.path == '/sale') {
+                builder: (context) =>
+                    const CollectionPage(collectionId: 'clothing'));
+          } else if (uri.path.startsWith('/collection')) {
+            final id = uri.pathSegments.length > 1 ? uri.pathSegments[1] : null;
+            if (id != null) {
+              return MaterialPageRoute(
+                builder: (context) => CollectionPage(collectionId: id),
+              );
+            }
             return MaterialPageRoute(builder: (context) => SalePage());
           } else if (uri.path == '/login') {
             return MaterialPageRoute(builder: (context) => const LoginPage());

@@ -4,14 +4,16 @@ import 'package:union_shop/widgets/footer_widget.dart';
 import 'package:union_shop/data/products.dart';
 import 'package:union_shop/models/product.dart';
 
-class ClothingPage extends StatefulWidget {
-  const ClothingPage({super.key});
+class CollectionPage extends StatefulWidget {
+  final String collectionId;
+
+  const CollectionPage({super.key, required this.collectionId});
 
   @override
-  State<ClothingPage> createState() => _ClothingPageState();
+  State<CollectionPage> createState() => _CollectionPageState();
 }
 
-class _ClothingPageState extends State<ClothingPage> {
+class _CollectionPageState extends State<CollectionPage> {
   String _selectedFilter = 'All Products';
 
   void navigateToHome(BuildContext context) {
@@ -28,11 +30,12 @@ class _ClothingPageState extends State<ClothingPage> {
 
   @override
   Widget build(BuildContext context) {
-    final clothingProducts =
-        products.where((p) => p.collections.contains('Clothing')).toList();
+    final collectionProducts = products
+        .where((p) => p.collections.contains(widget.collectionId))
+        .toList();
     final filteredProducts = _selectedFilter == 'All Products'
-        ? clothingProducts
-        : clothingProducts.where((p) => p.salePrice != null).toList();
+        ? collectionProducts
+        : collectionProducts.where((p) => p.salePrice != null).toList();
     final isMobile = MediaQuery.of(context).size.width < 800;
     return Scaffold(
       drawer: isMobile
@@ -123,9 +126,9 @@ class _ClothingPageState extends State<ClothingPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 40),
-                    const Text(
-                      'CLOTHING',
-                      style: TextStyle(
+                    Text(
+                      widget.collectionId.toUpperCase(),
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'WorkSans',
