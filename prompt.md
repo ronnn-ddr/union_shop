@@ -136,3 +136,28 @@ Additional requirements:
 - Include headers and footers similar to other pages if applicable.
 
 Provide the new code for `lib/models/collection.dart`, `lib/data/collections.dart`, updated code for [`lib/product_categories.dart`](lib/product_categories.dart ) (renamed to `lib/collections.dart`), any necessary changes to [`lib/main.dart`](lib/main.dart ) for routing and renaming, and ensure the app builds and runs without errors. Create unit tests for the new functionality in `test/product_categories_test.dart` (renamed to `test/collections_test.dart`) if possible. Add brief comments explaining the changes and how they integrate with the existing code.
+
+# Sorting, Filtering, and Pagination Widgets Feature
+
+Create sorting, filtering, and pagination widgets for the Union Shop app to enhance the collections page (`lib/collections.dart`) and individual collection pages (`lib/collection_page.dart`). The main entry point is in `lib/main.dart`, which sets up a MaterialApp with routes. The app uses HeaderWidget and FooterWidget for consistency, and displays collections/products in responsive GridViews.
+
+Add reusable widgets for sorting (by name A-Z, price low-high, price high-low), filtering (on individual collection pages: by size or price range), and pagination (every 4 items). Integrate these above the GridView in each page, using state management for dynamic updates. Ensure responsiveness with MediaQuery adjustments for mobile vs. desktop.
+
+Specifically:
+
+1. **Sorting Widget**: Create `lib/widgets/sort_widget.dart` with a DropdownButton for sorting options (name A-Z, price low-high, price high-low). Apply sorting to the displayed list.
+
+2. **Filtering Widget**: Create `lib/widgets/filter_widget.dart` with FilterChips for filtering options. On collections page: no filtering (since collections are separate). On individual collection pages: filter by size (S, M, L, XL) or price range (under £20, £20-£30, over £40).
+
+3. **Pagination Widget**: Create `lib/widgets/pagination_widget.dart` with Previous/Next buttons and page indicator. Paginate every 4 items, updating the GridView to show only the current page's items.
+
+4. **Integration**: Update `lib/collections.dart` to include sorting and pagination above the GridView. Update `lib/collection_page.dart` to include sorting, filtering, and pagination. Use StatefulWidgets to manage state and rebuild on changes.
+
+Additional requirements:
+- Use Flutter widgets like DropdownButton, FilterChip, ElevatedButton for the widgets.
+- Ensure the widgets are responsive: Adjust padding and sizes with MediaQuery (16px mobile, 32px desktop).
+- Styling: Use 'WorkSans' font, theme color (Color(0xFF4d2963)) for buttons, black/grey text.
+- Handle edge cases: Disable buttons when no previous/next page, show all items if fewer than 4.
+- Integrate seamlessly with existing code; update state in page build methods.
+
+Provide the new code for `lib/widgets/sort_widget.dart`, `lib/widgets/filter_widget.dart`, `lib/widgets/pagination_widget.dart`, updated code for `lib/collections.dart`, `lib/collection_page.dart`, and ensure the app builds and runs without errors. Create unit tests for the new functionality if possible. Add brief comments explaining the changes and how they integrate with the existing code.
