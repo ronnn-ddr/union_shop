@@ -346,7 +346,7 @@ The Sorting, Filtering, and Pagination Widgets Feature introduces reusable widge
 - Create `lib/widgets/sort_widget.dart` with DropdownButton for sorting.
 - Create `lib/widgets/filter_widget.dart` with FilterChips for filtering.
 - Create `lib/widgets/pagination_widget.dart` with Previous/Next buttons.
-- Update `lib/collections.dart` to include sorting and pagination.
+- Update `lib/collections.dart` to include pagination.
 - Update `lib/collection_page.dart` to include sorting, filtering, and pagination.
 - Ensure responsive design and styling consistency.
 - Create unit tests for new widgets and page integrations.
