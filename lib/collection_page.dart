@@ -15,7 +15,6 @@ class CollectionPage extends StatefulWidget {
 }
 
 class _CollectionPageState extends State<CollectionPage> {
-  String _selectedFilter = 'All Products';
   String _selectedSort = 'name-asc';
 
   void navigateToHome(BuildContext context) {
@@ -35,12 +34,9 @@ class _CollectionPageState extends State<CollectionPage> {
     final collectionProducts = products
         .where((p) => p.collections.contains(widget.collectionId))
         .toList();
-    final filteredProducts = _selectedFilter == 'All Products'
-        ? collectionProducts
-        : collectionProducts.where((p) => p.salePrice != null).toList();
 
     // Sort the products
-    final sortedProducts = List<Product>.from(filteredProducts);
+    final sortedProducts = List<Product>.from(collectionProducts);
     switch (_selectedSort) {
       case 'name-asc':
         sortedProducts.sort((a, b) => a.name.compareTo(b.name));
@@ -152,49 +148,14 @@ class _CollectionPageState extends State<CollectionPage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    // Sort and Filter Row
-                    Row(
-                      children: [
-                        SortWidget(
-                          selectedSort: _selectedSort,
-                          onSortChanged: (value) {
-                            setState(() {
-                              _selectedSort = value;
-                            });
-                          },
-                        ),
-                        const SizedBox(width: 20),
-                        // Filter Dropdown
-                        Container(
-                          width: 200,
-                          child: DropdownButtonFormField<String>(
-                            value: _selectedFilter,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 8),
-                              labelText: 'Filter',
-                            ),
-                            items: ['All Products', 'Popular']
-                                .map((filter) => DropdownMenuItem(
-                                      value: filter,
-                                      child: Text(
-                                        filter,
-                                        style: const TextStyle(
-                                          fontFamily: 'WorkSans',
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ))
-                                .toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedFilter = value!;
-                              });
-                            },
-                          ),
-                        ),
-                      ],
+                    // Sort Widget
+                    SortWidget(
+                      selectedSort: _selectedSort,
+                      onSortChanged: (value) {
+                        setState(() {
+                          _selectedSort = value;
+                        });
+                      },
                     ),
                     const SizedBox(height: 40),
                     // Products Grid
