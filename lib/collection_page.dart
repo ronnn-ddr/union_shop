@@ -5,6 +5,7 @@ import 'package:union_shop/data/products.dart';
 import 'package:union_shop/models/product.dart';
 import 'package:union_shop/widgets/sort_widget.dart';
 import 'package:union_shop/widgets/filter_widget.dart';
+import 'package:union_shop/widgets/pagination_widget.dart';
 
 class CollectionPage extends StatefulWidget {
   final String collectionId;
@@ -18,6 +19,8 @@ class CollectionPage extends StatefulWidget {
 class _CollectionPageState extends State<CollectionPage> {
   String _selectedSort = 'name-asc';
   List<String> _selectedPriceRanges = [];
+  int _currentPage = 1;
+  static const int _itemsPerPage = 4;
 
   void navigateToHome(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
@@ -68,6 +71,15 @@ class _CollectionPageState extends State<CollectionPage> {
         sortedProducts.sort((a, b) => b.price.compareTo(a.price));
         break;
     }
+
+    // Pagination
+    final totalPages = (sortedProducts.length / _itemsPerPage).ceil();
+    final startIndex = (_currentPage - 1) * _itemsPerPage;
+    final endIndex = startIndex + _itemsPerPage;
+    final currentProducts = sortedProducts.sublist(
+      startIndex,
+      endIndex > sortedProducts.length ? sortedProducts.length : endIndex,
+    );
 
     final isMobile = MediaQuery.of(context).size.width < 800;
     return Scaffold(
@@ -199,10 +211,23 @@ class _CollectionPageState extends State<CollectionPage> {
                       crossAxisCount: isMobile ? 2 : 3,
                       crossAxisSpacing: 24,
                       mainAxisSpacing: 48,
-                      children: sortedProducts
+                      children: currentProducts
                           .map((product) => ProductCard(product: product))
                           .toList(),
                     ),
+                    if (totalPages > 1)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16.0),
+                        child: PaginationWidget(
+                          currentPage: _currentPage,
+                          totalPages: totalPages,
+                          onPageChanged: (page) {
+                            setState(() {
+                              _currentPage = page;
+                            });
+                          },
+                        ),
+                      ),
                     const SizedBox(height: 40),
                   ],
                 ),
