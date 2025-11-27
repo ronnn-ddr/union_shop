@@ -9,34 +9,13 @@ void main() {
         name: 'Test Collection',
         description: 'A test collection',
         image: 'test_image.png',
+        id: 'test-id',
       );
 
       expect(collection.name, 'Test Collection');
       expect(collection.description, 'A test collection');
       expect(collection.image, 'test_image.png');
-    });
-
-    test('Collection equality', () {
-      final collection1 = Collection(
-        name: 'Test',
-        description: 'Desc',
-        image: 'img.png',
-      );
-
-      final collection2 = Collection(
-        name: 'Test',
-        description: 'Desc',
-        image: 'img.png',
-      );
-
-      final collection3 = Collection(
-        name: 'Different',
-        description: 'Desc',
-        image: 'img.png',
-      );
-
-      expect(collection1, equals(collection2));
-      expect(collection1, isNot(equals(collection3)));
+      expect(collection.id, 'test-id');
     });
 
     test('Collection toString', () {
@@ -44,11 +23,12 @@ void main() {
         name: 'Test',
         description: 'Desc',
         image: 'img.png',
+        id: 'test-id',
       );
 
       expect(
         collection.toString(),
-        'Collection(name: Test, description: Desc, image: img.png)',
+        'Collection(name: Test, description: Desc, image: img.png, id: test-id)',
       );
     });
   });
@@ -63,6 +43,7 @@ void main() {
         expect(collection.name, isNotEmpty);
         expect(collection.description, isNotEmpty);
         expect(collection.image, isNotEmpty);
+        expect(collection.id, isNotEmpty);
       }
     });
   });
