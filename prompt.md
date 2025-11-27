@@ -163,3 +163,24 @@ Additional requirements:
 - Integrate seamlessly with existing code; update state in page build methods.
 
 Provide the new code for `lib/widgets/sort_widget.dart`, `lib/widgets/filter_widget.dart`, `lib/widgets/pagination_widget.dart`, updated code for `lib/collections.dart`, `lib/collection_page.dart`, and ensure the app builds and runs without errors. Create unit tests for the new functionality if possible. Add brief comments explaining the changes and how they integrate with the existing code.
+
+# Mobile Navigation Drawer Widget Feature
+
+Create a reusable mobile navigation drawer widget for the Union Shop app by extracting the existing drawer code from `lib/main.dart` HomeScreen into a separate widget. The main entry point is in `lib/main.dart`, which sets up a MaterialApp with routes. The app has multiple pages like home screen (`lib/main.dart` HomeScreen), product page (`lib/product_page.dart`), collections page (`lib/collections.dart`), collection page (`lib/collection_page.dart`), sale page (`lib/sale_page.dart`), about page (`lib/about_page.dart`), and login page (`lib/login_page.dart`). Currently, the drawer code is duplicated across pages or only in HomeScreen.
+
+Extract the Drawer widget from the HomeScreen in `lib/main.dart` into a new StatelessWidget `lib/widgets/mobile_drawer_widget.dart`. This widget should contain the exact same Drawer with ListTiles for Home, Shop, The Print Shack, SALE!, About, UPSU.net, using the same styling, colors, and navigation logic. Update all pages that have mobile drawers (HomeScreen, CollectionPage, etc.) to use `drawer: isMobile ? const MobileDrawerWidget() : null` in their Scaffold, removing the duplicated drawer code.
+
+Specifically:
+
+1. **Extract MobileDrawerWidget**: Create `lib/widgets/mobile_drawer_widget.dart` as a StatelessWidget that returns the Drawer from HomeScreen, with the DrawerHeader and ListTiles intact.
+
+2. **Update Pages**: Replace inline drawer code in `lib/main.dart` HomeScreen, `lib/collection_page.dart`, and any other pages with `drawer: isMobile ? const MobileDrawerWidget() : null`.
+
+Additional requirements:
+- Use the existing drawer code exactly as is from `lib/main.dart`.
+- Ensure the drawer only appears on mobile (MediaQuery width < 800).
+- Styling: Keep the existing 'WorkSans' font, theme color (Color(0xFF4d2963)) for header, white text.
+- Navigation: Preserve all existing navigation logic and route handling.
+- Integrate seamlessly with existing code; eliminate code duplication.
+
+Provide the new code for `lib/widgets/mobile_drawer_widget.dart`, updated code for `lib/main.dart` HomeScreen and other pages, and ensure the app builds and runs without errors. Create unit tests for the new widget if possible. Add brief comments explaining the changes and how they integrate with the existing code.
