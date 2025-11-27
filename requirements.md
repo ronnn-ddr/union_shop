@@ -318,7 +318,7 @@ The Sorting, Filtering, and Pagination Widgets Feature introduces reusable widge
 
 ##### UI and Display
 - [ ] SortWidget uses DropdownButton with options: Name A-Z, Price Low-High, Price High-Low.
-- [ ] FilterWidget uses FilterChips for sizes (S, M, L, XL) and price ranges (under £20, £20-£50, over £50) on collection pages only.
+- [ ] FilterWidget uses FilterChips for price ranges (under £20, £20-£50, over £50) on collection pages only.
 - [ ] PaginationWidget shows Previous/Next buttons, current page indicator, and handles 4 items per page.
 - [ ] Widgets are placed above GridView in collections and collection pages.
 

@@ -149,7 +149,7 @@ Specifically:
 
 1. **Sorting Widget**: Create `lib/widgets/sort_widget.dart` with a DropdownButton for sorting options (name A-Z, price low-high, price high-low). Apply sorting to the displayed list.
 
-2. **Filtering Widget**: Create `lib/widgets/filter_widget.dart` with FilterChips for filtering options. On collections page: no filtering (since collections are separate). On individual collection pages: filter by size (S, M, L, XL) or price range (under £20, £20-£30, over £40).
+2. **Filtering Widget**: Create `lib/widgets/filter_widget.dart` with FilterChips for filtering options. On collections page: no filtering (since collections are separate). On individual collection pages: filter price range (under £20, £20-£30, over £40).
 
 3. **Pagination Widget**: Create `lib/widgets/pagination_widget.dart` with Previous/Next buttons and page indicator. Paginate every 4 items, updating the GridView to show only the current page's items.
 
