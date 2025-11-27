@@ -350,3 +350,56 @@ The Sorting, Filtering, and Pagination Widgets Feature introduces reusable widge
 - Update `lib/collection_page.dart` to include sorting, filtering, and pagination.
 - Ensure responsive design and styling consistency.
 - Create unit tests for new widgets and page integrations.
+
+### Feature Requirements Document: Mobile Navigation Drawer Widget
+
+#### 1. Feature Description and Purpose
+The Mobile Navigation Drawer Widget feature extracts the existing drawer code from the HomeScreen in `lib/main.dart` into a reusable StatelessWidget `lib/widgets/mobile_drawer_widget.dart`. This widget contains the exact same Drawer with ListTiles for Home, Shop, The Print Shack, SALE!, About, UPSU.net, using the same styling, colors, and navigation logic. The goal is to eliminate code duplication, ensure consistent navigation across all mobile pages, and integrate seamlessly with existing code by updating the HeaderWidget to conditionally use the new widget on mobile devices, since the HeaderWidget is already present on every page.
+
+#### 2. User Stories
+- Consistent Mobile Navigation
+	- As a user, I want the same navigation drawer on all mobile pages so I can navigate consistently across the app.
+
+- Responsive Drawer Display
+	- As a user, I want the drawer to appear only on mobile devices (width < 800) so it doesn't interfere with desktop navigation.
+
+- Preserve Existing Functionality
+	- As a user, I want all existing navigation logic and styling to remain the same so the experience is unchanged.
+
+- Eliminate Duplication
+	- As a developer, I want to remove duplicated drawer code from pages so the codebase is more maintainable.
+
+#### 3. Acceptance Criteria
+
+##### UI and Display
+- [ ] MobileDrawerWidget is a StatelessWidget that returns the exact Drawer from HomeScreen, including DrawerHeader and ListTiles for navigation items.
+- [ ] DrawerHeader uses theme color (Color(0xFF4d2963)) for background and white text.
+- [ ] ListTiles include icons and text for Home, Shop, The Print Shack, SALE!, About, UPSU.net, with appropriate styling.
+
+##### Interactive Elements
+- [ ] Navigation uses existing logic: Navigator.pushNamed for routes, Navigator.pushNamedAndRemoveUntil for Home.
+- [ ] Drawer closes automatically on navigation.
+
+##### Structure and Navigation
+- [ ] Extract drawer code from `lib/main.dart` HomeScreen into `lib/widgets/mobile_drawer_widget.dart`.
+- [ ] Update HeaderWidget (`lib/widgets/header_widget.dart`) to conditionally return an AppBar on mobile that includes `drawer: const MobileDrawerWidget()`, and the existing Container layout on desktop.
+- [ ] Update all pages to use the modified HeaderWidget in their Scaffold appBar instead of body, ensuring the drawer is integrated via the header.
+
+##### Styling and Responsiveness
+- [ ] All Text uses 'WorkSans' font family.
+- [ ] Colors match existing: theme color for header, white text, black/grey for list items.
+- [ ] Drawer only appears on mobile; no changes to desktop layout.
+
+##### Integration and Testing
+- [ ] App builds and runs; `flutter analyze` and `flutter test` succeed.
+- [ ] Create unit tests for MobileDrawerWidget in `test/widgets/mobile_drawer_widget_test.dart` if possible.
+- [ ] Update tests for HeaderWidget and affected pages to cover drawer usage.
+- [ ] Ensure no breaking changes to existing navigation.
+
+#### 4. Subtasks
+- Extract the Drawer widget from HomeScreen in `lib/main.dart` into `lib/widgets/mobile_drawer_widget.dart` as a StatelessWidget.
+- Update `lib/widgets/header_widget.dart` to conditionally return an AppBar on mobile (MediaQuery width < 800) with `drawer: const MobileDrawerWidget()`, and the existing Container on desktop.
+- Update all pages (HomeScreen, CollectionPage, etc.) to place HeaderWidget in Scaffold appBar instead of body, removing any inline drawer code.
+- Ensure isMobile logic is consistent (MediaQuery width < 800).
+- Create unit tests for the new widget and update HeaderWidget and page tests.
+- Verify app builds, runs, and navigation works as before.
