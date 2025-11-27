@@ -116,7 +116,7 @@ Provide the new code for `lib/models/product.dart`, `lib/data/products.dart`, up
 
 Create a detailed Flutter collections page for the Union Shop app, renaming and updating the existing product categories page. The main entry point is in [`lib/main.dart`](lib/main.dart ), which sets up a MaterialApp with routes including '/shop' leading to the CollectionsPage. The app has screens like home screen ([`lib/main.dart`](lib/main.dart ) HomeScreen), product page ([`lib/product_page.dart`](lib/product_page.dart )), about page ([`lib/about_page.dart`](lib/about_page.dart )), clothing page ([`lib/clothing_page.dart`](lib/clothing_page.dart )), sale page ([`lib/sale_page.dart`](lib/sale_page.dart )), and login page ([`lib/login_page.dart`](lib/login_page.dart )). The app uses HeaderWidget and FooterWidget for consistency.
 
-The collections page should be renamed from `lib/product_categories.dart` to `lib/collections.dart`, and updated to display collections dynamically based on a new data model. Create a Collection model in `lib/models/collection.dart` with fields for name, description, and image. Create a data source in `lib/data/collections.dart` with a list of Collection instances, derived from the unique collections in the products dataset (e.g., 'Clothing', 'Accessories') to ensure consistency.
+The collections page should be renamed from `lib/product_categories.dart` to `lib/collections.dart`, and updated to display collections dynamically based on a new data model. Create a Collection model in `lib/models/collection.dart` with fields for name, description, image, and id. Create a data source in `lib/data/collections.dart` with a list of Collection instances, derived from the unique collections in the products dataset (e.g., 'Clothing', 'Accessories') to ensure consistency, with IDs created as lowercase versions of the collection names (e.g., 'clothing', 'accessories').
 
 Specifically:
 
@@ -124,7 +124,9 @@ Specifically:
 
 2. **Update References**: Change any mentions of "product_categories" or "categories" that link to this page to "Collections" in [`lib/main.dart`](lib/main.dart ), navigation, and other files to maintain functionality.
 
-3. **Make Dynamic**: Replace hardcoded categories with dynamic data from `lib/data/collections.dart`. Display collections as cards or buttons, with name, description, and image. On tap, navigate to the appropriate page (e.g., 'Clothing' to '/collection/clothing'), or do nothing for unavailable collections. Ensure collections are tied to the products dataset by deriving them from the unique values in products' collections field. Implement dynamic routing for collections, by renaming the current clothing page to a dynamic collection page that filters products based on the collection ID from the URL, analogous to how ProductPage works with product IDs.
+3. **Make Dynamic**: Replace hardcoded categories with dynamic data from `lib/data/collections.dart`. Display collections as cards or buttons, with name, description, and image. On tap, navigate to the appropriate page (e.g., 'Clothing' to '/shop/clothing'), or do nothing for unavailable collections. Ensure collections are tied to the products dataset by deriving them from the unique values in products' collections field. Implement dynamic routing for collections, by renaming the current clothing page to a dynamic collection page that filters products based on the collection ID from the URL, analogous to how ProductPage works with product IDs.
+
+4. **Add IDs and Routes**: Add id field to Collection model and assign IDs in the data source. Implement dynamic routing in `lib/main.dart` using `onGenerateRoute` to handle '/shop/<id>' routes, parsing the collection ID from the URL and passing it to a generic `CollectionPage` that filters products accordingly, without hardcoding specific routes for each collection.
 
 Additional requirements:
 - Use Flutter widgets like ListView or GridView for displaying collections.

@@ -256,20 +256,20 @@ The Collections Data Model Feature introduces a structured data model for collec
 #### 3. Acceptance Criteria
 
 ##### UI and Display
-- [ ] Collection class in `lib/models/collection.dart` has final fields: String name, String description, String image.
-- [ ] Data source in `lib/data/collections.dart` contains a list of Collection instances, derived from unique collections in the products dataset (e.g., 'Clothing', 'Accessories').
+- [ ] Collection class in `lib/models/collection.dart` has final fields: String name, String description, String image, String id.
+- [ ] Data source in `lib/data/collections.dart` contains a list of Collection instances, derived from unique collections in the products dataset (e.g., 'Clothing', 'Accessories'), with IDs created as lowercase versions of the collection names (e.g., 'clothing' for 'Clothing').
 - [ ] Collections page displays collections as cards or buttons in a ListView or GridView, with name, description, and image (using Image.asset with error fallback).
 - [ ] Page uses HeaderWidget and FooterWidget for consistency.
 
 ##### Interactive Elements
-- [ ] Tapping a collection navigates to '/collection/<collectionId>' (e.g., '/collection/clothing'), filtering products by that collection.
+- [ ] Tapping a collection navigates to '/shop/<collectionId>' (e.g., '/shop/clothing'), filtering products by that collection.
 - [ ] For unavailable collections, tapping does nothing or shows a message.
 
 ##### Structure and Navigation
 - [ ] Rename `lib/product_categories.dart` to `lib/collections.dart`, and `test/product_categories_test.dart` to `test/collections_test.dart`.
 - [ ] Update references in `lib/main.dart` and navigation to use "Collections" instead of "product_categories" or "categories".
 - [ ] Implement dynamic routing: Rename clothing page to a generic collection page that filters products based on collection ID from URL.
-- [ ] Add routes for '/collection/<id>' in `lib/main.dart`.
+- [ ] Implement dynamic routing for '/shop/<id>' in `lib/main.dart` using `onGenerateRoute`.
 
 ##### Styling and Responsiveness
 - [ ] All `Text` widgets use `fontFamily: 'WorkSans'`.
@@ -285,11 +285,11 @@ The Collections Data Model Feature introduces a structured data model for collec
 #### 4. Subtasks
 - Rename `lib/product_categories.dart` to `lib/collections.dart`, and `test/product_categories_test.dart` to `test/collections_test.dart`, keeping the same format and functionality.
 - Update references to "product_categories" or "categories" to "Collections" in `lib/main.dart`, navigation, and other files.
-- Create `lib/models/collection.dart` with Collection class definition.
-- Create `lib/data/collections.dart` with list of Collection instances derived from products.
+- Create `lib/models/collection.dart` with Collection class definition including id field.
+- Create `lib/data/collections.dart` with list of Collection instances derived from products, including IDs as lowercase versions of the collection names.
 - Update `lib/collections.dart` to display collections dynamically from `lib/data/collections.dart`.
 - Implement dynamic routing for collections, renaming clothing page to dynamic collection page filtering by collection ID.
-- Add routes for '/collection/<id>' in `lib/main.dart`.
+- Implement dynamic routing for '/shop/<id>' in `lib/main.dart` using `onGenerateRoute` to parse the collection ID from the URL and route to the appropriate page without hardcoding collection IDs.
 - Ensure responsive layout and styling as specified.
 - Create unit tests for new functionality in `test/collections_test.dart`.
 
