@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'widgets/header_widget.dart';
 import 'widgets/footer_widget.dart';
+import 'data/collections.dart';
 
 class Collections extends StatelessWidget {
   const Collections({super.key});
@@ -23,13 +24,6 @@ class Collections extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDesktop = MediaQuery.of(context).size.width >= 600;
-    final categories = [
-      'Clothing',
-      'Merchandise',
-      'Signature & Essential Range',
-      'Portsmouth City Collection',
-      'Graduation',
-    ];
 
     return Scaffold(
       body: Column(
@@ -56,21 +50,24 @@ class Collections extends StatelessWidget {
                       crossAxisSpacing: 16,
                       mainAxisSpacing: 16,
                       childAspectRatio: 0.75,
-                      children: categories.map((category) {
+                      children: collections.map((collection) {
                         return Card(
                           elevation: 4,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: InkWell(
-                            onTap: () => _onCategoryTap(context, category),
+                            onTap: () => _onCategoryTap(context, collection.name),
                             borderRadius: BorderRadius.circular(8),
-                            child: category == 'Clothing'
-                                ? Stack(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Expanded(
+                                  child: Stack(
                                     fit: StackFit.expand,
                                     children: [
                                       Image.asset(
-                                        'assets/images/RainbowHoodie.png',
+                                        collection.image,
                                         fit: BoxFit.cover,
                                         errorBuilder:
                                             (context, error, stackTrace) {
@@ -93,7 +90,7 @@ class Collections extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 8, horizontal: 12),
                                           child: Text(
-                                            category,
+                                            collection.name,
                                             style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600,
@@ -105,18 +102,22 @@ class Collections extends StatelessWidget {
                                         ),
                                       ),
                                     ],
-                                  )
-                                : Center(
-                                    child: Text(
-                                      category,
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'WorkSans',
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
                                   ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    collection.description,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                      fontFamily: 'WorkSans',
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       }).toList(),

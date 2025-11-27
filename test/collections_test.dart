@@ -29,10 +29,10 @@ void main() {
       ),
     );
 
-    await tester.tap(find.text('Merchandise'));
+    await tester.tap(find.text('Accessories'));
     await tester.pump();
 
-    expect(find.text('Coming soon: Merchandise products'), findsOneWidget);
+    expect(find.text('Coming soon: Accessories products'), findsOneWidget);
   });
 
   testWidgets('Displays all categories', (WidgetTester tester) async {
@@ -45,10 +45,7 @@ void main() {
     );
 
     expect(find.text('Clothing'), findsOneWidget);
-    expect(find.text('Merchandise'), findsOneWidget);
-    expect(find.text('Signature & Essential Range'), findsOneWidget);
-    expect(find.text('Portsmouth City Collection'), findsOneWidget);
-    expect(find.text('Graduation'), findsOneWidget);
+    expect(find.text('Accessories'), findsOneWidget);
   });
 
   testWidgets('Header and footer are present on clothing category page',
