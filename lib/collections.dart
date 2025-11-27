@@ -6,8 +6,8 @@ import 'data/collections.dart';
 class Collections extends StatelessWidget {
   const Collections({super.key});
 
-  void _onCategoryTap(BuildContext context, String category) {
-    Navigator.pushNamed(context, '/collection/${category.toLowerCase()}');
+  void _onCategoryTap(BuildContext context, String id) {
+    Navigator.pushNamed(context, '/shop/$id');
   }
 
   @override
@@ -46,8 +46,7 @@ class Collections extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: InkWell(
-                            onTap: () =>
-                                _onCategoryTap(context, collection.name),
+                            onTap: () => _onCategoryTap(context, collection.id),
                             borderRadius: BorderRadius.circular(8),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,

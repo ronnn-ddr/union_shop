@@ -48,21 +48,20 @@ class UnionShopApp extends StatelessWidget {
             );
           } else if (uri.path == '/about') {
             return MaterialPageRoute(builder: (context) => const AboutPage());
-          } else if (uri.path == '/shop') {
-            return MaterialPageRoute(builder: (context) => const Collections());
-          } else if (uri.path == '/clothing') {
-            return MaterialPageRoute(
-                builder: (context) =>
-                    const CollectionPage(collectionId: 'clothing'));
-          } else if (uri.path == '/sale') {
-            return MaterialPageRoute(builder: (context) => SalePage());
-          } else if (uri.path.startsWith('/collection')) {
-            final id = uri.pathSegments.length > 1 ? uri.pathSegments[1] : null;
-            if (id != null) {
+          } else if (uri.path.startsWith('/shop')) {
+            if (uri.pathSegments.length == 1) {
+              // '/shop' -> Collections page
+              return MaterialPageRoute(
+                  builder: (context) => const Collections());
+            } else if (uri.pathSegments.length == 2) {
+              // '/shop/<id>' -> CollectionPage
+              final id = uri.pathSegments[1];
               return MaterialPageRoute(
                 builder: (context) => CollectionPage(collectionId: id),
               );
             }
+            return MaterialPageRoute(builder: (context) => const Collections());
+          } else if (uri.path == '/sale') {
             return MaterialPageRoute(builder: (context) => SalePage());
           } else if (uri.path == '/login') {
             return MaterialPageRoute(builder: (context) => const LoginPage());
