@@ -166,7 +166,7 @@ class _ClothingPageState extends State<ClothingPage> {
                     GridView.count(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount: 3,
+                      crossAxisCount: isMobile ? 2 : 3,
                       crossAxisSpacing: 24,
                       mainAxisSpacing: 48,
                       children: filteredProducts

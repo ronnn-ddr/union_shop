@@ -15,7 +15,7 @@ class HeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 800;
     return Container(
-      height: 100,
+      height: 120,
       color: Colors.white,
       child: Column(
         children: [

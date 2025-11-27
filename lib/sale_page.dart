@@ -49,7 +49,7 @@ class SalePage extends StatelessWidget {
                     padding: EdgeInsets.all(padding),
                     child: GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: isDesktop ? 5 : 3,
+                        crossAxisCount: isDesktop ? 3 : 2,
                         crossAxisSpacing: 16.0,
                         mainAxisSpacing: 16.0,
                         childAspectRatio: 0.75,
