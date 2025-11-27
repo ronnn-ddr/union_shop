@@ -20,15 +20,18 @@ class HeaderWidget extends StatelessWidget {
       child: Column(
         children: [
           // Top banner
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            color: const Color(0xFF4d2963),
-            child: const Text(
-              'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.white, fontSize: 16, fontFamily: 'WorkSans'),
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(context, '/sale'),
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              color: const Color(0xFF4d2963),
+              child: const Text(
+                'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white, fontSize: 16, fontFamily: 'WorkSans'),
+              ),
             ),
           ),
           // Main header

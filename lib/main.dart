@@ -54,6 +54,8 @@ class UnionShopApp extends StatelessWidget {
             return MaterialPageRoute(
                 builder: (context) =>
                     const CollectionPage(collectionId: 'clothing'));
+          } else if (uri.path == '/sale') {
+            return MaterialPageRoute(builder: (context) => SalePage());
           } else if (uri.path.startsWith('/collection')) {
             final id = uri.pathSegments.length > 1 ? uri.pathSegments[1] : null;
             if (id != null) {
