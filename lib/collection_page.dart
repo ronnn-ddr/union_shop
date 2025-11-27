@@ -4,6 +4,7 @@ import 'package:union_shop/widgets/footer_widget.dart';
 import 'package:union_shop/data/products.dart';
 import 'package:union_shop/models/product.dart';
 import 'package:union_shop/widgets/sort_widget.dart';
+import 'package:union_shop/widgets/filter_widget.dart';
 
 class CollectionPage extends StatefulWidget {
   final String collectionId;
@@ -16,6 +17,7 @@ class CollectionPage extends StatefulWidget {
 
 class _CollectionPageState extends State<CollectionPage> {
   String _selectedSort = 'name-asc';
+  List<String> _selectedPriceRanges = [];
 
   void navigateToHome(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
@@ -35,8 +37,26 @@ class _CollectionPageState extends State<CollectionPage> {
         .where((p) => p.collections.contains(widget.collectionId))
         .toList();
 
+    // Filter by price ranges
+    final filteredProducts = _selectedPriceRanges.isEmpty
+        ? collectionProducts
+        : collectionProducts.where((product) {
+            return _selectedPriceRanges.any((range) {
+              switch (range) {
+                case 'Under £20':
+                  return product.price < 20;
+                case '£20-£50':
+                  return product.price >= 20 && product.price <= 50;
+                case 'Over £50':
+                  return product.price > 50;
+                default:
+                  return false;
+              }
+            });
+          }).toList();
+
     // Sort the products
-    final sortedProducts = List<Product>.from(collectionProducts);
+    final sortedProducts = List<Product>.from(filteredProducts);
     switch (_selectedSort) {
       case 'name-asc':
         sortedProducts.sort((a, b) => a.name.compareTo(b.name));
@@ -148,14 +168,28 @@ class _CollectionPageState extends State<CollectionPage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    // Sort Widget
-                    SortWidget(
-                      selectedSort: _selectedSort,
-                      onSortChanged: (value) {
-                        setState(() {
-                          _selectedSort = value;
-                        });
-                      },
+                    // Sort and Filter Column
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SortWidget(
+                          selectedSort: _selectedSort,
+                          onSortChanged: (value) {
+                            setState(() {
+                              _selectedSort = value;
+                            });
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        FilterWidget(
+                          selectedPriceRanges: _selectedPriceRanges,
+                          onPriceRangesChanged: (ranges) {
+                            setState(() {
+                              _selectedPriceRanges = ranges;
+                            });
+                          },
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 40),
                     // Products Grid
