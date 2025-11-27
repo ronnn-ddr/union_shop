@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:union_shop/product_categories.dart';
+import 'package:union_shop/collections.dart';
 import 'package:union_shop/widgets/header_widget.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
 
 void main() {
-  testWidgets('ProductCategories renders correctly',
-      (WidgetTester tester) async {
+  testWidgets('Collections renders correctly', (WidgetTester tester) async {
     tester.view.physicalSize = const Size(1080, 1920);
     tester.view.devicePixelRatio = 1.0;
     await tester.pumpWidget(
       const MaterialApp(
-        home: ProductCategories(),
+        home: Collections(),
       ),
     );
 
-    expect(find.text('Choose a Category'), findsOneWidget);
+    expect(find.text('Collections'), findsOneWidget);
     expect(find.text('Clothing'), findsOneWidget);
     expect(find.byType(GridView), findsOneWidget);
   });
@@ -26,7 +25,7 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     await tester.pumpWidget(
       const MaterialApp(
-        home: ProductCategories(),
+        home: Collections(),
       ),
     );
 
@@ -41,7 +40,7 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     await tester.pumpWidget(
       const MaterialApp(
-        home: ProductCategories(),
+        home: Collections(),
       ),
     );
 
@@ -58,7 +57,7 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     await tester.pumpWidget(
       const MaterialApp(
-        home: ProductCategories(),
+        home: Collections(),
       ),
     );
 

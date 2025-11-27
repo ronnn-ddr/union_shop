@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:union_shop/product_page.dart';
 import 'package:union_shop/about_page.dart';
-import 'package:union_shop/product_categories.dart';
+import 'package:union_shop/collections.dart';
 import 'package:union_shop/clothing_page.dart';
 import 'package:union_shop/sale_page.dart';
 import 'package:union_shop/login_page.dart';
@@ -49,8 +49,7 @@ class UnionShopApp extends StatelessWidget {
           } else if (uri.path == '/about') {
             return MaterialPageRoute(builder: (context) => const AboutPage());
           } else if (uri.path == '/shop') {
-            return MaterialPageRoute(
-                builder: (context) => const ProductCategories());
+            return MaterialPageRoute(builder: (context) => const Collections());
           } else if (uri.path == '/clothing') {
             return MaterialPageRoute(
                 builder: (context) => const ClothingPage());

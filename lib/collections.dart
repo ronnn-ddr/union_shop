@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'widgets/header_widget.dart';
 import 'widgets/footer_widget.dart';
 
-class ProductCategories extends StatelessWidget {
-  const ProductCategories({super.key});
+class Collections extends StatelessWidget {
+  const Collections({super.key});
 
   void _onCategoryTap(BuildContext context, String category) {
     switch (category) {
@@ -42,7 +42,7 @@ class ProductCategories extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Choose a Category',
+                    'Collections',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
