@@ -5,10 +5,12 @@ const List<Collection> collections = [
     name: 'Clothing',
     description: 'Explore our range of comfortable and stylish clothing items.',
     image: 'assets/images/RainbowHoodie.png',
+    id: 'clothing',
   ),
   Collection(
     name: 'Accessories',
     description: 'Find the perfect accessories to complete your look.',
     image: 'assets/images/ClassicCap.png',
+    id: 'accessories',
   ),
 ];

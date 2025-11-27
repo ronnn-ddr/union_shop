@@ -2,27 +2,17 @@ class Collection {
   final String name;
   final String description;
   final String image;
+  final String id;
 
   const Collection({
     required this.name,
     required this.description,
     required this.image,
+    required this.id,
   });
 
   @override
   String toString() {
-    return 'Collection(name: $name, description: $description, image: $image)';
+    return 'Collection(name: $name, description: $description, image: $image, id: $id)';
   }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    return other is Collection &&
-        other.name == name &&
-        other.description == description &&
-        other.image == image;
-  }
-
-  @override
-  int get hashCode => name.hashCode ^ description.hashCode ^ image.hashCode;
 }
