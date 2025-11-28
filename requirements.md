@@ -402,4 +402,6 @@ The Mobile Navigation Drawer Widget feature extracts the existing drawer code fr
 - Update all pages (HomeScreen, CollectionPage, etc.) to place HeaderWidget in Scaffold appBar instead of body, removing any inline drawer code.
 - Ensure isMobile logic is consistent (MediaQuery width < 800).
 - Create unit tests for the new widget and update HeaderWidget and page tests.
+- Update existing tests for HeaderWidget and affected pages to accommodate the changes from body to appBar and drawer integration.
 - Verify app builds, runs, and navigation works as before.
+- Update README to reflect changes
