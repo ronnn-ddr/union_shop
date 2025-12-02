@@ -18,7 +18,7 @@ Union Shop is a cross-platform mobile and web application built with Flutter tha
 - **Custom Typography**: WorkSans variable font family for modern, clean aesthetics
 - **Responsive Navigation**:
   - Desktop: Horizontal navigation bar with menu buttons
-  - Mobile: Collapsible drawer navigation for space efficiency
+  - Mobile: Modal bottom sheet navbar with Material Design ripple animations
 - **Hero Section**: Eye-catching promotional banner for personalization services
 - **Grid Layout**: Adaptive product grid (2 columns desktop, 1 column mobile)
 
@@ -125,38 +125,66 @@ flutter build ios --release
 
 ### Navigation
 
-#### Desktop Experience (>800px width)
+#### Desktop Experience (≥800px width)
 - **Header Navigation**: Click navigation buttons (Home, Shop, The Print Shack, SALE!, About, UPSU.net)
 - **Logo**: Click the UPSU logo to return to home
 - **Search & Account**: Access search, user account, and shopping bag icons
 
 #### Mobile Experience (<800px width)
-- **Drawer Menu**: Tap the menu icon (☰) to open navigation drawer
-- **Drawer Items**: Tap any menu item to navigate
-- **Auto-close**: Drawer automatically closes after navigation
+- **Modal Navbar**: Tap the menu icon (☰) to open bottom sheet navigation
+- **Navigation Items**: Tap any item to navigate with Material Design ripple feedback
+- **Auto-close**: Modal automatically closes after navigation
+- **Placeholders**: "Coming soon!" notifications for unimplemented routes
 
 ### Main Features
 
 #### 🏠 Home Page
-- **Sale Banner**: Prominent display of current promotions
-- **Hero Section**: "The Print Shack" personalization service promotion
+- **Sale Banner**: Prominent display of current promotions with click-to-navigate
+- **Hero Section**: "The Print Shack" personalization service promotion with CTA button
 - **Product Grid**: Browse featured products (Rainbow Hoodies, Graduation Hoodies, Classic Cap, Heavyweight Shorts)
-- **Product Cards**: Tap any product to view details
+- **Product Cards**: Tap any product to view details with dynamic routing
 
-#### 📄 About Page
-- **Company Information**: Learn about the Union Shop mission
-- **Contact Details**: Find contact information (hello@upsu.net)
-- **Service Overview**: Understand personalization and delivery options
+#### 🛍️ Shop / Collections Page
+- **Collections Grid**: Browse product categories (Clothing, Accessories, etc.)
+- **Dynamic Routing**: Navigate to individual collection pages
+- **Responsive Layout**: 4 columns desktop / 2 columns mobile
+- **Pagination**: Navigate through collections with Previous/Next buttons
+
+#### 📦 Individual Collection Pages
+- **Filtered Products**: View products within specific collections
+- **Sorting Options**: Sort by name A-Z, price low-high, or price high-low
+- **Filtering**: Filter products by size and price range
+- **Pagination**: 4 items per page with page navigation
+
+#### 💰 Sale Page
+- **Discounted Products**: Browse all products on sale
+- **Price Display**: Original price (struck-through) and sale price shown
+- **Product Grid**: 3 columns desktop / 2 columns mobile
+- **Direct Navigation**: Tap to view full product details
 
 #### 🛒 Product Page
-- **Product Details**: View product images, descriptions, and pricing
-- **Navigation**: Consistent header and responsive design
-- **Future Features**: Placeholder for size/color selection, cart, and checkout
+- **Dynamic Product Data**: Product info passed via route arguments
+- **Product Details**: View images, descriptions, pricing, materials, and sizes
+- **Add to Cart**: Select size and quantity, add items to shopping cart
+- **Size Selection**: Dropdown for available sizes (S, M, L, XL)
+- **Quantity Control**: Numeric input for quantity selection
+
+#### 📄 About Page
+- **Company Information**: Learn about the Union Shop mission and values
+- **Contact Details**: Find contact information (hello@upsu.net)
+- **Service Overview**: Understand personalization, and delivery
+- **Consistent Layout**: Header and footer for seamless navigation
+
+#### 🔐 Login/Sign-Up Page
+- **Tabbed Interface**: Switch between Login and Sign-Up forms
+- **Form Validation**: Email format, password length, and confirmation checks
+- **User Feedback**: SnackBar notifications on form submission
+- **Responsive Forms**: Adaptive padding for mobile and desktop
 
 ### Responsive Breakpoints
-- **Desktop**: >800px width - Full navigation bar visible
-- **Mobile**: <800px width - Navigation collapses to drawer
-- **Tablet**: 600-800px width - Single column product grid
+- **Desktop**: ≥800px width - Full navigation bar visible, multi-column grids
+- **Mobile**: <800px width - Navigation via modal bottom sheet, single/double column grids
+- **Consistent Breakpoint**: 800px used throughout app for mobile/desktop differentiation
 
 ## 🧪 Running Tests
 
@@ -184,27 +212,36 @@ flutter test test/product_test.dart
 ### Test Coverage
 
 The test suite includes:
-- **Home Page Tests** (7 tests):
+- **Home Page Tests**:
   - Basic UI elements display
   - Product card rendering
   - Header icons functionality
   - Navigation bar behavior
-  - Mobile responsiveness (buttons hidden, drawer functionality)
+  - Mobile responsiveness
 
-- **About Page Tests** (8 tests):
+- **About Page Tests**:
   - Page navigation
   - Content display
   - Header functionality
   - Mobile responsiveness
 
-- **Product Page Tests** (3 tests):
-  - Basic product information display
-  - UI component verification
+- **Header Widget Tests**:
+  - Banner and logo display
+  - Navigation buttons visibility (desktop/mobile)
+  - Menu button conditional rendering
+  - Modal bottom sheet functionality
+  - Icon buttons and styling
 
-### Test Results
-- ✅ **Home Tests**: 7/7 passing
-- ✅ **About Tests**: 8/8 passing
-- ⚠️ **Product Tests**: 3/3 failing (expected content differs from implementation)
+- **Mobile Navbar Widget Tests**:
+  - Navigation items rendering with icons
+  - Placeholder SnackBar behavior
+  - Navigation functionality and modal closure
+  - WorkSans font styling verification
+
+- **Product, Sale, Login Page Tests**:
+  - Dynamic product data rendering
+  - Form validation
+  - Responsive layouts
 
 ## 🏗️ Project Structure
 
@@ -214,12 +251,31 @@ union_shop/
 │   ├── main.dart              # App entry point and home screen
 │   ├── about_page.dart        # About page implementation
 │   ├── product_page.dart      # Product details page
+│   ├── collections.dart       # Collections/categories page
+│   ├── collection_page.dart   # Individual collection view
+│   ├── sale_page.dart         # Sale products page
+│   ├── login_page.dart        # Login/sign-up page
+│   ├── models/
+│   │   ├── product.dart       # Product data model
+│   │   ├── collection.dart    # Collection data model
+│   │   └── cart.dart          # Shopping cart model
+│   ├── data/
+│   │   ├── products.dart      # Product data source
+│   │   └── collections.dart   # Collections data source
 │   └── widgets/
-│       └── product_card.dart  # Reusable product card component
+│       ├── header_widget.dart        # Reusable header component
+│       ├── footer_widget.dart        # Reusable footer component
+│       └── mobile_navbar_widget.dart # Mobile navigation modal
 ├── test/
 │   ├── home_test.dart         # Home page widget tests
 │   ├── about_test.dart        # About page widget tests
-│   └── product_test.dart      # Product page widget tests
+│   ├── product_test.dart      # Product page widget tests
+│   ├── sale_page_test.dart    # Sale page widget tests
+│   ├── login_page_test.dart   # Login page widget tests
+│   ├── models/                # Model tests
+│   └── widgets/
+│       ├── header_test.dart           # Header widget tests
+│       └── mobile_navbar_widget_test.dart # Mobile navbar tests
 ├── assets/
 │   ├── fonts/                 # WorkSans font files
 │   └── images/                # Product images
@@ -227,6 +283,8 @@ union_shop/
 ├── ios/                       # iOS platform code
 ├── web/                       # Web platform code
 ├── pubspec.yaml               # Flutter dependencies and configuration
+├── prompt.md                  # Development prompts and specifications
+├── requirements.md            # Feature requirements documents
 └── README.md                  # This file
 ```
 
@@ -252,8 +310,15 @@ The app uses the WorkSans variable font family. Font files are located in `asset
 - **Background**: White and light gray
 
 ### Responsive Design
-- **Breakpoint**: 800px (desktop vs mobile navigation)
-- **Grid**: 600px (1 vs 2 column product layout)
+- **Consistent Breakpoint**: 800px throughout entire app
+  - Navigation: Desktop navbar vs mobile modal
+  - Grids: Multi-column desktop vs reduced columns mobile
+  - Layouts: Desktop padding (32px) vs mobile padding (16px)
+- **Grid Configurations**:
+  - Home: 2 columns (desktop) / 1 column (mobile)
+  - Collections: 4 columns (desktop) / 2 columns (mobile)
+  - Collection Pages: 3 columns (desktop) / 2 columns (mobile)
+  - Sale: 3 columns (desktop) / 2 columns (mobile)
 
 ## 🤝 Contributing
 
