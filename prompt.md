@@ -213,7 +213,7 @@ Provide the new code for `lib/widgets/mobile_navbar_widget.dart`, updated code f
 
 # Comprehensive Test Coverage for Missing Features
 
-Create comprehensive unit and widget tests for features in the Union Shop app that currently lack test coverage. The main entry point is in `lib/main.dart`, which sets up a MaterialApp with routes. The app has multiple pages: home screen (`lib/main.dart` HomeScreen), product page (`lib/product_page.dart`), about page (`lib/about_page.dart`), collections page (`lib/collections.dart`), collection page (`lib/collection_page.dart`), sale page (`lib/sale_page.dart`), login page (`lib/login_page.dart`), and cart page (`lib/cart_page.dart`). The app uses models (Product, Collection, Cart, CartItem) and widgets (HeaderWidget, FooterWidget, MobileNavbarWidget, SortWidget, FilterWidget, PaginationWidget).
+Create comprehensive unit and widget tests for features in the Union Shop app that currently lack test coverage. The main entry point is in `lib/main.dart`, which sets up a MaterialApp with routes. The app has multiple pages: home screen (`lib/main.dart` HomeScreen), product page (`lib/product_page.dart`), about page (`lib/about_page.dart`), collections page (`lib/collections.dart`), collection page (`lib/collection_page.dart`), sale page (`lib/sale_page.dart`), and login page (`lib/login_page.dart`). The app uses models (Product, Collection, Cart, CartItem) and widgets (HeaderWidget, FooterWidget, MobileNavbarWidget, SortWidget, FilterWidget, PaginationWidget).
 
 Current test coverage includes tests for models (Product, Collection, Cart, CartItem), widgets (HeaderWidget, FooterWidget, MobileNavbarWidget, SortWidget, FilterWidget, PaginationWidget), and pages (HomeScreen, AboutPage, Collections). However, several critical features lack test coverage and need comprehensive testing.
 
@@ -258,16 +258,7 @@ Specifically, create tests for:
    - Test sign-up button SnackBar feedback
    - Test responsive padding
 
-5. **CartPage Tests** (`test/cart_page_test.dart`):
-   - Test cart items display
-   - Test quantity increment/decrement
-   - Test remove item functionality
-   - Test cart total calculation display
-   - Test empty cart state
-   - Test checkout button (placeholder)
-   - Test responsive layout
-
-6. **Routing Tests** (`test/routing_test.dart` or in `test/main_test.dart`):
+5. **Routing Tests** (`test/routing_test.dart`):
    - Test onGenerateRoute for '/product/<id>' parsing
    - Test onGenerateRoute for '/shop/<id>' parsing
    - Test route fallbacks for invalid paths
@@ -282,9 +273,9 @@ Specifically, create tests for:
    - Test all collections have unique IDs
    - Test product IDs are unique and valid
 
-8. **Integration Tests**:
+7. **Integration Tests**:
    - Test navigation flow from home to product details
-   - Test add to cart flow across pages
+6. **Data Source Validation Tests**:ges
    - Test cart state persistence using Provider
    - Test filtering and sorting maintaining state
 
@@ -298,4 +289,14 @@ Additional requirements:
 - Add descriptive test names and organize into groups
 - Aim for comprehensive coverage of user interactions and edge cases
 
-Provide new test files for each missing test suite, ensuring they follow the existing test patterns in the codebase (e.g., `test/home_test.dart`, `test/about_test.dart`). Ensure all tests pass with `flutter test`. Add brief comments explaining the test structure and what each test group covers.
+Note on existing test files:
+- `test/product_test.dart` - already exists with basic tests, needs enhancement with comprehensive coverage
+- `test/sale_page_test.dart` - already exists, needs additional tests for responsive layout and edge cases
+- `test/login_page_test.dart` - already exists, needs enhancement with validation and responsive tests
+- `test/collections_test.dart` - already exists for the collections listing page
+- `test/collection_page_test.dart` - needs to be created for individual collection pages (different from collections_test.dart)
+
+- `test/routing_test.dart` - needs to be created for dynamic routing tests
+- `test/data/products_test.dart` and `test/data/collections_test.dart` - need to be created for data validation
+
+Provide enhanced test files for existing test suites and new test files for missing ones, ensuring they follow the existing test patterns in the codebase (e.g., `test/home_test.dart`, `test/about_test.dart`). Ensure all tests pass with `flutter test`. Add brief comments explaining the test structure and what each test group covers.

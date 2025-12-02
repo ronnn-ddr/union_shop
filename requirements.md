@@ -570,13 +570,52 @@ Adding comprehensive test coverage addresses the gap in test coverage for critic
 - [ ] App builds and runs; `flutter test` succeeds with all new tests passing.
 
 #### 4. Subtasks
-- Create `test/product_page_test.dart` with comprehensive ProductPage tests.
-- Create `test/collection_page_test.dart` with CollectionPage filtering, sorting, pagination tests.
-- Create `test/sale_page_test.dart` with SalePage grid and navigation tests.
-- Create `test/login_page_test.dart` with form validation and interaction tests.
-- Create `test/cart_page_test.dart` with cart operations and display tests.
-- Create `test/routing_test.dart` or add routing tests to `test/main_test.dart`.
-- Add data source validation tests to `test/data/products_test.dart` and `test/data/collections_test.dart`.
-- Create integration tests for end-to-end user flows.
-- Ensure all tests use proper setUp/tearDown and follow existing test conventions.
-- Verify all tests pass with `flutter test` command.
+
+**ProductPage Tests (test/product_test.dart - enhance existing):**
+- Add tests for responsive layout (mobile vs desktop at 800px breakpoint)
+- Add tests for sale price display scenarios (salePrice vs regular price, struck-through styling)
+- Add tests for size selection dropdown functionality and edge cases
+- Add tests for quantity controls (increment, decrement, manual entry, bounds 1-99)
+- Add tests for "Add to Cart" validation (no size selected shows error)
+- Add tests for cart integration with Provider and SnackBar confirmations
+
+**CollectionPage Tests (test/collection_page_test.dart - create new):**
+- Create basic test structure and helper functions
+- Add tests for collection filtering by ID from route parameters
+- Add tests for product grid display for filtered collection items
+- Add tests for SortWidget integration (name A-Z, price low-high, price high-low)
+- Add tests for FilterWidget integration (price range, size filtering)
+- Add tests for PaginationWidget integration (4 items per page, previous/next, boundaries)
+- Add tests for responsive grid layout (mobile vs desktop column counts at 600px)
+- Add tests for empty collection state rendering
+
+**SalePage Tests (test/sale_page_test.dart - enhance existing):**
+- Add tests for responsive grid (2 columns mobile, 3 columns desktop at 600px)
+- Add tests for sale vs original price display and struck-through styling
+- Add tests for empty sale state when no products on sale
+
+**LoginPage Tests (test/login_page_test.dart - enhance existing):**
+- Add tests for email validation (format checking, regex patterns)
+- Add tests for password validation (minimum length 6, confirm password matching)
+- Add tests for responsive padding (16px mobile, 32px desktop)
+
+**Routing Tests (test/routing_test.dart - create new):**
+- Create basic test structure for dynamic routing
+- Add tests for product routing (onGenerateRoute parses '/product/<id>', finds product, handles invalid IDs)
+- Add tests for collection routing (onGenerateRoute parses '/shop/<id>', handles invalid collection IDs)
+- Add tests for route fallbacks (invalid paths, default route '/' to HomeScreen)
+
+**Data Validation Tests (test/data/ - create new):**
+- Create `test/data/products_test.dart` with tests for required fields (name, image, price, id, description)
+- Add tests for unique product IDs
+- Add tests for price validation (positive numbers, salePrice < price if present)
+- Add tests for valid image paths (assets/images/... format)
+- Add tests for collection assignments (at least one collection per product)
+- Create `test/data/collections_test.dart` with tests for unique collection IDs and required fields
+
+**Integration Tests:**
+- Create integration tests for end-to-end user flows (browse collections -> view product -> add to cart)
+
+**General:**
+- Ensure all tests use proper setUp/tearDown and follow existing test conventions
+- Verify all tests pass with `flutter test` command
