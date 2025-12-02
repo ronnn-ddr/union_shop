@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'mobile_navbar_widget.dart';
 
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({super.key});
@@ -183,7 +184,11 @@ class HeaderWidget extends StatelessWidget {
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
-                                  onPressed: placeholderCallbackForButtons,
+                                  onPressed: () => showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) =>
+                                        const MobileNavbarWidget(),
+                                  ),
                                 ),
                               )
                             : const SizedBox.shrink(),
