@@ -94,7 +94,8 @@ void main() {
       // Check that header icons are present
       expect(find.byIcon(Icons.search), findsOneWidget);
       expect(find.byIcon(Icons.shopping_bag_outlined), findsOneWidget);
-      expect(find.byIcon(Icons.menu), findsOneWidget);
+      // Menu icon only visible on mobile (width < 800)
+      // This test doesn't set screen size, so it defaults to desktop
     });
 
     testWidgets('should display navigation bar with buttons on about page',
@@ -190,18 +191,20 @@ void main() {
       // Check that menu icon is present
       expect(find.byIcon(Icons.menu), findsOneWidget);
 
-      // Tap the menu icon to open drawer
+      // Tap the menu icon to open modal navbar
       await tester.tap(find.byIcon(Icons.menu));
       await tester.pumpAndSettle();
 
-      // Check that drawer is open with navigation items
-      expect(find.text('Union Shop'), findsOneWidget); // Drawer header
-      expect(find.text('Home'), findsAtLeast(1)); // In drawer
-      expect(find.text('Shop'), findsAtLeast(1)); // In drawer
-      expect(find.text('The Print Shack'), findsAtLeast(1)); // In drawer
-      expect(find.text('SALE!'), findsAtLeast(1)); // In drawer
-      expect(find.text('About'), findsAtLeast(1)); // In drawer
-      expect(find.text('UPSU.net'), findsAtLeast(1)); // In drawer
+      // Check that modal navbar is open with navigation items
+      expect(find.text('Home'), findsAtLeast(1)); // In navbar
+      expect(find.text('Shop'), findsAtLeast(1)); // In navbar
+      expect(find.text('The Print Shack'), findsAtLeast(1)); // In navbar
+      expect(find.text('SALE!'), findsAtLeast(1)); // In navbar
+      expect(find.text('About'), findsAtLeast(1)); // In navbar
+      expect(find.text('UPSU.net'), findsAtLeast(1)); // In navbar
+
+      // Reset for other tests
+      addTearDown(() => tester.view.reset());
     });
   });
 }

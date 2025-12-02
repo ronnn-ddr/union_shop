@@ -43,10 +43,11 @@ void main() {
       expect(find.text('Home'), findsOneWidget);
       expect(find.text('Shop'), findsOneWidget);
 
-      // Check header icons
+      // Check header icons (search and shopping bag always visible)
       expect(find.byIcon(Icons.search), findsOneWidget);
       expect(find.byIcon(Icons.shopping_bag_outlined), findsOneWidget);
-      expect(find.byIcon(Icons.menu), findsOneWidget);
+      // Menu icon only visible on mobile (width < 800)
+      // This test doesn't set screen size, so it defaults to desktop
     });
 
     testWidgets('should display footer with opening hours and powered by',

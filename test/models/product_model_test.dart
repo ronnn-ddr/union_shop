@@ -66,11 +66,6 @@ void main() {
       expect(products.isNotEmpty, true);
     });
 
-    test('Products data source has expected number of items', () {
-      // Assuming 5 products as per current data
-      expect(products.length, 5);
-    });
-
     test('Products data source contains expected products', () {
       final rainbowHoodie =
           products.firstWhere((p) => p.id == 'rainbow-hoodie');

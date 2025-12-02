@@ -31,6 +31,8 @@ void main() {
     });
 
     testWidgets('should display header icons', (tester) async {
+      tester.view.physicalSize = const Size(600, 800); // Set mobile size
+      tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(const UnionShopApp());
       await tester.pump();
 
@@ -38,6 +40,9 @@ void main() {
       expect(find.byIcon(Icons.search), findsOneWidget);
       expect(find.byIcon(Icons.shopping_bag_outlined), findsOneWidget);
       expect(find.byIcon(Icons.menu), findsOneWidget);
+
+      // Reset for other tests
+      addTearDown(() => tester.view.reset());
     });
 
     testWidgets('should display navigation bar with buttons', (tester) async {
