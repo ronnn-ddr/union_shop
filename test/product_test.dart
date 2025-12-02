@@ -330,5 +330,68 @@ void main() {
         expect(find.text('L'), findsOneWidget);
       });
     });
+
+    group('Quantity Controls Tests', () {
+      testWidgets(
+          'should increment/decrement quantity with buttons and enforce bounds (1-99)',
+          (tester) async {
+        await tester.pumpWidget(createTestWidget(products[0]));
+        await tester.pump();
+
+        // Initial quantity is 1
+        expect(find.text('1'), findsWidgets);
+
+        // Try to decrement below 1 - should stay at 1
+        await tester.tap(find.byIcon(Icons.remove));
+        await tester.pump();
+        expect(find.text('1'), findsWidgets);
+
+        // Increment to 2
+        await tester.tap(find.byIcon(Icons.add));
+        await tester.pump();
+        expect(find.text('2'), findsOneWidget);
+
+        // Decrement back to 1
+        await tester.tap(find.byIcon(Icons.remove));
+        await tester.pump();
+        expect(find.text('1'), findsWidgets);
+
+        // Test upper bound: set to 99 and try to increment
+        final textField = find.byType(TextField);
+        await tester.enterText(textField, '99');
+        await tester.pump();
+        expect(find.text('99'), findsOneWidget);
+
+        // Try to increment above 99 - should stay at 99
+        await tester.tap(find.byIcon(Icons.add));
+        await tester.pump();
+        expect(find.text('99'), findsOneWidget);
+      });
+
+      testWidgets('should handle manual quantity entry and validate input', (
+        tester,
+      ) async {
+        await tester.pumpWidget(createTestWidget(products[0]));
+        await tester.pump();
+
+        final textField = find.byType(TextField);
+
+        // Enter valid quantity
+        await tester.enterText(textField, '5');
+        await tester.pump();
+        expect(find.text('5'), findsOneWidget);
+
+        // Enter another valid quantity
+        await tester.enterText(textField, '10');
+        await tester.pump();
+        expect(find.text('10'), findsOneWidget);
+
+        // Enter invalid quantity (0) - validation rejects it
+        await tester.enterText(textField, '0');
+        await tester.pump();
+        // The field reverts to the last valid value (10)
+        expect(find.text('10'), findsOneWidget);
+      });
+    });
   });
 }
