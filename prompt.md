@@ -210,3 +210,92 @@ Additional requirements:
 - Integrate seamlessly with existing code; for example, use similar styling to other widgets.
 
 Provide the new code for `lib/widgets/mobile_navbar_widget.dart`, updated code for `lib/widgets/header_widget.dart`, any necessary changes to `lib/main.dart` if needed, and ensure the app builds and runs without errors. Create unit tests for the new widget in `test/widgets/mobile_navbar_widget_test.dart` if possible. Update unit tests for the header widget in `test/widgets/header_test.dart` to cover the new menu button behavior.
+
+# Comprehensive Test Coverage for Missing Features
+
+Create comprehensive unit and widget tests for features in the Union Shop app that currently lack test coverage. The main entry point is in `lib/main.dart`, which sets up a MaterialApp with routes. The app has multiple pages: home screen (`lib/main.dart` HomeScreen), product page (`lib/product_page.dart`), about page (`lib/about_page.dart`), collections page (`lib/collections.dart`), collection page (`lib/collection_page.dart`), sale page (`lib/sale_page.dart`), login page (`lib/login_page.dart`), and cart page (`lib/cart_page.dart`). The app uses models (Product, Collection, Cart, CartItem) and widgets (HeaderWidget, FooterWidget, MobileNavbarWidget, SortWidget, FilterWidget, PaginationWidget).
+
+Current test coverage includes tests for models (Product, Collection, Cart, CartItem), widgets (HeaderWidget, FooterWidget, MobileNavbarWidget, SortWidget, FilterWidget, PaginationWidget), and pages (HomeScreen, AboutPage, Collections). However, several critical features lack test coverage and need comprehensive testing.
+
+Specifically, create tests for:
+
+1. **ProductPage Tests** (`test/product_page_test.dart`):
+   - Test product details display from route arguments
+   - Test size selection dropdown functionality
+   - Test quantity input controls
+   - Test "Add to Cart" button and SnackBar confirmation
+   - Test image carousel navigation
+   - Test responsive layout (mobile vs desktop)
+   - Test fallback when no product data provided
+   - Test product information tabs rendering
+
+2. **CollectionPage Tests** (`test/collection_page_test.dart`):
+   - Test collection filtering by ID from route
+   - Test product grid display for filtered collection
+   - Test sorting functionality integration (name, price)
+   - Test filtering by price range
+   - Test filtering by size
+   - Test pagination controls
+   - Test responsive grid layout (mobile vs desktop)
+   - Test empty collection state
+
+3. **SalePage Tests** (`test/sale_page_test.dart`):
+   - Test sale products grid rendering
+   - Test sale price display vs original price
+   - Test struck-through original price styling
+   - Test "View Details" button navigation with product data
+   - Test responsive grid (2 columns mobile, 3 columns desktop)
+   - Test empty sale state
+
+4. **LoginPage Tests** (`test/login_page_test.dart`):
+   - Test login form rendering (email, password fields)
+   - Test sign-up form rendering (name, email, password, confirm password)
+   - Test tab switching between login and sign-up
+   - Test email validation (format check)
+   - Test password validation (length >= 6)
+   - Test confirm password matching
+   - Test login button SnackBar feedback
+   - Test sign-up button SnackBar feedback
+   - Test responsive padding
+
+5. **CartPage Tests** (`test/cart_page_test.dart`):
+   - Test cart items display
+   - Test quantity increment/decrement
+   - Test remove item functionality
+   - Test cart total calculation display
+   - Test empty cart state
+   - Test checkout button (placeholder)
+   - Test responsive layout
+
+6. **Routing Tests** (`test/routing_test.dart` or in `test/main_test.dart`):
+   - Test onGenerateRoute for '/product/<id>' parsing
+   - Test onGenerateRoute for '/shop/<id>' parsing
+   - Test route fallbacks for invalid paths
+   - Test product lookup by ID
+   - Test collection lookup by ID
+   - Test default route '/' navigation
+
+7. **Data Source Validation Tests**:
+   - Test all products have required fields (name, image, price, id)
+   - Test all products have valid image paths
+   - Test all products have at least one collection
+   - Test all collections have unique IDs
+   - Test product IDs are unique and valid
+
+8. **Integration Tests**:
+   - Test navigation flow from home to product details
+   - Test add to cart flow across pages
+   - Test cart state persistence using Provider
+   - Test filtering and sorting maintaining state
+
+Additional requirements:
+- Use flutter_test package and testWidgets for widget tests
+- Use MediaQuery sizing for responsive tests (e.g., 600px, 800px breakpoints)
+- Mock route arguments using ModalRoute settings
+- Test with sample product and collection data
+- Ensure all tests are isolated and don't depend on each other
+- Use proper setUp and tearDown if needed
+- Add descriptive test names and organize into groups
+- Aim for comprehensive coverage of user interactions and edge cases
+
+Provide new test files for each missing test suite, ensuring they follow the existing test patterns in the codebase (e.g., `test/home_test.dart`, `test/about_test.dart`). Ensure all tests pass with `flutter test`. Add brief comments explaining the test structure and what each test group covers.
