@@ -182,9 +182,7 @@ class HeaderWidget extends StatelessWidget {
                               minWidth: 32,
                               minHeight: 32,
                             ),
-                            onPressed: isMobile
-                                ? () => Scaffold.of(context).openDrawer()
-                                : placeholderCallbackForButtons,
+                            onPressed: placeholderCallbackForButtons,
                           ),
                         ),
                       ],

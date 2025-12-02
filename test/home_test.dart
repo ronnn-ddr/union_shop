@@ -83,7 +83,7 @@ void main() {
       expect(find.text('UPSU.net'), findsNothing);
     });
 
-    testWidgets('should show drawer navigation on mobile', (tester) async {
+    testWidgets('should show menu button on mobile', (tester) async {
       tester.view.physicalSize = const Size(600, 800); // Set mobile size
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() {
@@ -96,20 +96,6 @@ void main() {
 
       // Check that menu icon is present
       expect(find.byIcon(Icons.menu), findsOneWidget);
-
-      // Tap the menu icon to open drawer
-      await tester.tap(find.byIcon(Icons.menu));
-      await tester.pumpAndSettle();
-
-      // Check that drawer is open with navigation items
-      expect(find.text('Union Shop'), findsOneWidget); // Drawer header
-      expect(find.text('Home'), findsAtLeast(1)); // In drawer
-      expect(find.text('Shop'), findsAtLeast(1)); // In drawer
-      expect(
-          find.text('The Print Shack'), findsAtLeast(2)); // In drawer and hero
-      expect(find.text('SALE!'), findsAtLeast(1)); // In drawer
-      expect(find.text('About'), findsAtLeast(1)); // In drawer
-      expect(find.text('UPSU.net'), findsAtLeast(1)); // In drawer
     });
   });
 }
