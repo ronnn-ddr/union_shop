@@ -9,7 +9,7 @@ class SalePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final saleProducts = products.where((p) => p.salePrice != null).toList();
     final screenWidth = MediaQuery.of(context).size.width;
-    final isDesktop = screenWidth >= 600;
+    final isDesktop = screenWidth >= 800;
     final padding = isDesktop ? 32.0 : 16.0;
 
     return Scaffold(

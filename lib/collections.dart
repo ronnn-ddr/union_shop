@@ -29,7 +29,7 @@ class _CollectionsState extends State<Collections> {
       endIndex > collections.length ? collections.length : endIndex,
     );
 
-    final isDesktop = MediaQuery.of(context).size.width >= 600;
+    final isDesktop = MediaQuery.of(context).size.width >= 800;
 
     return Scaffold(
       body: Column(
@@ -55,7 +55,7 @@ class _CollectionsState extends State<Collections> {
                       children: [
                         Expanded(
                           child: GridView.count(
-                            crossAxisCount: isDesktop ? 5 : 3,
+                            crossAxisCount: isDesktop ? 4 : 2,
                             crossAxisSpacing: 16,
                             mainAxisSpacing: 16,
                             childAspectRatio: 0.75,

@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final isDesktop = MediaQuery.of(context).size.width >= 600;
+    final isDesktop = MediaQuery.of(context).size.width >= 800;
     final padding = isDesktop ? 32.0 : 16.0;
 
     return Scaffold(

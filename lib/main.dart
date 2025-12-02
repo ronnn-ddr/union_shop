@@ -207,7 +207,7 @@ class HomeScreen extends StatelessWidget {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       crossAxisCount:
-                          MediaQuery.of(context).size.width > 600 ? 2 : 1,
+                          MediaQuery.of(context).size.width > 800 ? 2 : 1,
                       crossAxisSpacing: 24,
                       mainAxisSpacing: 48,
                       children: [
