@@ -458,6 +458,8 @@ The Mobile Navbar Widget feature introduces a new navigation component for mobil
 - Modify `lib/widgets/header_widget.dart` to conditionally display the menu button only on mobile (width < 800).
 - Implement the onTap callback for the menu button to show the MobileNavbarWidget in a showModalBottomSheet.
 - Ensure the modal bottom sheet closes after navigation using Navigator.pop.
-- Create unit tests in `test/widgets/mobile_navbar_widget_test.dart` for widget rendering and interactions.
+- Create unit tests in `test/widgets/mobile_navbar_widget_test.dart` for rendering all navigation items with icons and text.
+- Create unit tests in `test/widgets/mobile_navbar_widget_test.dart` for placeholder SnackBar behavior on unimplemented routes.
+- Create unit tests in `test/widgets/mobile_navbar_widget_test.dart` for navigation functionality and modal closure.
 - Update unit tests in `test/widgets/header_test.dart` to cover menu button visibility and tap behavior.
 - Verify styling consistency with 'WorkSans' font and theme color, and responsiveness across devices.
