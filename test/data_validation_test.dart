@@ -80,4 +80,48 @@ void main() {
       }
     });
   });
+
+  group('Collection Data Validation Tests', () {
+    test('all collections should have required fields', () {
+      for (final collection in collections) {
+        // Verify required string fields are not empty
+        expect(collection.id, isNotEmpty,
+            reason: 'Collection ${collection.name} has empty id');
+        expect(collection.name, isNotEmpty,
+            reason: 'Collection ${collection.id} has empty name');
+        expect(collection.image, isNotEmpty,
+            reason: 'Collection ${collection.name} has empty image path');
+        expect(collection.description, isNotEmpty,
+            reason: 'Collection ${collection.name} has empty description');
+      }
+    });
+
+    test('all collection IDs should be unique', () {
+      final ids = collections.map((c) => c.id).toList();
+      final uniqueIds = ids.toSet();
+
+      expect(ids.length, equals(uniqueIds.length),
+          reason: 'Duplicate collection IDs found');
+    });
+
+    test('all collection names should be unique', () {
+      final names = collections.map((c) => c.name).toList();
+      final uniqueNames = names.toSet();
+
+      expect(names.length, equals(uniqueNames.length),
+          reason: 'Duplicate collection names found');
+    });
+
+    test('all products should belong to valid collections', () {
+      final validCollectionIds = collections.map((c) => c.id).toSet();
+
+      for (final product in products) {
+        for (final collectionId in product.collections) {
+          expect(validCollectionIds.contains(collectionId), isTrue,
+              reason:
+                  'Product ${product.name} references invalid collection: $collectionId');
+        }
+      }
+    });
+  });
 }
