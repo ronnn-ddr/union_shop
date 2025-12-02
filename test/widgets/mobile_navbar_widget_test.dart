@@ -58,5 +58,41 @@ void main() {
         expect(textWidget.style?.fontFamily, 'WorkSans');
       }
     });
+
+    testWidgets('should show placeholder for unimplemented routes',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Builder(
+              builder: (context) => ElevatedButton(
+                onPressed: () => showModalBottomSheet(
+                  context: context,
+                  builder: (context) => const MobileNavbarWidget(),
+                ),
+                child: const Text('Open'),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      // Test The Print Shack placeholder
+      await tester.tap(find.text('Open'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('The Print Shack'));
+      await tester.pumpAndSettle();
+      expect(find.text('Coming soon!'), findsOneWidget);
+
+      // Dismiss snackbar and modal
+      await tester.pumpAndSettle(const Duration(seconds: 5));
+
+      // Test UPSU.net placeholder
+      await tester.tap(find.text('Open'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('UPSU.net'));
+      await tester.pumpAndSettle();
+      expect(find.text('Coming soon!'), findsOneWidget);
+    });
   });
 }
