@@ -218,8 +218,7 @@ void main() {
         await tester.pump();
 
         // Check sale price is displayed
-        expect(
-            find.text('£${productWithSale.salePrice!.toStringAsFixed(2)}'),
+        expect(find.text('£${productWithSale.salePrice!.toStringAsFixed(2)}'),
             findsOneWidget);
 
         // Check original price is displayed with strikethrough
@@ -258,6 +257,77 @@ void main() {
         // Check both prices are present
         expect(find.text('£25.00'), findsOneWidget); // sale price
         expect(find.text('£30.00'), findsOneWidget); // original price
+      });
+    });
+
+    group('Size Selection Tests', () {
+      testWidgets('should display size dropdown with all available sizes', (
+        tester,
+      ) async {
+        // Rainbow Hoodie has sizes: ['S', 'M', 'L', 'XL']
+        final productWithSizes = products[0];
+
+        await tester.pumpWidget(createTestWidget(productWithSizes));
+        await tester.pump();
+
+        // Find the size dropdown by type
+        final dropdown = find.byType(DropdownButton<String>);
+        expect(dropdown, findsOneWidget);
+
+        // Verify hint text is displayed
+        expect(find.text('Select size'), findsOneWidget);
+
+        // Tap the dropdown to open it
+        await tester.tap(dropdown);
+        await tester.pumpAndSettle();
+
+        // Verify all size options are displayed in dropdown menu
+        for (final size in productWithSizes.sizes) {
+          expect(find.text(size).last, findsOneWidget);
+        }
+      });
+
+      testWidgets('should update selected size when user selects from dropdown',
+          (tester) async {
+        await tester.pumpWidget(createTestWidget(products[0]));
+        await tester.pump();
+
+        // Initial state shows "Select size"
+        expect(find.text('Select size'), findsOneWidget);
+
+        // Open dropdown and select a size
+        final dropdown = find.byType(DropdownButton<String>);
+        await tester.tap(dropdown);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('M').last);
+        await tester.pumpAndSettle();
+
+        // Verify the selected size is now displayed
+        expect(find.text('M'), findsOneWidget);
+        expect(find.text('Select size'), findsNothing);
+      });
+
+      testWidgets('should persist size selection when changing other fields',
+          (tester) async {
+        await tester.pumpWidget(createTestWidget(products[0]));
+        await tester.pump();
+
+        // Select a size
+        final dropdown = find.byType(DropdownButton<String>);
+        await tester.tap(dropdown);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('L').last);
+        await tester.pumpAndSettle();
+
+        // Verify size is selected
+        expect(find.text('L'), findsOneWidget);
+
+        // Change quantity (tap increment button)
+        await tester.tap(find.byIcon(Icons.add));
+        await tester.pump();
+
+        // Verify size selection persists
+        expect(find.text('L'), findsOneWidget);
       });
     });
   });
