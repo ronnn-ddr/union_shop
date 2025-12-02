@@ -589,11 +589,6 @@ Adding comprehensive test coverage addresses the gap in test coverage for critic
 - Add tests for responsive grid layout (mobile vs desktop column counts at 800px)
 - Add tests for empty collection state rendering
 
-**SalePage Tests (test/sale_page_test.dart - enhance existing):**
-- Add tests for responsive grid (2 columns mobile, 3 columns desktop at 800px)
-- Add tests for sale vs original price display and struck-through styling
-- Add tests for empty sale state when no products on sale
-
 **LoginPage Tests (test/login_page_test.dart - enhance existing):**
 - Add tests for email validation (format checking, regex patterns)
 - Add tests for password validation (minimum length 6, confirm password matching)
@@ -607,9 +602,9 @@ Adding comprehensive test coverage addresses the gap in test coverage for critic
 - Add tests for collection assignments (at least one collection per product)
 - Create `test/data/collections_test.dart` with tests for unique collection IDs and required fields
 
-**Integration Tests:**
-- Create integration tests for end-to-end user flows (browse collections -> view product -> add to cart)
-
 **General:**
 - Ensure all tests use proper setUp/tearDown and follow existing test conventions
 - Verify all tests pass with `flutter test` command
+
+#####5. Note
+- Implement integration test when cart is functional
