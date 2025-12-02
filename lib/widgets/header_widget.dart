@@ -170,21 +170,23 @@ class HeaderWidget extends StatelessWidget {
                           ),
                           onPressed: placeholderCallbackForButtons,
                         ),
-                        Builder(
-                          builder: (context) => IconButton(
-                            icon: const Icon(
-                              Icons.menu,
-                              size: 18,
-                              color: Colors.grey,
-                            ),
-                            padding: const EdgeInsets.all(8),
-                            constraints: const BoxConstraints(
-                              minWidth: 32,
-                              minHeight: 32,
-                            ),
-                            onPressed: placeholderCallbackForButtons,
-                          ),
-                        ),
+                        isMobile
+                            ? Builder(
+                                builder: (context) => IconButton(
+                                  icon: const Icon(
+                                    Icons.menu,
+                                    size: 18,
+                                    color: Colors.grey,
+                                  ),
+                                  padding: const EdgeInsets.all(8),
+                                  constraints: const BoxConstraints(
+                                    minWidth: 32,
+                                    minHeight: 32,
+                                  ),
+                                  onPressed: placeholderCallbackForButtons,
+                                ),
+                              )
+                            : const SizedBox.shrink(),
                       ],
                     ),
                   ),
