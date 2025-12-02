@@ -586,11 +586,11 @@ Adding comprehensive test coverage addresses the gap in test coverage for critic
 - Add tests for SortWidget integration (name A-Z, price low-high, price high-low)
 - Add tests for FilterWidget integration (price range, size filtering)
 - Add tests for PaginationWidget integration (4 items per page, previous/next, boundaries)
-- Add tests for responsive grid layout (mobile vs desktop column counts at 600px)
+- Add tests for responsive grid layout (mobile vs desktop column counts at 800px)
 - Add tests for empty collection state rendering
 
 **SalePage Tests (test/sale_page_test.dart - enhance existing):**
-- Add tests for responsive grid (2 columns mobile, 3 columns desktop at 600px)
+- Add tests for responsive grid (2 columns mobile, 3 columns desktop at 800px)
 - Add tests for sale vs original price display and struck-through styling
 - Add tests for empty sale state when no products on sale
 
