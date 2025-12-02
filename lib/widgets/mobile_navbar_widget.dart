@@ -3,11 +3,6 @@ import 'package:flutter/material.dart';
 class MobileNavbarWidget extends StatelessWidget {
   const MobileNavbarWidget({super.key});
 
-  void _navigateTo(BuildContext context, String route) {
-    Navigator.of(context, rootNavigator: true).pushNamed(route);
-    Navigator.pop(context); // Close the modal
-  }
-
   void _showPlaceholder(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Coming soon!')),

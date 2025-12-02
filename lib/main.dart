@@ -90,7 +90,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 800;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
