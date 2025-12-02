@@ -22,39 +22,67 @@ class MobileNavbarWidget extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text('Home', style: TextStyle(fontFamily: 'WorkSans')),
-            onTap: () => Navigator.pushNamed(context, '/'),
+          Material(
+            color: Colors.white,
+            child: InkWell(
+              onTap: () => Navigator.pushNamed(context, '/'),
+              child: const ListTile(
+                leading: Icon(Icons.home),
+                title: Text('Home', style: TextStyle(fontFamily: 'WorkSans')),
+              ),
+            ),
           ),
-          ListTile(
-            leading: const Icon(Icons.shop),
-            title: const Text('Shop', style: TextStyle(fontFamily: 'WorkSans')),
-            onTap: () => Navigator.pushNamed(context, '/shop'),
+          Material(
+            color: Colors.white,
+            child: InkWell(
+              onTap: () => Navigator.pushNamed(context, '/shop'),
+              child: const ListTile(
+                leading: Icon(Icons.shop),
+                title: Text('Shop', style: TextStyle(fontFamily: 'WorkSans')),
+              ),
+            ),
           ),
-          ListTile(
-            leading: const Icon(Icons.print),
-            title: const Text('The Print Shack',
-                style: TextStyle(fontFamily: 'WorkSans')),
-            onTap: () => _showPlaceholder(context),
+          Material(
+            color: Colors.white,
+            child: InkWell(
+              onTap: () => _showPlaceholder(context),
+              child: const ListTile(
+                leading: Icon(Icons.print),
+                title: Text('The Print Shack',
+                    style: TextStyle(fontFamily: 'WorkSans')),
+              ),
+            ),
           ),
-          ListTile(
-            leading: const Icon(Icons.local_offer),
-            title:
-                const Text('SALE!', style: TextStyle(fontFamily: 'WorkSans')),
-            onTap: () => Navigator.pushNamed(context, '/sale'),
+          Material(
+            color: Colors.white,
+            child: InkWell(
+              onTap: () => Navigator.pushNamed(context, '/sale'),
+              child: const ListTile(
+                leading: Icon(Icons.local_offer),
+                title: Text('SALE!', style: TextStyle(fontFamily: 'WorkSans')),
+              ),
+            ),
           ),
-          ListTile(
-            leading: const Icon(Icons.info),
-            title:
-                const Text('About', style: TextStyle(fontFamily: 'WorkSans')),
-            onTap: () => Navigator.pushNamed(context, '/about'),
+          Material(
+            color: Colors.white,
+            child: InkWell(
+              onTap: () => Navigator.pushNamed(context, '/about'),
+              child: const ListTile(
+                leading: Icon(Icons.info),
+                title: Text('About', style: TextStyle(fontFamily: 'WorkSans')),
+              ),
+            ),
           ),
-          ListTile(
-            leading: const Icon(Icons.web),
-            title: const Text('UPSU.net',
-                style: TextStyle(fontFamily: 'WorkSans')),
-            onTap: () => _showPlaceholder(context),
+          Material(
+            color: Colors.white,
+            child: InkWell(
+              onTap: () => _showPlaceholder(context),
+              child: const ListTile(
+                leading: Icon(Icons.web),
+                title:
+                    Text('UPSU.net', style: TextStyle(fontFamily: 'WorkSans')),
+              ),
+            ),
           ),
         ],
       ),
