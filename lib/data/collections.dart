@@ -13,4 +13,10 @@ const List<Collection> collections = [
     image: 'assets/images/ClassicCap.png',
     id: 'accessories',
   ),
+  Collection(
+    name: 'Graduation',
+    description: 'Celebrate your achievements with our graduation collection.',
+    image: 'assets/images/GraduationHoodie.png',
+    id: 'graduation',
+  )
 ];
