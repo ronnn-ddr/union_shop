@@ -393,5 +393,73 @@ void main() {
         expect(find.text('10'), findsOneWidget);
       });
     });
+
+    group('Add to Cart Validation and Integration Tests', () {
+      testWidgets('should show error when adding to cart without selecting size',
+          (tester) async {
+        await tester.pumpWidget(createTestWidget(products[0]));
+        await tester.pump();
+
+        // Try to add to cart without selecting size
+        await tester.tap(find.text('ADD TO CART'));
+        await tester.pump();
+
+        // Should show error message in SnackBar
+        expect(find.text('Please select a size'), findsOneWidget);
+      });
+
+      testWidgets('should add item to cart when size is selected', (
+        tester,
+      ) async {
+        await tester.pumpWidget(createTestWidget(products[0]));
+        await tester.pump();
+
+        // Select a size
+        final dropdown = find.byType(DropdownButton<String>);
+        await tester.tap(dropdown);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('M').last);
+        await tester.pumpAndSettle();
+
+        // Tap add to cart
+        await tester.tap(find.text('ADD TO CART'));
+        await tester.pump();
+
+        // Should show success message
+        expect(
+            find.textContaining('Added 1 Rainbow Hoodie(s) (Size: M) to cart!'),
+            findsOneWidget);
+      });
+
+      testWidgets('should add correct quantity and size to cart', (
+        tester,
+      ) async {
+        await tester.pumpWidget(createTestWidget(products[0]));
+        await tester.pump();
+
+        // Set quantity to 3
+        await tester.tap(find.byIcon(Icons.add));
+        await tester.pump();
+        await tester.tap(find.byIcon(Icons.add));
+        await tester.pump();
+        expect(find.text('3'), findsOneWidget);
+
+        // Select size L
+        final dropdown = find.byType(DropdownButton<String>);
+        await tester.tap(dropdown);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('L').last);
+        await tester.pumpAndSettle();
+
+        // Add to cart
+        await tester.tap(find.text('ADD TO CART'));
+        await tester.pump();
+
+        // Verify success message shows correct quantity and size
+        expect(
+            find.textContaining('Added 3 Rainbow Hoodie(s) (Size: L) to cart!'),
+            findsOneWidget);
+      });
+    });
   });
 }
