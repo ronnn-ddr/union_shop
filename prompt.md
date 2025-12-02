@@ -184,3 +184,29 @@ Additional requirements:
 - Integrate seamlessly with existing code; eliminate code duplication.
 
 Provide the new code for `lib/widgets/mobile_drawer_widget.dart`, updated code for `lib/main.dart` HomeScreen and other pages, and ensure the app builds and runs without errors. Create unit tests for the new widget if possible. Add brief comments explaining the changes and how they integrate with the existing code.
+
+# Mobile Navbar Widget Feature
+
+Create a mobile-specific navigation bar widget for the Union Shop app to replace the removed drawer and provide navigation on mobile devices. The main entry point is in `lib/main.dart`, which sets up a MaterialApp with routes. The app has screens like home screen (`lib/main.dart` HomeScreen), product page (`lib/product_page.dart`), about page (`lib/about_page.dart`), collections page (`lib/collections.dart`), collection page (`lib/collection_page.dart`), sale page (`lib/sale_page.dart`), and login page (`lib/login_page.dart`). The app uses header and footer widgets for consistent layout.
+
+The mobile navbar should be a new widget in `lib/widgets/mobile_navbar_widget.dart`; create it as a bottom navigation bar with icons and labels for key navigation items. It will be used by the HeaderWidget to display navigation on mobile devices (MediaQuery width < 800), solving the lack of navigation after removing the drawer.
+
+Specifically:
+
+1. **Widget Structure**: Create a widget that displays a list of navigation items: Home, Shop, The Print Shack, SALE!, About, and UPSU.net. Use a Column with ListTile widgets for each item, each with an appropriate icon (e.g., Icons.home for Home, Icons.shop for Shop, Icons.print for The Print Shack, Icons.local_offer for SALE!, Icons.info for About, Icons.web for UPSU.net) and text. Style with white background, using the theme color (Color(0xFF4d2963)) for accents like selected items or icons.
+
+2. **Navigation Logic**: Each ListTile onTap should navigate to routes like '/', '/shop' (for Shop), '/sale' (for SALE!), '/about' (for About). For The Print Shack and UPSU.net, use placeholder callbacks for now, doing nothing, since routes may not be implemented yet. Close the navbar after navigation.
+
+3. **Integration with HeaderWidget**: Modify `lib/widgets/header_widget.dart` so that the Icons.menu button, which is only shown on mobile (hide it on desktop where width >= 800), onTap opens the MobileNavbarWidget in a modal bottom sheet (using showModalBottomSheet). On desktop, the menu button is not needed and should be hidden.
+
+4. **Responsive Behavior**: The menu button in HeaderWidget is only visible on mobile (width < 800); on desktop, it's hidden as navigation is handled by the header buttons.
+
+Additional requirements:
+- Use Flutter widgets like Column, ListTile, Icon, Text for layout.
+- Ensure the widget is stateless.
+- Styling: Use 'WorkSans' font for text, consistent with app theme.
+- Navigation: Integrate with existing routes in `lib/main.dart`.
+- Handle edge cases: Ensure proper navigation and modal dismissal.
+- Integrate seamlessly with existing code; for example, use similar styling to other widgets.
+
+Provide the new code for `lib/widgets/mobile_navbar_widget.dart`, updated code for `lib/widgets/header_widget.dart`, any necessary changes to `lib/main.dart` if needed, and ensure the app builds and runs without errors. Create unit tests for the new widget in `test/widgets/mobile_navbar_widget_test.dart` if possible. Update unit tests for the header widget in `test/widgets/header_test.dart` to cover the new menu button behavior.
