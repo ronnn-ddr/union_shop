@@ -405,3 +405,59 @@ The Mobile Navigation Drawer Widget feature extracts the existing drawer code fr
 - Update existing tests for HeaderWidget and affected pages to accommodate the changes from body to appBar and drawer integration.
 - Verify app builds, runs, and navigation works as before.
 - Update README to reflect changes
+
+### Feature Requirements Document: Mobile Navbar Widget
+
+#### 1. Feature Description and Purpose
+The Mobile Navbar Widget feature introduces a new navigation component for mobile devices to replace the removed drawer, providing easy access to key app sections. The widget is a modal bottom sheet triggered by the menu button in the header, displaying navigation items with icons and text. It ensures mobile users can navigate without the drawer, while the menu button is hidden on desktop where header navigation suffices.
+
+#### 2. User Stories
+- Access Navigation on Mobile
+	- As a mobile user, I want to tap the menu button to open a navigation sheet so I can access app sections.
+
+- Navigate to Sections
+	- As a mobile user, I want to tap navigation items (Home, Shop, etc.) to go to those pages so I can browse the app.
+
+- Responsive Menu Button
+	- As a user, I want the menu button visible only on mobile and hidden on desktop so the UI is clean.
+
+- Consistent Styling
+	- As a user, I want the navbar to match the app's theme and font so it feels integrated.
+
+#### 3. Acceptance Criteria
+
+##### UI and Display
+- [ ] The widget is a Column of ListTile widgets for: Home, Shop, The Print Shack, SALE!, About, UPSU.net.
+- [ ] Each ListTile has an appropriate icon and text, styled with white background and theme color (Color(0xFF4d2963)) accents.
+
+##### Interactive Elements
+- [ ] Tapping a ListTile navigates to the corresponding route ('/', '/shop', '/sale', '/about') or shows a placeholder for unimplemented routes.
+- [ ] The modal bottom sheet closes after navigation.
+
+##### Structure and Navigation
+- [ ] The menu button (Icons.menu) in HeaderWidget is only visible on mobile (width < 800).
+- [ ] On mobile, tapping the menu button opens the widget in a showModalBottomSheet.
+- [ ] On desktop, the menu button is hidden.
+
+##### Styling and Responsiveness
+- [ ] Use 'WorkSans' font for text.
+- [ ] Theme color for icons or selected states.
+- [ ] Responsive: menu button hidden on desktop.
+
+##### Integration and Testing
+- [ ] Integrate with existing routes in `lib/main.dart`.
+- [ ] Create unit tests in `test/widgets/mobile_navbar_widget_test.dart`.
+- [ ] Update tests in `test/widgets/header_test.dart` for menu button behavior.
+- [ ] App builds and runs; flutter analyze and flutter test succeed.
+
+#### 4. Subtasks
+- Create the MobileNavbarWidget class in `lib/widgets/mobile_navbar_widget.dart` as a StatelessWidget.
+- Implement the Column layout with ListTile widgets for each navigation item.
+- Add appropriate icons and text labels for Home, Shop, The Print Shack, SALE!, About, and UPSU.net.
+- Implement onTap handlers for each ListTile to navigate to routes or show placeholders.
+- Modify `lib/widgets/header_widget.dart` to conditionally display the menu button only on mobile (width < 800).
+- Implement the onTap callback for the menu button to show the MobileNavbarWidget in a showModalBottomSheet.
+- Ensure the modal bottom sheet closes after navigation using Navigator.pop.
+- Create unit tests in `test/widgets/mobile_navbar_widget_test.dart` for widget rendering and interactions.
+- Update unit tests in `test/widgets/header_test.dart` to cover menu button visibility and tap behavior.
+- Verify styling consistency with 'WorkSans' font and theme color, and responsiveness across devices.
