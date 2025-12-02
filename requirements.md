@@ -463,3 +463,120 @@ The Mobile Navbar Widget feature introduces a new navigation component for mobil
 - Create unit tests in `test/widgets/mobile_navbar_widget_test.dart` for navigation functionality and modal closure.
 - Update unit tests in `test/widgets/header_test.dart` to cover menu button visibility and tap behavior.
 - Verify styling consistency with 'WorkSans' font and theme color, and responsiveness across devices.
+
+### Requirements Document: Adding Comprehensive Test Coverage for Missing Features
+
+#### 1. Description and Purpose
+Adding comprehensive test coverage addresses the gap in test coverage for critical pages and functionality in the Union Shop app. While models and widgets have good test coverage, several user-facing pages (ProductPage, CollectionPage, SalePage, LoginPage, CartPage) lack any tests, and the routing logic remains untested. This update adds comprehensive unit and widget tests to ensure reliability, catch regressions, and validate user interactions across the entire application.
+
+#### 2. User Stories
+- Reliable Product Page
+	- As a developer, I want comprehensive tests for ProductPage so I can ensure product details display correctly and interactions work as expected.
+
+- Validated Collection Functionality
+	- As a developer, I want tests for CollectionPage so I can verify filtering, sorting, and pagination work correctly for all collections.
+
+- Tested Sale Features
+	- As a developer, I want tests for SalePage so I can ensure sale prices display correctly and navigation to product details works.
+
+- Login Form Validation
+	- As a developer, I want tests for LoginPage so I can verify form validation and user feedback work properly.
+
+- Cart Functionality Assurance
+	- As a developer, I want tests for CartPage so I can ensure cart operations (add, remove, update) work correctly.
+
+- Routing Confidence
+	- As a developer, I want tests for dynamic routing so I can verify products and collections are correctly resolved from URLs.
+
+- Data Integrity
+	- As a developer, I want data source validation tests so I can ensure all products and collections have required fields and valid data.
+
+#### 3. Acceptance Criteria
+
+##### ProductPage Tests
+- [ ] Test product details display from route arguments (name, price, description, materials, sizes).
+- [ ] Test size selection dropdown functionality and state updates.
+- [ ] Test quantity input controls (increment, decrement, manual entry).
+- [ ] Test "Add to Cart" button shows SnackBar confirmation.
+- [ ] Test image carousel navigation if implemented.
+- [ ] Test responsive layout (mobile vs desktop padding and layout).
+- [ ] Test fallback when no product data provided in route arguments.
+- [ ] Test product information tabs rendering if implemented.
+
+##### CollectionPage Tests
+- [ ] Test collection filtering by ID from route parameters.
+- [ ] Test product grid display for filtered collection items.
+- [ ] Test sorting functionality integration (name A-Z, price low-high, price high-low).
+- [ ] Test filtering by price range functionality.
+- [ ] Test filtering by size functionality.
+- [ ] Test pagination controls (previous, next, page numbers).
+- [ ] Test responsive grid layout (mobile vs desktop column counts).
+- [ ] Test empty collection state rendering.
+
+##### SalePage Tests
+- [ ] Test sale products grid rendering with correct product count.
+- [ ] Test sale price display vs original price in each card.
+- [ ] Test struck-through original price styling.
+- [ ] Test "View Details" button navigation passes product data correctly.
+- [ ] Test responsive grid (2 columns mobile, 3 columns desktop).
+- [ ] Test empty sale state when no products on sale.
+
+##### LoginPage Tests
+- [ ] Test login form rendering (email, password fields visible).
+- [ ] Test sign-up form rendering (name, email, password, confirm password fields).
+- [ ] Test tab switching between login and sign-up forms.
+- [ ] Test email validation (invalid format rejected).
+- [ ] Test password validation (minimum length 6 characters).
+- [ ] Test confirm password matching validation.
+- [ ] Test login button shows SnackBar "Login successful!".
+- [ ] Test sign-up button shows SnackBar "Sign up successful!".
+- [ ] Test responsive padding (16px mobile, 32px desktop).
+
+##### CartPage Tests
+- [ ] Test cart items display with correct product details.
+- [ ] Test quantity increment button increases quantity.
+- [ ] Test quantity decrement button decreases quantity.
+- [ ] Test remove item button removes item from cart.
+- [ ] Test cart total calculation display matches sum of items.
+- [ ] Test empty cart state shows appropriate message.
+- [ ] Test checkout button exists (placeholder functionality).
+- [ ] Test responsive layout adapts to screen size.
+
+##### Routing Tests
+- [ ] Test onGenerateRoute parses '/product/<id>' correctly and finds product.
+- [ ] Test onGenerateRoute parses '/shop/<id>' correctly and passes collection ID.
+- [ ] Test route fallbacks return null for invalid paths.
+- [ ] Test product lookup by ID returns correct product.
+- [ ] Test product lookup by invalid ID returns fallback/first product.
+- [ ] Test collection lookup by ID works correctly.
+- [ ] Test default route '/' navigates to HomeScreen.
+
+##### Data Source Validation Tests
+- [ ] Test all products have required fields: name, image, price, id, description.
+- [ ] Test all products have valid image paths (assets exist or proper format).
+- [ ] Test all products have at least one collection assigned.
+- [ ] Test all collection IDs are unique across the collections list.
+- [ ] Test all product IDs are unique across the products list.
+- [ ] Test product prices are positive numbers.
+- [ ] Test salePrice (if present) is less than regular price.
+
+##### Integration and Testing
+- [ ] All test files follow existing patterns (e.g., test/home_test.dart structure).
+- [ ] Tests use MediaQuery for responsive breakpoint testing (600px, 800px).
+- [ ] Tests mock route arguments using ModalRoute settings where needed.
+- [ ] Tests use sample/fixture product and collection data.
+- [ ] All tests are isolated and don't depend on execution order.
+- [ ] Tests use descriptive names and are organized into logical groups.
+- [ ] App builds and runs; `flutter test` succeeds with all new tests passing.
+
+#### 4. Subtasks
+- Create `test/product_page_test.dart` with comprehensive ProductPage tests.
+- Create `test/collection_page_test.dart` with CollectionPage filtering, sorting, pagination tests.
+- Create `test/sale_page_test.dart` with SalePage grid and navigation tests.
+- Create `test/login_page_test.dart` with form validation and interaction tests.
+- Create `test/cart_page_test.dart` with cart operations and display tests.
+- Create `test/routing_test.dart` or add routing tests to `test/main_test.dart`.
+- Add data source validation tests to `test/data/products_test.dart` and `test/data/collections_test.dart`.
+- Create integration tests for end-to-end user flows.
+- Ensure all tests use proper setUp/tearDown and follow existing test conventions.
+- Verify all tests pass with `flutter test` command.
