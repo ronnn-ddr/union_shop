@@ -206,5 +206,59 @@ void main() {
         addTearDown(() => tester.view.reset());
       });
     });
+
+    group('Sale Price Display Tests', () {
+      testWidgets('should display sale price when product has salePrice', (
+        tester,
+      ) async {
+        // Find a product with salePrice (Rainbow Hoodie has salePrice: 25.0)
+        final productWithSale = products.firstWhere((p) => p.salePrice != null);
+
+        await tester.pumpWidget(createTestWidget(productWithSale));
+        await tester.pump();
+
+        // Check sale price is displayed
+        expect(
+            find.text('£${productWithSale.salePrice!.toStringAsFixed(2)}'),
+            findsOneWidget);
+
+        // Check original price is displayed with strikethrough
+        expect(find.text('£${productWithSale.price.toStringAsFixed(2)}'),
+            findsOneWidget);
+      });
+
+      testWidgets('should display regular price when product has no salePrice',
+          (tester) async {
+        // Find a product without salePrice (Graduation Hoodies has no salePrice)
+        final productWithoutSale =
+            products.firstWhere((p) => p.salePrice == null);
+
+        await tester.pumpWidget(createTestWidget(productWithoutSale));
+        await tester.pump();
+
+        // Check regular price is displayed
+        expect(find.text('£${productWithoutSale.price.toStringAsFixed(2)}'),
+            findsOneWidget);
+
+        // Verify there's only one price (no crossed-out original price)
+        final priceText =
+            find.text('£${productWithoutSale.price.toStringAsFixed(2)}');
+        expect(priceText, findsOneWidget);
+      });
+
+      testWidgets('should show both prices when salePrice exists', (
+        tester,
+      ) async {
+        // Use Rainbow Hoodie which has salePrice: 25.0, price: 30.0
+        final rainbowHoodie = products[0];
+
+        await tester.pumpWidget(createTestWidget(rainbowHoodie));
+        await tester.pump();
+
+        // Check both prices are present
+        expect(find.text('£25.00'), findsOneWidget); // sale price
+        expect(find.text('£30.00'), findsOneWidget); // original price
+      });
+    });
   });
 }
