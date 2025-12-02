@@ -135,5 +135,76 @@ void main() {
       expect(find.text('Description'), findsOneWidget);
       expect(find.text('ADD TO CART'), findsOneWidget);
     });
+
+    group('Responsive Layout Tests', () {
+      testWidgets('should adapt layout at 800px breakpoint (mobile vs desktop)',
+          (
+        tester,
+      ) async {
+        // Test mobile layout (width < 800)
+        tester.view.physicalSize = const Size(700, 2000);
+        tester.view.devicePixelRatio = 1.0;
+
+        await tester.pumpWidget(createTestWidget(products[0]));
+        await tester.pump();
+
+        // On mobile, menu icon should be visible
+        expect(find.byIcon(Icons.menu), findsOneWidget);
+        expect(find.text('Rainbow Hoodie'), findsOneWidget);
+        expect(find.text('ADD TO CART'), findsOneWidget);
+
+        // Test desktop layout (width >= 800)
+        tester.view.physicalSize = const Size(1200, 2000);
+        await tester.pumpWidget(createTestWidget(products[0]));
+        await tester.pump();
+
+        // On desktop, navigation buttons should be visible
+        expect(find.text('Home'), findsOneWidget);
+        expect(find.text('Shop'), findsOneWidget);
+        expect(find.text('Rainbow Hoodie'), findsOneWidget);
+
+        // Test at exactly 800px (should be desktop)
+        tester.view.physicalSize = const Size(800, 2000);
+        await tester.pumpWidget(createTestWidget(products[0]));
+        await tester.pump();
+
+        expect(find.text('Rainbow Hoodie'), findsOneWidget);
+        expect(find.text('ADD TO CART'), findsOneWidget);
+
+        // Reset for other tests
+        addTearDown(() => tester.view.reset());
+      });
+
+      testWidgets(
+          'should display product content correctly on different screen sizes',
+          (tester) async {
+        // Test on wide screens (>= 600px for row layout)
+        tester.view.physicalSize = const Size(1200, 2000);
+        tester.view.devicePixelRatio = 1.0;
+
+        await tester.pumpWidget(createTestWidget(products[0]));
+        await tester.pump();
+
+        expect(find.text('Rainbow Hoodie'), findsOneWidget);
+        expect(find.text('Description'), findsOneWidget);
+        expect(find.text('£30.00'), findsOneWidget);
+        expect(find.text('Size'), findsOneWidget);
+        expect(find.text('Quantity'), findsOneWidget);
+
+        // Test on narrow screens (< 600px for column layout)
+        tester.view.physicalSize = const Size(500, 2000);
+        await tester.pumpWidget(createTestWidget(products[0]));
+        await tester.pump();
+
+        expect(find.text('Rainbow Hoodie'), findsOneWidget);
+        expect(find.text('Description'), findsOneWidget);
+        expect(find.text('£30.00'), findsOneWidget);
+        expect(find.text('Size'), findsOneWidget);
+        expect(find.text('Quantity'), findsOneWidget);
+
+        // Reset for other tests
+        addTearDown(() => tester.view.reset());
+      });
+    });
   });
 }
