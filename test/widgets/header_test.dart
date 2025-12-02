@@ -72,6 +72,79 @@ void main() {
       expect(find.text('UPSU.net'), findsNothing);
     });
 
+    testWidgets('should show menu button on mobile', (tester) async {
+      tester.view.physicalSize = const Size(600, 800); // Set mobile size
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: HeaderWidget(),
+          ),
+        ),
+      );
+
+      // Check that menu button is visible on mobile
+      expect(find.byIcon(Icons.menu), findsOneWidget);
+    });
+
+    testWidgets('should hide menu button on desktop', (tester) async {
+      tester.view.physicalSize = const Size(1200, 800); // Set desktop size
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: HeaderWidget(),
+          ),
+        ),
+      );
+
+      // Check that menu button is hidden on desktop
+      expect(find.byIcon(Icons.menu), findsNothing);
+    });
+
+    testWidgets('should open mobile navbar when menu button is tapped',
+        (tester) async {
+      tester.view.physicalSize = const Size(600, 800); // Set mobile size
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: HeaderWidget(),
+          ),
+        ),
+      );
+
+      // Find and tap the menu button
+      final menuButton = find.byIcon(Icons.menu);
+      expect(menuButton, findsOneWidget);
+
+      await tester.tap(menuButton);
+      await tester.pumpAndSettle();
+
+      // Check that the modal bottom sheet with navigation items is displayed
+      expect(find.text('Home'), findsOneWidget);
+      expect(find.text('Shop'), findsOneWidget);
+      expect(find.text('The Print Shack'), findsOneWidget);
+      expect(find.text('SALE!'), findsOneWidget);
+      expect(find.text('About'), findsOneWidget);
+      expect(find.text('UPSU.net'), findsOneWidget);
+    });
+
     testWidgets('should display header icons', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
@@ -81,11 +154,10 @@ void main() {
         ),
       );
 
-      // Check that header icons are present
+      // Check that header icons are present (excluding menu which is conditionally shown)
       expect(find.byIcon(Icons.search), findsOneWidget);
       expect(find.byIcon(Icons.person_outline), findsOneWidget);
       expect(find.byIcon(Icons.shopping_bag_outlined), findsOneWidget);
-      expect(find.byIcon(Icons.menu), findsOneWidget);
     });
     testWidgets('should have correct banner styling', (tester) async {
       await tester.pumpWidget(
@@ -175,6 +247,14 @@ void main() {
     });
 
     testWidgets('should have icon buttons with correct icons', (tester) async {
+      tester.view.physicalSize =
+          const Size(600, 800); // Set mobile size to see all icons
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
@@ -183,7 +263,7 @@ void main() {
         ),
       );
 
-      // Verify that all expected icons are present
+      // Verify that all expected icons are present (on mobile, all 4 icons should be visible)
       expect(find.byIcon(Icons.search), findsOneWidget);
       expect(find.byIcon(Icons.person_outline), findsOneWidget);
       expect(find.byIcon(Icons.shopping_bag_outlined), findsOneWidget);
