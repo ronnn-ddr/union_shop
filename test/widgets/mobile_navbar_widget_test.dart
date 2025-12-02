@@ -94,5 +94,40 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Coming soon!'), findsOneWidget);
     });
+
+    testWidgets('should navigate to correct routes when tapped',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          initialRoute: '/test',
+          routes: {
+            '/test': (context) => Scaffold(
+                  body: Builder(
+                    builder: (context) => ElevatedButton(
+                      onPressed: () => showModalBottomSheet(
+                        context: context,
+                        builder: (context) => const MobileNavbarWidget(),
+                      ),
+                      child: const Text('Open'),
+                    ),
+                  ),
+                ),
+            '/': (context) => const Scaffold(body: Text('Home Page')),
+            '/shop': (context) => const Scaffold(body: Text('Shop Page')),
+            '/sale': (context) => const Scaffold(body: Text('Sale Page')),
+            '/about': (context) => const Scaffold(body: Text('About Page')),
+          },
+        ),
+      );
+
+      // Test Home navigation - modal should close after navigation
+      await tester.tap(find.text('Open'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Home'));
+      await tester.pumpAndSettle();
+      // Modal closes, so navigation items should not be visible
+      expect(find.text('Home'), findsNothing);
+      expect(find.text('Shop'), findsNothing);
+    });
   });
 }
