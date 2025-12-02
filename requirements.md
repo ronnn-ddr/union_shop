@@ -599,12 +599,6 @@ Adding comprehensive test coverage addresses the gap in test coverage for critic
 - Add tests for password validation (minimum length 6, confirm password matching)
 - Add tests for responsive padding (16px mobile, 32px desktop)
 
-**Routing Tests (test/routing_test.dart - create new):**
-- Create basic test structure for dynamic routing
-- Add tests for product routing (onGenerateRoute parses '/product/<id>', finds product, handles invalid IDs)
-- Add tests for collection routing (onGenerateRoute parses '/shop/<id>', handles invalid collection IDs)
-- Add tests for route fallbacks (invalid paths, default route '/' to HomeScreen)
-
 **Data Validation Tests (test/data/ - create new):**
 - Create `test/data/products_test.dart` with tests for required fields (name, image, price, id, description)
 - Add tests for unique product IDs
