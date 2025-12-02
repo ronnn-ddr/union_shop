@@ -4,7 +4,7 @@ class MobileNavbarWidget extends StatelessWidget {
   const MobileNavbarWidget({super.key});
 
   void _navigateTo(BuildContext context, String route) {
-    Navigator.pushNamed(context, route);
+    Navigator.of(context, rootNavigator: true).pushNamed(route);
     Navigator.pop(context); // Close the modal
   }
 
@@ -25,12 +25,12 @@ class MobileNavbarWidget extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.home),
             title: const Text('Home', style: TextStyle(fontFamily: 'WorkSans')),
-            onTap: () => _navigateTo(context, '/'),
+            onTap: () => Navigator.pushNamed(context, '/'),
           ),
           ListTile(
             leading: const Icon(Icons.shop),
             title: const Text('Shop', style: TextStyle(fontFamily: 'WorkSans')),
-            onTap: () => _navigateTo(context, '/shop'),
+            onTap: () => Navigator.pushNamed(context, '/shop'),
           ),
           ListTile(
             leading: const Icon(Icons.print),
@@ -42,13 +42,13 @@ class MobileNavbarWidget extends StatelessWidget {
             leading: const Icon(Icons.local_offer),
             title:
                 const Text('SALE!', style: TextStyle(fontFamily: 'WorkSans')),
-            onTap: () => _navigateTo(context, '/sale'),
+            onTap: () => Navigator.pushNamed(context, '/sale'),
           ),
           ListTile(
             leading: const Icon(Icons.info),
             title:
                 const Text('About', style: TextStyle(fontFamily: 'WorkSans')),
-            onTap: () => _navigateTo(context, '/about'),
+            onTap: () => Navigator.pushNamed(context, '/about'),
           ),
           ListTile(
             leading: const Icon(Icons.web),
