@@ -98,8 +98,8 @@ class _CollectionsState extends State<Collections> {
                                               left: 0,
                                               right: 0,
                                               child: Container(
-                                                color: Colors.black
-                                                    .withOpacity(0.6),
+                                                color: const Color.fromRGBO(
+                                                    0, 0, 0, 0.6),
                                                 padding:
                                                     const EdgeInsets.symmetric(
                                                         vertical: 8,
