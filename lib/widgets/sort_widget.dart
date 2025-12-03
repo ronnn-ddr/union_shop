@@ -12,10 +12,10 @@ class SortWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 200,
       child: DropdownButtonFormField<String>(
-        value: selectedSort,
+        initialValue: selectedSort,
         decoration: const InputDecoration(
           border: OutlineInputBorder(),
           contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
