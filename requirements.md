@@ -768,3 +768,135 @@ The Code Quality Improvements feature addresses all lint issues reported by `flu
 - Run `flutter analyze` to verify 0 issues
 - Run `flutter test` to verify all tests pass
 - Manually test app functionality on web/mobile to confirm no regressions
+
+### Feature Requirements Document: Cart Page UI
+
+#### 1. Feature Description and Purpose
+The Cart Page UI feature introduces a new screen in `lib/cart_page.dart` that displays and manages shopping cart contents. The app already has a fully implemented cart model (`lib/models/cart.dart`) using ChangeNotifier/Provider pattern with add, remove, update quantity, and clear operations. The ProductPage integrates with this cart model to add items. This feature creates the visual interface for customers to view their cart, adjust quantities, remove items, and complete checkout with a simple confirmation. The goal is to provide a complete shopping cart experience that integrates seamlessly with the existing cart infrastructure.
+
+#### 2. User Stories
+- View Cart Contents
+	- As a customer, I want to see all items in my cart with images, names, sizes, prices, and quantities so I can review my order.
+
+- Manage Quantities
+	- As a customer, I want to increase or decrease item quantities using + and - buttons so I can adjust my order.
+
+- Remove Items
+	- As a customer, I want to remove items from my cart with a confirmation dialog so I can change my mind about purchases.
+
+- View Cart Summary
+	- As a customer, I want to see the total price and item count so I know how much I'm spending.
+
+- Checkout
+	- As a customer, I want to complete my purchase with a checkout button that confirms my order and clears my cart.
+
+- Handle Empty Cart
+	- As a customer, I want to see a helpful message and "Continue Shopping" button when my cart is empty so I can easily navigate back.
+
+- Access Cart
+	- As a customer, I want to access my cart by clicking the cart icon in the header so I can review my items anytime.
+
+- Responsive Experience
+	- As a customer, I want the cart page to adapt to my device (stacked on mobile, side-by-side on desktop) for comfortable viewing.
+
+#### 3. Acceptance Criteria
+
+##### UI and Display
+- [ ] Cart page uses `Scaffold` with `HeaderWidget` and `FooterWidget` matching other app pages.
+- [ ] Empty cart state displays message "Your cart is empty", icon (e.g., `Icons.shopping_cart_outlined`), and "Continue Shopping" button navigating to '/'.
+- [ ] Cart items display in scrollable list (`SingleChildScrollView` with `Column`).
+- [ ] Each cart item shows in a `Card` with: product image (`Image.asset` with error fallback), title and size text (e.g., "Rainbow Hoodie - Size: L"), price per unit and subtotal (price × quantity), quantity controls (- and + buttons), remove button (trash icon).
+- [ ] Cart summary section below items displays: subtotal (`cart.totalAmount` formatted as £X.XX), item count (e.g., "3 items"), large "Checkout" `ElevatedButton` with theme color (Color(0xFF4d2963)).
+
+##### Interactive Elements
+- [ ] Quantity + button increases quantity by 1 and calls `cart.updateQuantity(id, size, newQuantity)`.
+- [ ] Quantity - button decreases quantity by 1 (minimum 1) and calls `cart.updateQuantity(id, size, newQuantity)`.
+- [ ] Quantity displayed in `Text` widget between + and - buttons, or in `TextField` with numeric keyboard.
+- [ ] Remove button shows confirmation dialog ("Remove item from cart?" with Cancel/Remove buttons) before calling `cart.removeItem(id, size)`.
+- [ ] Checkout button only enabled when `cart.itemCount > 0`.
+- [ ] Checkout button press shows `SnackBar` with "Order placed successfully!" and calls `cart.clear()`.
+- [ ] Optional: "Clear Cart" button shows confirmation dialog before calling `cart.clear()`.
+
+##### Structure and Navigation
+- [ ] Add '/cart' route to `lib/main.dart` routes map pointing to `CartPage()`.
+- [ ] Update `lib/widgets/header_widget.dart` cart icon `onPressed` to navigate to '/cart' (currently shows SnackBar).
+- [ ] Optional: Display cart item count badge on header cart icon using `Badge` widget or custom positioned text.
+
+##### Cart Model Integration
+- [ ] Use `Provider.of<Cart>(context)` or `context.watch<Cart>()` to access cart state.
+- [ ] Access `cart.items` (List<CartItem>), `cart.itemCount` (int), `cart.totalAmount` (double).
+- [ ] Call `cart.updateQuantity(id, size, quantity)` for quantity changes.
+- [ ] Call `cart.removeItem(id, size)` for item removal.
+- [ ] Call `cart.clear()` after checkout.
+- [ ] UI automatically rebuilds when cart changes (Provider/ChangeNotifier pattern).
+
+##### Styling and Responsiveness
+- [ ] All `Text` widgets use `fontFamily: 'WorkSans'`.
+- [ ] Title text uses black color, descriptions/details use grey, prices use black.
+- [ ] Buttons use theme color (Color(0xFF4d2963)) with white text.
+- [ ] Background color is white.
+- [ ] Price formatting: Display with £ symbol and 2 decimal places (e.g., £30.00).
+- [ ] Layout responsive with breakpoint at 800px: desktop uses `Row` for item layout (image left, details center, controls right); mobile uses `Column` stacking.
+- [ ] Padding adjusts for screen size (16px mobile, 32px desktop) using `MediaQuery`.
+
+##### Error Handling and Edge Cases
+- [ ] Quantity cannot go below 1 (- button disabled or shows confirmation when quantity is 1).
+- [ ] Quantity input validated if using `TextField` (numeric only, clamped to reasonable range like 1-99).
+- [ ] Empty cart state handled gracefully with clear messaging.
+- [ ] Image error fallback displays grey container with icon.
+- [ ] Confirmation dialogs prevent accidental removals/clears.
+- [ ] Checkout button disabled when cart empty.
+
+##### Integration and Testing
+- [ ] Create `lib/cart_page.dart` with `CartPage` StatelessWidget.
+- [ ] Update `lib/widgets/header_widget.dart` to navigate to cart page.
+- [ ] Update `lib/main.dart` routes to include '/cart'.
+- [ ] Create unit/widget tests in `test/cart_page_test.dart` covering:
+	- Empty cart state display
+	- Cart item display with all fields
+	- Quantity increase/decrease functionality
+	- Remove item with confirmation
+	- Checkout flow (SnackBar and cart clear)
+	- Total calculation display
+	- Navigation from header cart icon
+- [ ] App builds and runs without errors.
+- [ ] `flutter analyze` succeeds with 0 issues.
+- [ ] `flutter test` succeeds with all tests passing.
+
+##### Accessibility
+- [ ] Add semantic labels to IconButtons (e.g., "Increase quantity", "Decrease quantity", "Remove item").
+- [ ] Ensure sufficient color contrast for text and buttons.
+- [ ] Confirmation dialogs have clear action labels.
+
+#### 4. Subtasks
+
+**Implement CartPage structure and empty state (lib/cart_page.dart):**
+- Create `CartPage` as StatelessWidget with Scaffold, HeaderWidget, FooterWidget
+- Add Provider/Consumer to access Cart model
+- Implement empty cart state with icon, "Your cart is empty" message, and "Continue Shopping" button navigating to '/'
+
+**Implement cart item display and list (lib/cart_page.dart):**
+- Create cart items list with SingleChildScrollView and Column
+- Create cart item card widget with: Image.asset (with error fallback), title and size text, price per unit and subtotal, quantity controls (- and + IconButtons), remove IconButton (trash icon)
+- Implement responsive layout using MediaQuery (Row for desktop ≥800px, Column for mobile)
+- Apply consistent styling (WorkSans font, black/grey colors, theme color buttons, responsive padding 16px/32px)
+
+**Implement cart item interactions (lib/cart_page.dart):**
+- Implement quantity +/- buttons calling cart.updateQuantity(id, size, newQuantity), with - button respecting minimum of 1
+- Implement remove button with showDialog confirmation ("Remove item from cart?") before calling cart.removeItem(id, size)
+
+**Implement cart summary and checkout (lib/cart_page.dart):**
+- Add cart summary section displaying subtotal (cart.totalAmount formatted as £X.XX), item count text (e.g., "3 items")
+- Implement "Checkout" ElevatedButton (theme color, only enabled when cart.itemCount > 0)
+- On checkout press: show SnackBar "Order placed successfully!" and call cart.clear()
+
+**Update navigation and routing:**
+- Update `lib/widgets/header_widget.dart` cart icon onPressed to navigate to '/cart' instead of showing SnackBar
+- Add '/cart' route to `lib/main.dart` routes map: `'/cart': (context) => const CartPage()`
+- Verify Cart model is provided at app root with ChangeNotifierProvider
+
+**Create cart page tests (test/cart_page_test.dart):**
+- Test empty cart state, cart item display with all fields, quantity increase/decrease
+- Test remove button confirmation dialog and item removal, checkout button SnackBar and cart clear
+- Test total amount and item count display, responsive layout changes
+- Mock Cart model for tests using Provider or test-specific cart instance
