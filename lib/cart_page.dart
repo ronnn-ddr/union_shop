@@ -115,8 +115,89 @@ class CartPage extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 16.0),
                   child: _buildCartItemCard(context, item, isDesktop),
                 )),
+            const SizedBox(height: 32),
+            // Cart summary
+            _buildCartSummary(context, cart),
           ],
         ),
+      ),
+    );
+  }
+
+  /// Builds cart summary section with total and checkout button
+  Widget _buildCartSummary(BuildContext context, Cart cart) {
+    return Container(
+      padding: const EdgeInsets.all(24.0),
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '${cart.itemCount} ${cart.itemCount == 1 ? 'item' : 'items'}',
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.black,
+                  fontFamily: 'WorkSans',
+                ),
+              ),
+              Text(
+                'Subtotal: £${cart.totalAmount.toStringAsFixed(2)}',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  fontFamily: 'WorkSans',
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          ElevatedButton(
+            onPressed: cart.itemCount > 0
+                ? () {
+                    _handleCheckout(context, cart);
+                  }
+                : null,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF4d2963),
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+              ),
+              disabledBackgroundColor: Colors.grey[400],
+            ),
+            child: const Text(
+              'Checkout',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'WorkSans',
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Handles checkout process
+  void _handleCheckout(BuildContext context, Cart cart) {
+    cart.clear();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Order placed successfully!',
+          style: TextStyle(fontFamily: 'WorkSans'),
+        ),
+        duration: Duration(seconds: 3),
+        backgroundColor: Colors.green,
       ),
     );
   }
