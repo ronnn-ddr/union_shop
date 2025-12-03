@@ -6,6 +6,7 @@ import 'package:union_shop/collections.dart';
 import 'package:union_shop/collection_page.dart';
 import 'package:union_shop/sale_page.dart';
 import 'package:union_shop/login_page.dart';
+import 'package:union_shop/cart_page.dart';
 import 'package:union_shop/widgets/header_widget.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
 import 'package:union_shop/widgets/hero_carousel_widget.dart';
@@ -81,6 +82,11 @@ class UnionShopApp extends StatelessWidget {
           } else if (uri.path == '/login') {
             return MaterialPageRoute(
               builder: (context) => const LoginPage(),
+              settings: RouteSettings(name: settings.name),
+            );
+          } else if (uri.path == '/cart') {
+            return MaterialPageRoute(
+              builder: (context) => const CartPage(),
               settings: RouteSettings(name: settings.name),
             );
           }
