@@ -110,7 +110,13 @@ class _HeroCarouselWidgetState extends State<HeroCarouselWidget> {
                       // Call-to-action button
                       ElevatedButton(
                         onPressed: () {
-                          // Button handler will be implemented in subtask 7
+                          if (currentSlide.route != null) {
+                            Navigator.pushNamed(context, currentSlide.route!);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Coming soon!')),
+                            );
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF4d2963),
