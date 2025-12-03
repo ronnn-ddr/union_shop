@@ -38,5 +38,34 @@ void main() {
     );
   }
 
-  group('HeroCarouselWidget', () {});
+  group('HeroCarouselWidget', () {
+    testWidgets('displays the first slide initially',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(createTestWidget(testSlides));
+
+      // Verify first slide content is displayed
+      expect(find.text('Test Slide 1'), findsOneWidget);
+      expect(find.text('This is test slide 1 description'), findsOneWidget);
+      expect(find.text('BUTTON 1'), findsOneWidget);
+
+      // Verify second slide is not displayed
+      expect(find.text('Test Slide 2'), findsNothing);
+    });
+
+    testWidgets('displays PaginationWidget', (WidgetTester tester) async {
+      await tester.pumpWidget(createTestWidget(testSlides));
+
+      // PaginationWidget should be present
+      // Look for the Previous and Next buttons
+      expect(find.text('Previous'), findsOneWidget);
+      expect(find.text('Next'), findsOneWidget);
+    });
+
+    testWidgets('displays correct page indicator', (WidgetTester tester) async {
+      await tester.pumpWidget(createTestWidget(testSlides));
+
+      // Should show "Page 1 of 3" for first slide of 3 total
+      expect(find.text('Page 1 of 3'), findsOneWidget);
+    });
+  });
 }
