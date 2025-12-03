@@ -241,12 +241,16 @@ class CartPage extends StatelessWidget {
 
   /// Builds quantity controls (- and + buttons with quantity display)
   Widget _buildQuantityControls(BuildContext context, item) {
+    final cart = context.read<Cart>();
+
     return Row(
       children: [
         IconButton(
-          onPressed: () {
-            // Will implement in next subtask
-          },
+          onPressed: item.quantity > 1
+              ? () {
+                  cart.updateQuantity(item.id, item.size, item.quantity - 1);
+                }
+              : null,
           icon: const Icon(Icons.remove_circle_outline),
           color: const Color(0xFF4d2963),
           tooltip: 'Decrease quantity',
@@ -264,7 +268,7 @@ class CartPage extends StatelessWidget {
         ),
         IconButton(
           onPressed: () {
-            // Will implement in next subtask
+            cart.updateQuantity(item.id, item.size, item.quantity + 1);
           },
           icon: const Icon(Icons.add_circle_outline),
           color: const Color(0xFF4d2963),
@@ -278,11 +282,64 @@ class CartPage extends StatelessWidget {
   Widget _buildRemoveButton(BuildContext context, item) {
     return IconButton(
       onPressed: () {
-        // Will implement in next subtask
+        _showRemoveItemDialog(context, item);
       },
       icon: const Icon(Icons.delete_outline),
       color: Colors.red[700],
       tooltip: 'Remove item',
+    );
+  }
+
+  /// Shows confirmation dialog before removing item
+  void _showRemoveItemDialog(BuildContext context, item) {
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Text(
+            'Remove item from cart?',
+            style: TextStyle(fontFamily: 'WorkSans'),
+          ),
+          content: Text(
+            'Are you sure you want to remove ${item.title} (Size: ${item.size}) from your cart?',
+            style: const TextStyle(fontFamily: 'WorkSans'),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+              child: const Text(
+                'Cancel',
+                style: TextStyle(fontFamily: 'WorkSans'),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                final cart = context.read<Cart>();
+                cart.removeItem(item.id, item.size);
+                Navigator.of(dialogContext).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'Item removed from cart',
+                      style: TextStyle(fontFamily: 'WorkSans'),
+                    ),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              },
+              child: Text(
+                'Remove',
+                style: TextStyle(
+                  color: Colors.red[700],
+                  fontFamily: 'WorkSans',
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
