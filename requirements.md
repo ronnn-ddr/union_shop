@@ -670,13 +670,13 @@ The Homepage Hero Carousel with Promotions feature replaces the current static "
 #### 4. Subtasks
 - Create a data structure (list of maps or class) for the 4 promotion slides with title, description, button text, button action/route, and background image path (using 'Personalisation.png' for Print Shack, 'SalePromotion.png' for Sale, 'GraduateCollectionPromotion.png' for Graduation, and 'AccommodationPromotion.png' for Student Accommodation).
 - Update assets to use promotion images: The Print Shack uses the existing `assets/images/Personalisation.png`, Sale uses `assets/images/SalePromotion.png`, Graduation uses `assets/images/GraduateCollectionPromotion.png`, and Student Accommodation uses `assets/images/AccommodationPromotion.png`.
-- Convert the static hero section in HomeScreen to a stateful carousel that tracks the current slide index.
-- Implement slide rendering logic that displays one slide at a time based on current index, rendering the appropriate background image for each slide.
-- Add `AnimatedSwitcher` or `PageView` for smooth transitions between slides with appropriate animation curves.
-- Integrate `PaginationWidget` below the carousel with proper callbacks to update slide index.
-- Implement button onPressed handlers for each slide (navigate to routes or show placeholder SnackBar).
-- Add responsive sizing for text and padding based on MediaQuery width (<800px breakpoint).
-- Extract carousel logic into a separate widget (`lib/widgets/hero_carousel_widget.dart`) if the code becomes complex.
-- Add unit tests in `test/home_test.dart` for carousel state management, slide transitions, and navigation.
+- Create a new stateful widget `HeroCarouselWidget` in `lib/widgets/hero_carousel_widget.dart` that accepts a list of `PromotionSlide` objects and tracks the current slide index.
+- Implement basic slide rendering in `HeroCarouselWidget` that displays one slide at a time with the background image, title, description, and button.
+- Add `AnimatedSwitcher` for smooth transitions between slides with appropriate animation curves (Curves.easeInOut, ~500ms duration).
+- Integrate `PaginationWidget` below the carousel in `HeroCarouselWidget` with proper callbacks to update slide index when Previous/Next buttons are clicked.
+- Implement button onPressed handlers for each slide (navigate to routes using `Navigator.pushNamed` or show "Coming soon!" SnackBar for null routes).
+- Add responsive sizing for text and padding based on MediaQuery width (<800px breakpoint): 16px padding mobile, 32px desktop; titles 24px mobile, 32px desktop; descriptions 14px mobile, 16px desktop.
+- Replace the static hero section in HomeScreen (`lib/main.dart`) with the new `HeroCarouselWidget`, passing in the `promotionSlides` data.
+- Add unit tests in `test/widgets/hero_carousel_widget_test.dart` for carousel state management, slide transitions, and navigation.
 - Create '/shop/graduation' collection in collections data if it doesn't exist.
 - Verify all existing home page tests still pass and update if necessary.
