@@ -67,5 +67,79 @@ void main() {
       // Should show "Page 1 of 3" for first slide of 3 total
       expect(find.text('Page 1 of 3'), findsOneWidget);
     });
+
+    testWidgets('navigates to next slide when Next button is tapped',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(createTestWidget(testSlides));
+
+      // Verify we start on slide 1
+      expect(find.text('Test Slide 1'), findsOneWidget);
+      expect(find.text('Page 1 of 3'), findsOneWidget);
+
+      // Tap the Next button
+      await tester.tap(find.text('Next'));
+      await tester.pumpAndSettle(); // Wait for animations to complete
+
+      // Verify we moved to slide 2
+      expect(find.text('Test Slide 2'), findsOneWidget);
+      expect(find.text('This is test slide 2 description'), findsOneWidget);
+      expect(find.text('Page 2 of 3'), findsOneWidget);
+
+      // Verify slide 1 is no longer displayed
+      expect(find.text('Test Slide 1'), findsNothing);
+    });
+
+    testWidgets('navigates to previous slide when Previous button is tapped',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(createTestWidget(testSlides));
+
+      // First navigate to slide 2
+      await tester.tap(find.text('Next'));
+      await tester.pumpAndSettle();
+      expect(find.text('Test Slide 2'), findsOneWidget);
+
+      // Now tap Previous to go back to slide 1
+      await tester.tap(find.text('Previous'));
+      await tester.pumpAndSettle();
+
+      // Verify we're back on slide 1
+      expect(find.text('Test Slide 1'), findsOneWidget);
+      expect(find.text('Page 1 of 3'), findsOneWidget);
+
+      // Verify slide 2 is no longer displayed
+      expect(find.text('Test Slide 2'), findsNothing);
+    });
+
+    testWidgets('Previous button is disabled on first slide',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(createTestWidget(testSlides));
+
+      // On first slide, Previous button should be disabled
+      final previousButton = tester.widget<ElevatedButton>(
+        find.widgetWithText(ElevatedButton, 'Previous'),
+      );
+      expect(previousButton.onPressed, isNull);
+    });
+
+    testWidgets('Next button is disabled on last slide',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(createTestWidget(testSlides));
+
+      // Navigate to the last slide (slide 3)
+      await tester.tap(find.text('Next'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Next'));
+      await tester.pumpAndSettle();
+
+      // Verify we're on slide 3
+      expect(find.text('Test Slide 3'), findsOneWidget);
+      expect(find.text('Page 3 of 3'), findsOneWidget);
+
+      // Next button should be disabled
+      final nextButton = tester.widget<ElevatedButton>(
+        find.widgetWithText(ElevatedButton, 'Next'),
+      );
+      expect(nextButton.onPressed, isNull);
+    });
   });
 }
