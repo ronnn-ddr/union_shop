@@ -135,7 +135,8 @@ void main() {
   });
 
   group('CartPage Quantity Controls Tests', () {
-    testWidgets('quantity controls increase and decrease work correctly', (tester) async {
+    testWidgets('quantity controls increase and decrease work correctly',
+        (tester) async {
       // Create cart with one item
       final cart = Cart();
       cart.addItem(
@@ -167,7 +168,7 @@ void main() {
       // Find the + button (add_circle_outline icon)
       final addButton = find.byIcon(Icons.add_circle_outline);
       expect(addButton, findsOneWidget);
-      
+
       // Tap the + button to increase quantity
       await tester.tap(addButton);
       await tester.pumpAndSettle();
@@ -190,8 +191,83 @@ void main() {
         of: decreaseButton,
         matching: find.byType(IconButton),
       );
-      final IconButton minusButton = tester.widget<IconButton>(iconButtonFinder);
+      final IconButton minusButton =
+          tester.widget<IconButton>(iconButtonFinder);
       expect(minusButton.onPressed, isNull);
+    });
+  });
+
+  group('CartPage Item Removal Tests', () {
+    testWidgets('remove button shows dialog and removes item on confirmation',
+        (tester) async {
+      // Create cart with one item
+      final cart = Cart();
+      cart.addItem(
+        id: 'p1',
+        title: 'Test Product',
+        price: '£30.00',
+        imageUrl: 'https://example.com/product.jpg',
+        size: 'L',
+        quantity: 1,
+      );
+
+      // Build the CartPage
+      await tester.pumpWidget(
+        ChangeNotifierProvider.value(
+          value: cart,
+          child: MaterialApp(
+            home: const CartPage(),
+            routes: {
+              '/cart': (context) => const CartPage(),
+            },
+          ),
+        ),
+      );
+
+      // Verify item is present
+      expect(find.text('Test Product'), findsOneWidget);
+      expect(cart.itemCount, 1);
+
+      // Find and tap the delete button (ensure visible first)
+      final deleteButton = find.byIcon(Icons.delete_outline);
+      await tester.ensureVisible(deleteButton);
+      await tester.pumpAndSettle();
+      await tester.tap(deleteButton);
+      await tester.pumpAndSettle();
+
+      // Verify dialog appears
+      expect(find.text('Remove item from cart?'), findsOneWidget);
+      expect(
+          find.textContaining('Are you sure you want to remove Test Product'),
+          findsOneWidget);
+      expect(find.text('Cancel'), findsOneWidget);
+      expect(find.text('Remove'), findsOneWidget);
+
+      // Tap Cancel button
+      await tester.tap(find.text('Cancel'));
+      await tester.pumpAndSettle();
+
+      // Verify item is still present
+      expect(find.text('Test Product'), findsOneWidget);
+      expect(cart.itemCount, 1);
+
+      // Tap delete button again
+      await tester.tap(deleteButton);
+      await tester.pumpAndSettle();
+
+      // Tap Remove button
+      await tester.tap(find.text('Remove'));
+      await tester.pumpAndSettle();
+
+      // Verify item is removed
+      expect(find.text('Test Product'), findsNothing);
+      expect(cart.itemCount, 0);
+
+      // Verify SnackBar appears
+      expect(find.text('Item removed from cart'), findsOneWidget);
+
+      // Verify empty cart state is shown
+      expect(find.text('Your cart is empty'), findsOneWidget);
     });
   });
 }
