@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:union_shop/cart_page.dart';
 import 'package:union_shop/models/cart.dart';
-import 'package:union_shop/models/product.dart';
 
 void main() {
   group('CartPage Empty State Tests', () {
