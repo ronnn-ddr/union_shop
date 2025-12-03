@@ -5,7 +5,7 @@ import 'package:union_shop/data/products.dart';
 void main() {
   group('Product Model Tests', () {
     test('Product instantiation with all fields', () {
-      final product = Product(
+      const product = Product(
         name: 'Test Product',
         image: 'test_image.png',
         price: 10.0,
@@ -29,7 +29,7 @@ void main() {
     });
 
     test('Product instantiation without salePrice', () {
-      final product = Product(
+      const product = Product(
         name: 'Test Product',
         image: 'test_image.png',
         price: 10.0,
@@ -44,7 +44,7 @@ void main() {
     });
 
     test('Product toString', () {
-      final product = Product(
+      const product = Product(
         name: 'Test Product',
         image: 'test_image.png',
         price: 10.0,
@@ -56,7 +56,7 @@ void main() {
         id: 'test-id',
       );
 
-      final expectedString =
+      const expectedString =
           'Product(name: Test Product, image: test_image.png, price: 10.0, salePrice: 8.0, description: A test product, material: Cotton, sizes: [S, M, L], collections: [Test], id: test-id)';
       expect(product.toString(), expectedString);
     });
