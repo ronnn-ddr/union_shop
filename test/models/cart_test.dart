@@ -10,7 +10,66 @@ void main() {
   });
 
   group('Add Item Tests', () {
-    // Tests for adding items will go here
+    test('adds single item to empty cart', () {
+      // Verify cart starts empty
+      expect(cart.itemCount, 0);
+      expect(cart.totalAmount, 0.0);
+      expect(cart.items, isEmpty);
+
+      // Add one item
+      cart.addItem(
+        id: 'p1',
+        title: 'Test Product',
+        price: '£25.00',
+        imageUrl: 'test.jpg',
+        size: 'M',
+        quantity: 1,
+      );
+
+      // Verify item was added correctly
+      expect(cart.itemCount, 1);
+      expect(cart.totalAmount, 25.0);
+      expect(cart.items.length, 1);
+      expect(cart.items.first.id, 'p1');
+      expect(cart.items.first.title, 'Test Product');
+      expect(cart.items.first.price, '£25.00');
+      expect(cart.items.first.size, 'M');
+      expect(cart.items.first.quantity, 1);
+    });
+
+    test('adds same item with same size increases quantity not duplicate', () {
+      // Add item with quantity 1
+      cart.addItem(
+        id: 'p1',
+        title: 'Test Product',
+        price: '£25.00',
+        imageUrl: 'test.jpg',
+        size: 'M',
+        quantity: 1,
+      );
+
+      expect(cart.itemCount, 1);
+      expect(cart.items.first.quantity, 1);
+
+      // Add same item (same id and size) with quantity 2
+      cart.addItem(
+        id: 'p1',
+        title: 'Test Product',
+        price: '£25.00',
+        imageUrl: 'test.jpg',
+        size: 'M',
+        quantity: 2,
+      );
+
+      // Verify no duplicate created - itemCount stays 1
+      expect(cart.itemCount, 1);
+
+      // Verify quantity increased to 3 (1 + 2)
+      expect(cart.items.first.quantity, 3);
+
+      // Verify totalAmount reflects combined quantity (3 * £25 = £75)
+      expect(cart.totalAmount, 75.0);
+    });
   });
 
   group('Update Quantity and Remove Tests', () {
