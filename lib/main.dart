@@ -8,8 +8,10 @@ import 'package:union_shop/sale_page.dart';
 import 'package:union_shop/login_page.dart';
 import 'package:union_shop/widgets/header_widget.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
+import 'package:union_shop/widgets/hero_carousel_widget.dart';
 import 'package:union_shop/models/cart.dart';
 import 'package:union_shop/data/products.dart';
+import 'package:union_shop/data/promotions.dart';
 import 'package:union_shop/models/product.dart';
 
 void main() {
@@ -113,93 +115,8 @@ class HomeScreen extends StatelessWidget {
             // Use the reusable HeaderWidget
             const HeaderWidget(),
 
-            // Hero Section
-            SizedBox(
-              height: 400,
-              width: double.infinity,
-              child: Stack(
-                children: [
-                  // Background image (use Image.asset so we can show a fallback with errorBuilder)
-                  Positioned.fill(
-                    child: Stack(
-                      children: [
-                        Positioned.fill(
-                          child: Image.asset(
-                            'assets/images/Personalisation.png',
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                color: Colors.grey[300],
-                                child: const Center(
-                                  child: Icon(Icons.image_not_supported,
-                                      color: Colors.grey),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        // Semi-transparent overlay
-                        Positioned.fill(
-                          child: Container(
-                            color: const Color.fromRGBO(0, 0, 0, 0.35),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // Content overlay
-                  Positioned(
-                    left: 24,
-                    right: 24,
-                    top: 80,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'The Print Shack',
-                          style: TextStyle(
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            height: 1.2,
-                            fontFamily: 'WorkSans',
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          "Let's create something uniquely yours with our personalisation service - From £3 for one line of text!",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            height: 1.5,
-                            fontFamily: 'WorkSans',
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 32),
-                        ElevatedButton(
-                          onPressed: placeholderCallbackForButtons,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF4d2963),
-                            foregroundColor: Colors.white,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.zero,
-                            ),
-                          ),
-                          child: const Text(
-                            'FIND OUT MORE',
-                            style: TextStyle(
-                                fontSize: 14,
-                                letterSpacing: 1,
-                                fontFamily: 'WorkSans'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Hero Carousel Section
+            HeroCarouselWidget(slides: promotionSlides),
 
             // Products Section
             Container(
