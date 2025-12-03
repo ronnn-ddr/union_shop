@@ -133,4 +133,65 @@ void main() {
       expect(find.widgetWithText(ElevatedButton, 'Checkout'), findsOneWidget);
     });
   });
+
+  group('CartPage Quantity Controls Tests', () {
+    testWidgets('quantity controls increase and decrease work correctly', (tester) async {
+      // Create cart with one item
+      final cart = Cart();
+      cart.addItem(
+        id: 'p1',
+        title: 'Test Product',
+        price: '£25.00',
+        imageUrl: 'https://example.com/product.jpg',
+        size: 'M',
+        quantity: 1,
+      );
+
+      // Build the CartPage with routes
+      await tester.pumpWidget(
+        ChangeNotifierProvider.value(
+          value: cart,
+          child: MaterialApp(
+            home: const CartPage(),
+            routes: {
+              '/cart': (context) => const CartPage(),
+            },
+          ),
+        ),
+      );
+
+      // Verify initial quantity is 1 and subtotal
+      expect(find.text('1'), findsWidgets);
+      expect(find.textContaining('Subtotal: £25.00'), findsWidgets);
+
+      // Find the + button (add_circle_outline icon)
+      final addButton = find.byIcon(Icons.add_circle_outline);
+      expect(addButton, findsOneWidget);
+      
+      // Tap the + button to increase quantity
+      await tester.tap(addButton);
+      await tester.pumpAndSettle();
+
+      // Verify quantity increased to 2
+      expect(find.text('2'), findsWidgets);
+      expect(find.textContaining('Subtotal: £50.00'), findsWidgets);
+
+      // Find and tap the - button (remove_circle_outline icon)
+      final decreaseButton = find.byIcon(Icons.remove_circle_outline);
+      await tester.tap(decreaseButton);
+      await tester.pumpAndSettle();
+
+      // Verify quantity decreased back to 1
+      expect(find.text('1'), findsWidgets);
+      expect(find.textContaining('Subtotal: £25.00'), findsWidgets);
+
+      // Verify - button is disabled at quantity 1
+      final iconButtonFinder = find.ancestor(
+        of: decreaseButton,
+        matching: find.byType(IconButton),
+      );
+      final IconButton minusButton = tester.widget<IconButton>(iconButtonFinder);
+      expect(minusButton.onPressed, isNull);
+    });
+  });
 }
