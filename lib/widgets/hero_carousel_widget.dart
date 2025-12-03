@@ -33,24 +33,102 @@ class _HeroCarouselWidgetState extends State<HeroCarouselWidget> {
 
     return Column(
       children: [
-        // Hero section container - will be filled in next subtask
+        // Hero section with background image and content
         SizedBox(
           height: 400,
           width: double.infinity,
-          child: Container(
-            color: Colors.grey[300],
-            child: Center(
-              child: Text(
-                'Slide ${_currentIndex + 1}: ${currentSlide.title}',
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontFamily: 'WorkSans',
+          child: Stack(
+            children: [
+              // Background image with error handling
+              Positioned.fill(
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Image.asset(
+                        currentSlide.imagePath,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            color: Colors.grey[300],
+                            child: const Center(
+                              child: Icon(
+                                Icons.image_not_supported,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    // Semi-transparent overlay for text readability
+                    Positioned.fill(
+                      child: Container(
+                        color: const Color.fromRGBO(0, 0, 0, 0.35),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
+              // Content overlay (title, description, button)
+              Positioned(
+                left: 24,
+                right: 24,
+                top: 80,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Title
+                    Text(
+                      currentSlide.title,
+                      style: const TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        height: 1.2,
+                        fontFamily: 'WorkSans',
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    // Description
+                    Text(
+                      currentSlide.description,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        height: 1.5,
+                        fontFamily: 'WorkSans',
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 32),
+                    // Call-to-action button
+                    ElevatedButton(
+                      onPressed: () {
+                        // Button handler will be implemented in subtask 7
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF4d2963),
+                        foregroundColor: Colors.white,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero,
+                        ),
+                      ),
+                      child: Text(
+                        currentSlide.buttonText,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          letterSpacing: 1,
+                          fontFamily: 'WorkSans',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
-        // Pagination widget will be added in a later subtask
+        // Pagination widget will be added in subtask 6
         const SizedBox(height: 20),
         Text(
           'Pagination controls go here',
