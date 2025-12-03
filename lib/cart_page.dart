@@ -183,9 +183,65 @@ class CartPage extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(width: 16),
+            // Quantity controls and remove button
+            Column(
+              children: [
+                _buildQuantityControls(context, item),
+                const SizedBox(height: 8),
+                _buildRemoveButton(context, item),
+              ],
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  /// Builds quantity controls (- and + buttons with quantity display)
+  Widget _buildQuantityControls(BuildContext context, item) {
+    return Row(
+      children: [
+        IconButton(
+          onPressed: () {
+            // Will implement in next subtask
+          },
+          icon: const Icon(Icons.remove_circle_outline),
+          color: const Color(0xFF4d2963),
+          tooltip: 'Decrease quantity',
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Text(
+            '${item.quantity}',
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'WorkSans',
+            ),
+          ),
+        ),
+        IconButton(
+          onPressed: () {
+            // Will implement in next subtask
+          },
+          icon: const Icon(Icons.add_circle_outline),
+          color: const Color(0xFF4d2963),
+          tooltip: 'Increase quantity',
+        ),
+      ],
+    );
+  }
+
+  /// Builds remove button
+  Widget _buildRemoveButton(BuildContext context, item) {
+    return IconButton(
+      onPressed: () {
+        // Will implement in next subtask
+      },
+      icon: const Icon(Icons.delete_outline),
+      color: Colors.red[700],
+      tooltip: 'Remove item',
     );
   }
 
