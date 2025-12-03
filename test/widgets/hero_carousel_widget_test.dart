@@ -141,5 +141,80 @@ void main() {
       );
       expect(nextButton.onPressed, isNull);
     });
+
+    testWidgets('button with route navigates to correct page',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: HeroCarouselWidget(slides: testSlides),
+          ),
+          routes: {
+            '/test1': (context) => const Scaffold(
+                  body: Center(child: Text('Test Page 1')),
+                ),
+          },
+        ),
+      );
+
+      // Verify we're on slide 1 with route '/test1'
+      expect(find.text('Test Slide 1'), findsOneWidget);
+
+      // Tap the button
+      await tester.tap(find.text('BUTTON 1'));
+      await tester.pumpAndSettle();
+
+      // Verify navigation occurred
+      expect(find.text('Test Page 1'), findsOneWidget);
+    });
+
+    testWidgets('button with null route shows SnackBar',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(createTestWidget(testSlides));
+
+      // Navigate to slide 2 (has null route)
+      await tester.tap(find.text('Next'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Test Slide 2'), findsOneWidget);
+
+      // Tap the button with null route
+      await tester.tap(find.text('BUTTON 2'));
+      await tester.pumpAndSettle();
+
+      // Verify SnackBar appears with "Coming soon!" message
+      expect(find.text('Coming soon!'), findsOneWidget);
+    });
+
+    testWidgets('button on slide 3 navigates correctly',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: HeroCarouselWidget(slides: testSlides),
+          ),
+          routes: {
+            '/test3': (context) => const Scaffold(
+                  body: Center(child: Text('Test Page 3')),
+                ),
+          },
+        ),
+      );
+
+      // Navigate to slide 3
+      await tester.tap(find.text('Next'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Next'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Test Slide 3'), findsOneWidget);
+
+      // Tap the button
+      await tester.tap(find.text('BUTTON 3'));
+      await tester.pumpAndSettle();
+
+      // Verify navigation occurred
+      expect(find.text('Test Page 3'), findsOneWidget);
+    });
   });
 }
