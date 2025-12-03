@@ -91,16 +91,45 @@ class CartPage extends StatelessWidget {
     );
   }
 
-  /// Builds cart content with items list - will be implemented in next subtask
+  /// Builds cart content with items list
   Widget _buildCartContent(
       BuildContext context, Cart cart, double padding, bool isDesktop) {
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.all(padding),
-        child: const Column(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Cart items will be added here in next subtask
+            const Text(
+              'Shopping Cart',
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                fontFamily: 'WorkSans',
+              ),
+            ),
+            const SizedBox(height: 24),
+            // Map through cart items
+            ...cart.items.map((item) => Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: _buildCartItemCard(context, item, isDesktop),
+                )),
           ],
+        ),
+      ),
+    );
+  }
+
+  /// Builds a single cart item card - placeholder for next subtask
+  Widget _buildCartItemCard(BuildContext context, item, bool isDesktop) {
+    return Card(
+      elevation: 2.0,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(
+          '${item.title} - Size: ${item.size} - Qty: ${item.quantity}',
+          style: const TextStyle(fontFamily: 'WorkSans'),
         ),
       ),
     );

@@ -875,11 +875,28 @@ The Cart Page UI feature introduces a new screen in `lib/cart_page.dart` that di
 - Add Provider/Consumer to access Cart model
 - Implement empty cart state with icon, "Your cart is empty" message, and "Continue Shopping" button navigating to '/'
 
-**Implement cart item display and list (lib/cart_page.dart):**
-- Create cart items list with SingleChildScrollView and Column
-- Create cart item card widget with: Image.asset (with error fallback), title and size text, price per unit and subtotal, quantity controls (- and + IconButtons), remove IconButton (trash icon)
-- Implement responsive layout using MediaQuery (Row for desktop ≥800px, Column for mobile)
-- Apply consistent styling (WorkSans font, black/grey colors, theme color buttons, responsive padding 16px/32px)
+**Add cart items list structure (lib/cart_page.dart):**
+- Add "Shopping Cart" title to cart content
+- Map through cart.items to display list of items
+
+**Create basic cart item card (lib/cart_page.dart):**
+- Create _buildCartItemCard method that displays each item in a Card
+- Add product image with Image.asset and error fallback
+- Display product title and size
+
+**Add price display to cart items (lib/cart_page.dart):**
+- Add unit price and subtotal calculation
+- Format prices with £ symbol and 2 decimal places
+
+**Add quantity controls UI (lib/cart_page.dart):**
+- Add - and + IconButtons with quantity display between them
+- Add remove button IconButton with trash icon
+- Add tooltips for accessibility (placeholder onPressed handlers)
+
+**Implement responsive cart item layout (lib/cart_page.dart):**
+- Create desktop layout (Row with image left, details center, controls right)
+- Create mobile layout (Column with image/details on top, controls below)
+- Use MediaQuery to switch layouts at 800px breakpoint
 
 **Implement cart item interactions (lib/cart_page.dart):**
 - Implement quantity +/- buttons calling cart.updateQuantity(id, size, newQuantity), with - button respecting minimum of 1
