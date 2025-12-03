@@ -684,3 +684,87 @@ The Homepage Hero Carousel with Promotions feature replaces the current static "
 - Add unit tests for responsive sizing (text and padding adjust correctly on mobile vs desktop).
 - Run existing home page tests in `test/home_test.dart` and verify they still pass.
 - Update any failing home page tests to work with the new carousel structure.
+
+### Feature Requirements Document: Code Quality Improvements - Fix Lint Issues
+
+#### 1. Feature Description and Purpose
+The Code Quality Improvements feature addresses all lint issues reported by `flutter analyze` to improve code quality, maintainability, performance, and adherence to Flutter best practices. Currently, the app has 47 lint issues across 7 files that need resolution. The goal is to achieve zero lint warnings/errors, making the codebase cleaner, more consistent, and following modern Flutter conventions without changing any functionality.
+
+#### 2. User Stories
+- Clean Codebase
+	- As a developer, I want a codebase with zero lint issues so I can maintain code quality standards and avoid technical debt.
+
+- Performance Optimization
+	- As a developer, I want to use `const` constructors where applicable so the app has better performance through widget caching.
+
+- Modern API Usage
+	- As a developer, I want to use current Flutter APIs instead of deprecated ones so the code remains compatible with future Flutter versions.
+
+- Code Consistency
+	- As a developer, I want consistent code formatting and widget construction patterns so the codebase is easier to read and maintain.
+
+#### 3. Acceptance Criteria
+
+##### Lint Issue Resolution
+- [ ] All 43 `prefer_const_constructors` issues resolved by adding `const` keyword to widget constructors where possible.
+- [ ] 1 `use_key_in_widget_constructors` issue resolved by adding `key` parameter to SalePage constructor.
+- [ ] 5 `deprecated_member_use` issues in tests resolved by replacing `window.physicalSizeTestValue` with `tester.view.physicalSize` and `window.devicePixelRatioTestValue` with `tester.view.devicePixelRatio`.
+- [ ] 1 `deprecated_member_use` issue in SortWidget resolved by replacing `value:` parameter with `initialValue:`.
+- [ ] 1 `sort_child_properties_last` issue resolved by moving `child` parameter to last position in ElevatedButton constructor.
+- [ ] 1 `sized_box_for_whitespace` issue resolved by replacing `Container(width: 16)` with `const SizedBox(width: 16)`.
+- [ ] 1 `prefer_const_declarations` issue resolved by adding `const` to final variable declaration.
+
+##### File-Specific Fixes
+- [ ] `lib/sale_page.dart`: All 21 issues fixed (19 const constructors, 1 key parameter, 1 child property ordering).
+- [ ] `lib/widgets/sort_widget.dart`: Both issues fixed (1 SizedBox replacement, 1 initialValue parameter).
+- [ ] `test/sale_page_test.dart`: All 8 issues fixed (6 deprecated API replacements, 2 const constructors).
+- [ ] `test/models/collection_test.dart`: Both const constructor issues fixed.
+- [ ] `test/models/product_model_test.dart`: All 4 issues fixed (3 const constructors, 1 const declaration).
+- [ ] `test/widgets/header_test.dart`: All 3 const constructor issues fixed.
+- [ ] `test/widgets/mobile_navbar_widget_test.dart`: All 6 const constructor issues fixed.
+
+##### Functionality Preservation
+- [ ] All existing functionality remains unchanged - no business logic modifications.
+- [ ] Responsive behavior and styling remain identical.
+- [ ] Widget structure and layout unchanged.
+- [ ] All navigation and user interactions work as before.
+
+##### Testing and Validation
+- [ ] `flutter analyze` reports 0 issues after fixes.
+- [ ] `flutter test` succeeds with all tests passing.
+- [ ] App builds and runs without errors on all platforms.
+- [ ] No new lint issues introduced.
+- [ ] Manual testing confirms UI/UX unchanged.
+
+#### 4. Subtasks
+
+**SalePage Fixes (lib/sale_page.dart):**
+- Add `key` parameter to SalePage constructor: `const SalePage({super.key});`
+- Add `const` keyword to Padding constructors (lines 22, 34, 98, 116, 139, 150)
+- Add `const` keyword to Column constructors (lines 23, 35)
+- Add `const` keyword to SizedBox constructors (lines 25, 37, 109, 121, 127, 130, 142)
+- Add `const` keyword to Text constructors (line 156, 158)
+- Move `child` parameter to last position in ElevatedButton at line 155
+
+**SortWidget Fixes (lib/widgets/sort_widget.dart):**
+- Replace `Container(width: 16)` with `const SizedBox(width: 16)` at line 15
+- Replace `value:` parameter with `initialValue:` in DropdownButtonFormField at line 18
+
+**Test File Fixes (test/sale_page_test.dart):**
+- Replace `window.physicalSizeTestValue` with `tester.view.physicalSize` (lines 12, 30)
+- Replace `window.devicePixelRatioTestValue` with `tester.view.devicePixelRatio` (lines 13, 31)
+- Add `const` to Size constructors (lines 12, 30)
+- Remove deprecated `window` import if no longer needed
+
+**Model Test Fixes:**
+- `test/models/collection_test.dart`: Add `const` to Collection constructors (lines 8, 22)
+- `test/models/product_model_test.dart`: Add `const` to Product constructors (lines 8, 32, 47) and final variable (line 59)
+
+**Widget Test Fixes:**
+- `test/widgets/header_test.dart`: Add `const` to widget constructors (lines 125, 126, 127)
+- `test/widgets/mobile_navbar_widget_test.dart`: Add `const` to widget constructors (lines 9, 10, 27, 28, 46, 47)
+
+**Validation:**
+- Run `flutter analyze` to verify 0 issues
+- Run `flutter test` to verify all tests pass
+- Manually test app functionality on web/mobile to confirm no regressions
