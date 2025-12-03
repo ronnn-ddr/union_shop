@@ -19,37 +19,43 @@ class SalePage extends StatelessWidget {
         children: [
           const HeaderWidget(),
           Expanded(
-            child: Column(
-              children: [
-                const Center(
-                  child: Text(
-                    'SALE',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontFamily: 'WorkSans',
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 16),
+                  const Center(
+                    child: Text(
+                      'SALE',
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontFamily: 'WorkSans',
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 16),
-                const Center(
-                  child: Text(
-                    "Don't miss out! Get yours before they're all gone! All prices shown are inclusive of the discount.",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
-                      fontFamily: 'WorkSans',
+                  const SizedBox(height: 16),
+                  const Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        "Don't miss out! Get yours before they're all gone! All prices shown are inclusive of the discount.",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                          fontFamily: 'WorkSans',
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    textAlign: TextAlign.center,
                   ),
-                ),
-                const SizedBox(height: 32),
-                Expanded(
-                  child: Container(
+                  const SizedBox(height: 32),
+                  Container(
                     color: Colors.white,
                     padding: EdgeInsets.all(padding),
                     child: GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: isDesktop ? 3 : 2,
                         crossAxisSpacing: 16.0,
@@ -63,11 +69,11 @@ class SalePage extends StatelessWidget {
                       },
                     ),
                   ),
-                ),
-              ],
+                  const FooterWidget(),
+                ],
+              ),
             ),
           ),
-          const FooterWidget(),
         ],
       ),
     );
