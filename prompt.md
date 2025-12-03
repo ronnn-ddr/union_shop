@@ -300,3 +300,46 @@ Note on existing test files:
 - `test/data/products_test.dart` and `test/data/collections_test.dart` - need to be created for data validation
 
 Provide enhanced test files for existing test suites and new test files for missing ones, ensuring they follow the existing test patterns in the codebase (e.g., `test/home_test.dart`, `test/about_test.dart`). Ensure all tests pass with `flutter test`. Add brief comments explaining the test structure and what each test group covers.
+
+# Homepage Hero Carousel with Promotions Feature
+
+Create a dynamic hero carousel with pagination for the home page (`lib/main.dart` HomeScreen) in the Union Shop app. Replace the current static Print Shack hero section with an interactive carousel displaying 4 promotions. The main entry point is in `lib/main.dart`, which sets up a MaterialApp with routes.
+
+The current hero section displays "The Print Shack" content with a background image, title, description text, and a "FIND OUT MORE" button. Transform this into a carousel that rotates through 4 different promotional slides while maintaining the same visual format and layout structure.
+
+The 4 promotions should be:
+1. **The Print Shack** (current content) - Title: "The Print Shack", Description: "Let's create something uniquely yours with our personalisation service - From £3 for one line of text!", Button: "FIND OUT MORE" linking to The Print Shack page
+2. **Sale** - Title: "Limited Time Sale", Description: "Discover discounts on our great products!", Button: "SHOP SALE" linking to '/sale'
+3. **Graduation** - Title: "Celebrate Your Achievement", Description: "Make your graduation unforgettable with our exclusive graduation merchandise. Capture the moment with keepsakes.", Button: "VIEW COLLECTION" linking to '/shop/graduation'
+4. **Student Accommodation** - Title: "Find Your Perfect Home", Description: "Looking for student accommodation? Browse our curated listings and find the perfect place to call home during your studies.", Button: "EXPLORE HOUSING"
+
+Specifically:
+
+1. **Carousel Structure**: Create a StatefulWidget in the HomeScreen that manages the current slide index (0-3). Display one promotion at a time with transition animations when the slide changes.
+
+2. **Slide Content**: Each slide should have the same structure as the current hero section:
+   - Background image (use existing assets or placeholders)
+   - Title text (bold, large font ~32px desktop, ~24px mobile)
+   - Description paragraph (16px font, max width for readability)
+   - Call-to-action button (ElevatedButton with theme color Color(0xFF4d2963))
+   - Maintain responsive layout with MediaQuery (padding and sizing adjustments)
+
+3. **Pagination Controls**: Use the existing `PaginationWidget` from `lib/widgets/pagination_widget.dart` below the carousel to allow users to navigate between the 4 promotions. Pass the current page index, total number of promotions (4), and callbacks for onNextPage and onPreviousPage to the PaginationWidget. Position the PaginationWidget centered below the hero content with appropriate spacing.
+
+4. **Navigation Integration**: Update button onPressed callbacks:
+   - The Print Shack: For now, show a SnackBar "Coming soon!"
+   - Sale: Navigate to '/sale'
+   - Graduation: Navigate to '/shop/graduation' (create collection if needed)
+   - Student Accommodation: For now, show a SnackBar "Coming soon!"
+
+Additional requirements:
+- Use Flutter widgets like Container, Padding, Text, ElevatedButton for layout.
+- Use the existing PaginationWidget from `lib/widgets/pagination_widget.dart` for navigation controls.
+- Ensure the carousel is responsive: Use MediaQuery for padding (16px mobile, 32px desktop), text sizes, and button dimensions.
+- Styling: Use 'WorkSans' font family, maintain existing color scheme with theme color (Color(0xFF4d2963)) for buttons, white text on dark overlay for readability.
+- Animation: Add smooth transitions between slides (e.g., AnimatedSwitcher with Curves.easeInOut, duration 500ms).
+- Handle edge cases: Handle rapid pagination clicks gracefully.
+- Integrate seamlessly with existing code: Keep HeaderWidget and FooterWidget, maintain responsive breakpoints at 800px.
+- Accessibility: Add semantic labels for carousel navigation.
+
+Provide the updated code for the HomeScreen in `lib/main.dart`, any new helper widgets if extracted (e.g., `lib/widgets/hero_carousel_widget.dart`), and ensure the app builds and runs without errors. Create unit tests for the carousel functionality in `test/home_test.dart`, including tests for manual navigation using the PaginationWidget. Add brief comments explaining the changes and how they integrate with the existing code.
