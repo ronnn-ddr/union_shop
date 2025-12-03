@@ -21,10 +21,10 @@ class SalePage extends StatelessWidget {
           Expanded(
             child: Column(
               children: [
-                Center(
+                const Center(
                   child: Text(
                     'SALE',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -33,10 +33,10 @@ class SalePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                Center(
+                const Center(
                   child: Text(
                     "Don't miss out! Get yours before they're all gone! All prices shown are inclusive of the discount.",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       color: Colors.grey,
                       fontFamily: 'WorkSans',

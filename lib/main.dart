@@ -75,7 +75,7 @@ class UnionShopApp extends StatelessWidget {
                 settings: RouteSettings(name: settings.name));
           } else if (uri.path == '/sale') {
             return MaterialPageRoute(
-              builder: (context) => SalePage(),
+              builder: (context) => const SalePage(),
               settings: RouteSettings(name: settings.name),
             );
           } else if (uri.path == '/login') {

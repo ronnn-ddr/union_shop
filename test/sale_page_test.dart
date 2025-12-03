@@ -55,7 +55,7 @@ void main() {
         tester.view.devicePixelRatio = 1.0;
         addTearDown(() => tester.view.reset());
 
-        await tester.pumpWidget(MaterialApp(home: SalePage()));
+        await tester.pumpWidget(const MaterialApp(home: SalePage()));
         await tester.pump();
 
         // Find GridView and verify it exists
@@ -68,7 +68,7 @@ void main() {
         tester.view.resetPhysicalSize();
         tester.view.physicalSize = const Size(1200, 800);
 
-        await tester.pumpWidget(MaterialApp(home: SalePage()));
+        await tester.pumpWidget(const MaterialApp(home: SalePage()));
         await tester.pump();
 
         final gridViewDesktop =
@@ -85,7 +85,7 @@ void main() {
         tester.view.devicePixelRatio = 1.0;
         addTearDown(() => tester.view.reset());
 
-        await tester.pumpWidget(MaterialApp(home: SalePage()));
+        await tester.pumpWidget(const MaterialApp(home: SalePage()));
         await tester.pump();
 
         // Get products that should have sale prices
@@ -103,7 +103,7 @@ void main() {
         tester.view.devicePixelRatio = 1.0;
         addTearDown(() => tester.view.reset());
 
-        await tester.pumpWidget(MaterialApp(home: SalePage()));
+        await tester.pumpWidget(const MaterialApp(home: SalePage()));
         await tester.pump();
 
         // Find a product with known sale price (Rainbow Hoodie: £30 -> £25)
