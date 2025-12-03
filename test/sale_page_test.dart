@@ -9,9 +9,9 @@ void main() {
     testWidgets('should render sale page with correct text', (
       tester,
     ) async {
-      tester.binding.window.physicalSizeTestValue = Size(800, 600);
-      tester.binding.window.devicePixelRatioTestValue = 1.0;
-      await tester.pumpWidget(MaterialApp(home: SalePage()));
+      tester.view.physicalSize = const Size(800, 600);
+      tester.view.devicePixelRatio = 1.0;
+      await tester.pumpWidget(const MaterialApp(home: SalePage()));
       await tester.pumpAndSettle();
 
       // Check that the sale page title is present
@@ -27,10 +27,10 @@ void main() {
     testWidgets('should navigate to product page on card tap', (
       tester,
     ) async {
-      tester.binding.window.physicalSizeTestValue = Size(800, 600);
-      tester.binding.window.devicePixelRatioTestValue = 1.0;
+      tester.view.physicalSize = const Size(800, 600);
+      tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(MaterialApp(
-        home: SalePage(),
+        home: const SalePage(),
         onGenerateRoute: (settings) {
           if (settings.name!.startsWith('/product/')) {
             final id = settings.name!.substring('/product/'.length);
