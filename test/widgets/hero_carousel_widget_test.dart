@@ -216,5 +216,77 @@ void main() {
       // Verify navigation occurred
       expect(find.text('Test Page 3'), findsOneWidget);
     });
+
+    testWidgets('uses mobile text sizes and padding on narrow screens',
+        (WidgetTester tester) async {
+      // Set screen size to mobile (< 800px width)
+      tester.view.physicalSize = const Size(400, 800);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
+      await tester.pumpWidget(createTestWidget(testSlides));
+
+      // Find the title text widget
+      final titleFinder = find.text('Test Slide 1');
+      expect(titleFinder, findsOneWidget);
+
+      // Get the Text widget
+      final titleWidget = tester.widget<Text>(titleFinder);
+
+      // On mobile, title should be 24px
+      expect(titleWidget.style?.fontSize, equals(24.0));
+
+      // Find a Padding widget in the carousel
+      final paddingFinder = find.descendant(
+        of: find.byType(HeroCarouselWidget),
+        matching: find.byType(Padding),
+      );
+
+      expect(paddingFinder, findsWidgets);
+
+      // Get the first Padding widget and check it uses mobile padding (16px)
+      final paddingWidget = tester.widget<Padding>(paddingFinder.first);
+      final edgeInsets = paddingWidget.padding as EdgeInsets;
+
+      // Mobile should use 16px padding
+      expect(edgeInsets.left, equals(16.0));
+      expect(edgeInsets.right, equals(16.0));
+    });
+
+    testWidgets('uses desktop text sizes and padding on wide screens',
+        (WidgetTester tester) async {
+      // Set screen size to desktop (>= 800px width)
+      tester.view.physicalSize = const Size(1200, 800);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
+      await tester.pumpWidget(createTestWidget(testSlides));
+
+      // Find the title text widget
+      final titleFinder = find.text('Test Slide 1');
+      expect(titleFinder, findsOneWidget);
+
+      // Get the Text widget
+      final titleWidget = tester.widget<Text>(titleFinder);
+
+      // On desktop, title should be 32px
+      expect(titleWidget.style?.fontSize, equals(32.0));
+
+      // Find a Padding widget in the carousel
+      final paddingFinder = find.descendant(
+        of: find.byType(HeroCarouselWidget),
+        matching: find.byType(Padding),
+      );
+
+      expect(paddingFinder, findsWidgets);
+
+      // Get the first Padding widget and check it uses desktop padding (32px)
+      final paddingWidget = tester.widget<Padding>(paddingFinder.first);
+      final edgeInsets = paddingWidget.padding as EdgeInsets;
+
+      // Desktop should use 32px padding
+      expect(edgeInsets.left, equals(32.0));
+      expect(edgeInsets.right, equals(32.0));
+    });
   });
 }
