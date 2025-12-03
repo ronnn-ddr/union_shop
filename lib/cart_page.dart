@@ -132,69 +132,110 @@ class CartPage extends StatelessWidget {
       elevation: 2.0,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Row(
+        child: isDesktop
+            ? _buildDesktopLayout(item, priceValue, subtotal, context)
+            : _buildMobileLayout(item, priceValue, subtotal, context),
+      ),
+    );
+  }
+
+  /// Builds desktop layout (horizontal Row)
+  Widget _buildDesktopLayout(
+      item, double priceValue, double subtotal, BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Product image
+        _buildProductImage(item.imageUrl),
+        const SizedBox(width: 24),
+        // Product details
+        Expanded(
+          child: _buildProductDetails(item, priceValue, subtotal),
+        ),
+        const SizedBox(width: 24),
+        // Quantity controls and remove button
+        Column(
+          children: [
+            _buildQuantityControls(context, item),
+            const SizedBox(height: 8),
+            _buildRemoveButton(context, item),
+          ],
+        ),
+      ],
+    );
+  }
+
+  /// Builds mobile layout (vertical Column)
+  Widget _buildMobileLayout(
+      item, double priceValue, double subtotal, BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Product image
             _buildProductImage(item.imageUrl),
             const SizedBox(width: 16),
-            // Product details
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    item.title,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontFamily: 'WorkSans',
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Size: ${item.size}',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[600],
-                      fontFamily: 'WorkSans',
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '£${priceValue.toStringAsFixed(2)} each',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[600],
-                      fontFamily: 'WorkSans',
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Subtotal: £${subtotal.toStringAsFixed(2)}',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontFamily: 'WorkSans',
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 16),
-            // Quantity controls and remove button
-            Column(
-              children: [
-                _buildQuantityControls(context, item),
-                const SizedBox(height: 8),
-                _buildRemoveButton(context, item),
-              ],
+              child: _buildProductDetails(item, priceValue, subtotal),
             ),
           ],
         ),
-      ),
+        const SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildQuantityControls(context, item),
+            _buildRemoveButton(context, item),
+          ],
+        ),
+      ],
+    );
+  }
+
+  /// Builds product details (title, size, prices)
+  Widget _buildProductDetails(item, double priceValue, double subtotal) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          item.title,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            fontFamily: 'WorkSans',
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          'Size: ${item.size}',
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey[600],
+            fontFamily: 'WorkSans',
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          '£${priceValue.toStringAsFixed(2)} each',
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey[600],
+            fontFamily: 'WorkSans',
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          'Subtotal: £${subtotal.toStringAsFixed(2)}',
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            fontFamily: 'WorkSans',
+          ),
+        ),
+      ],
     );
   }
 
