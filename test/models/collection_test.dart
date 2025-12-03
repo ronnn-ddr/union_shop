@@ -5,7 +5,7 @@ import 'package:union_shop/data/collections.dart';
 void main() {
   group('Collection Model Tests', () {
     test('Collection instantiation', () {
-      final collection = Collection(
+      const collection = Collection(
         name: 'Test Collection',
         description: 'A test collection',
         image: 'test_image.png',
@@ -19,7 +19,7 @@ void main() {
     });
 
     test('Collection toString', () {
-      final collection = Collection(
+      const collection = Collection(
         name: 'Test',
         description: 'Desc',
         image: 'img.png',
