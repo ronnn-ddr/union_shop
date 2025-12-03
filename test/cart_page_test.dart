@@ -270,4 +270,70 @@ void main() {
       expect(find.text('Your cart is empty'), findsOneWidget);
     });
   });
+
+  group('CartPage Summary and Checkout Tests', () {
+    testWidgets('displays correct item count, total, and checkout clears cart',
+        (tester) async {
+      // Create cart with multiple items
+      final cart = Cart();
+      cart.addItem(
+        id: 'p1',
+        title: 'Product 1',
+        price: '£20.00',
+        imageUrl: 'https://example.com/p1.jpg',
+        size: 'M',
+        quantity: 2,
+      );
+      cart.addItem(
+        id: 'p2',
+        title: 'Product 2',
+        price: '£15.50',
+        imageUrl: 'https://example.com/p2.jpg',
+        size: 'L',
+        quantity: 1,
+      );
+
+      // Build the CartPage
+      await tester.pumpWidget(
+        ChangeNotifierProvider.value(
+          value: cart,
+          child: MaterialApp(
+            home: const CartPage(),
+            routes: {
+              '/cart': (context) => const CartPage(),
+            },
+          ),
+        ),
+      );
+
+      // Verify item count
+      expect(find.text('2 items'), findsOneWidget);
+
+      // Verify total amount (2 * £20.00 + 1 * £15.50 = £55.50)
+      expect(find.text('Subtotal: £55.50'), findsAtLeastNWidgets(1));
+
+      // Find the Checkout button
+      final checkoutButton = find.widgetWithText(ElevatedButton, 'Checkout');
+      expect(checkoutButton, findsOneWidget);
+
+      // Verify button is enabled
+      final ElevatedButton button = tester.widget(checkoutButton);
+      expect(button.onPressed, isNotNull);
+
+      // Scroll to checkout button and tap it
+      await tester.ensureVisible(checkoutButton);
+      await tester.pumpAndSettle();
+      await tester.tap(checkoutButton);
+      await tester.pumpAndSettle();
+
+      // Verify cart is cleared
+      expect(cart.itemCount, 0);
+
+      // Verify success SnackBar appears
+      expect(find.text('Order placed successfully!'), findsOneWidget);
+
+      // Verify empty cart state is shown
+      expect(find.text('Your cart is empty'), findsOneWidget);
+    });
+  });
 }
