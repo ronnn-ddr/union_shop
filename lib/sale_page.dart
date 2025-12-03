@@ -5,6 +5,8 @@ import 'data/products.dart';
 import 'models/product.dart';
 
 class SalePage extends StatelessWidget {
+  const SalePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final saleProducts = products.where((p) => p.salePrice != null).toList();
@@ -22,7 +24,7 @@ class SalePage extends StatelessWidget {
                 Center(
                   child: Text(
                     'SALE',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -34,7 +36,7 @@ class SalePage extends StatelessWidget {
                 Center(
                   child: Text(
                     "Don't miss out! Get yours before they're all gone! All prices shown are inclusive of the discount.",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                       color: Colors.grey,
                       fontFamily: 'WorkSans',
@@ -95,7 +97,7 @@ class SaleProductCard extends StatelessWidget {
               errorBuilder: (context, error, stackTrace) => Container(
                 height: 150,
                 color: Colors.grey[300],
-                child: Icon(Icons.image_not_supported, size: 50),
+                child: const Icon(Icons.image_not_supported, size: 50),
               ),
             ),
           ),
@@ -106,28 +108,28 @@ class SaleProductCard extends StatelessWidget {
               children: [
                 Text(
                   product.name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'WorkSans',
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Row(
                   children: [
                     Text(
                       '£${product.salePrice!.toStringAsFixed(2)}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'WorkSans',
                         fontSize: 16,
                         color: Colors.black,
                       ),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Text(
                       '£${product.price.toStringAsFixed(2)}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'WorkSans',
                         fontSize: 14,
                         color: Colors.grey,
@@ -136,10 +138,10 @@ class SaleProductCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(
                   product.description,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'WorkSans',
                     fontSize: 12,
                     color: Colors.grey,
@@ -147,16 +149,16 @@ class SaleProductCard extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/product/${product.id}');
                   },
-                  child: Text('View Details',
-                      style: TextStyle(color: Colors.white)),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF4d2963),
+                    backgroundColor: const Color(0xFF4d2963),
                   ),
+                  child: const Text('View Details',
+                      style: TextStyle(color: Colors.white)),
                 ),
               ],
             ),
