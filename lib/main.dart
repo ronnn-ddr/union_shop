@@ -35,7 +35,10 @@ class UnionShopApp extends StatelessWidget {
         onGenerateRoute: (settings) {
           final uri = Uri.parse(settings.name ?? '/');
           if (uri.path == '/') {
-            return MaterialPageRoute(builder: (context) => const HomeScreen());
+            return MaterialPageRoute(
+              builder: (context) => const HomeScreen(),
+              settings: RouteSettings(name: settings.name),
+            );
           } else if (uri.path.startsWith('/product')) {
             final id = uri.pathSegments.length > 1 ? uri.pathSegments[1] : null;
             final product = id != null
@@ -47,24 +50,37 @@ class UnionShopApp extends StatelessWidget {
               settings: RouteSettings(name: settings.name, arguments: product),
             );
           } else if (uri.path == '/about') {
-            return MaterialPageRoute(builder: (context) => const AboutPage());
+            return MaterialPageRoute(
+              builder: (context) => const AboutPage(),
+              settings: RouteSettings(name: settings.name),
+            );
           } else if (uri.path.startsWith('/shop')) {
             if (uri.pathSegments.length == 1) {
               // '/shop' -> Collections page
               return MaterialPageRoute(
-                  builder: (context) => const Collections());
+                  builder: (context) => const Collections(),
+                  settings: RouteSettings(name: settings.name));
             } else if (uri.pathSegments.length == 2) {
               // '/shop/<id>' -> CollectionPage
               final id = uri.pathSegments[1];
               return MaterialPageRoute(
                 builder: (context) => CollectionPage(collectionId: id),
+                settings: RouteSettings(name: settings.name),
               );
             }
-            return MaterialPageRoute(builder: (context) => const Collections());
+            return MaterialPageRoute(
+                builder: (context) => const Collections(),
+                settings: RouteSettings(name: settings.name));
           } else if (uri.path == '/sale') {
-            return MaterialPageRoute(builder: (context) => SalePage());
+            return MaterialPageRoute(
+              builder: (context) => SalePage(),
+              settings: RouteSettings(name: settings.name),
+            );
           } else if (uri.path == '/login') {
-            return MaterialPageRoute(builder: (context) => const LoginPage());
+            return MaterialPageRoute(
+              builder: (context) => const LoginPage(),
+              settings: RouteSettings(name: settings.name),
+            );
           }
           return null;
         },
