@@ -677,6 +677,10 @@ The Homepage Hero Carousel with Promotions feature replaces the current static "
 - Implement button onPressed handlers for each slide (navigate to routes using `Navigator.pushNamed` or show "Coming soon!" SnackBar for null routes).
 - Add responsive sizing for text and padding based on MediaQuery width (<800px breakpoint): 16px padding mobile, 32px desktop; titles 24px mobile, 32px desktop; descriptions 14px mobile, 16px desktop.
 - Replace the static hero section in HomeScreen (`lib/main.dart`) with the new `HeroCarouselWidget`, passing in the `promotionSlides` data.
-- Add unit tests in `test/widgets/hero_carousel_widget_test.dart` for carousel state management, slide transitions, and navigation.
-- Create '/shop/graduation' collection in collections data if it doesn't exist.
-- Verify all existing home page tests still pass and update if necessary.
+- Create basic test structure in `test/widgets/hero_carousel_widget_test.dart` with setup and helper functions.
+- Add unit tests for carousel widget rendering and initial state (displays first slide correctly).
+- Add unit tests for pagination navigation (Previous/Next button clicks update the displayed slide).
+- Add unit tests for button navigation handlers (routes navigate correctly, null routes show SnackBar).
+- Add unit tests for responsive sizing (text and padding adjust correctly on mobile vs desktop).
+- Run existing home page tests in `test/home_test.dart` and verify they still pass.
+- Update any failing home page tests to work with the new carousel structure.
