@@ -32,6 +32,12 @@ class _HeroCarouselWidgetState extends State<HeroCarouselWidget> {
     // Get the current slide
     final currentSlide = widget.slides[_currentIndex];
 
+    // Responsive sizing
+    final isMobile = MediaQuery.of(context).size.width < 800;
+    final horizontalPadding = isMobile ? 16.0 : 32.0;
+    final titleSize = isMobile ? 24.0 : 32.0;
+    final descriptionSize = isMobile ? 14.0 : 20.0;
+
     return Column(
       children: [
         // AnimatedSwitcher for smooth transitions between slides
@@ -77,8 +83,8 @@ class _HeroCarouselWidgetState extends State<HeroCarouselWidget> {
                 ),
                 // Content overlay (title, description, button)
                 Positioned(
-                  left: 24,
-                  right: 24,
+                  left: horizontalPadding,
+                  right: horizontalPadding,
                   top: 80,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -86,8 +92,8 @@ class _HeroCarouselWidgetState extends State<HeroCarouselWidget> {
                       // Title
                       Text(
                         currentSlide.title,
-                        style: const TextStyle(
-                          fontSize: 32,
+                        style: TextStyle(
+                          fontSize: titleSize,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                           height: 1.2,
@@ -98,8 +104,8 @@ class _HeroCarouselWidgetState extends State<HeroCarouselWidget> {
                       // Description
                       Text(
                         currentSlide.description,
-                        style: const TextStyle(
-                          fontSize: 20,
+                        style: TextStyle(
+                          fontSize: descriptionSize,
                           color: Colors.white,
                           height: 1.5,
                           fontFamily: 'WorkSans',
