@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/promotion_slide.dart';
+import 'pagination_widget.dart';
 
 /// A carousel widget that displays promotional slides with pagination controls.
 /// Manages the current slide state and handles navigation between slides.
@@ -134,13 +135,13 @@ class _HeroCarouselWidgetState extends State<HeroCarouselWidget> {
             ),
           ),
         ),
-        // Pagination widget will be added in subtask 6
-        const SizedBox(height: 20),
-        Text(
-          'Pagination controls go here',
-          style: TextStyle(
-            color: Colors.grey[600],
-            fontFamily: 'WorkSans',
+        // Pagination controls
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20.0),
+          child: PaginationWidget(
+            currentPage: _currentIndex + 1, // Convert 0-based to 1-based
+            totalPages: widget.slides.length,
+            onPageChanged: _onPageChanged,
           ),
         ),
       ],
