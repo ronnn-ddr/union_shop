@@ -912,8 +912,25 @@ The Cart Page UI feature introduces a new screen in `lib/cart_page.dart` that di
 - Add '/cart' route to `lib/main.dart` routes map: `'/cart': (context) => const CartPage()`
 - Verify Cart model is provided at app root with ChangeNotifierProvider
 
-**Create cart page tests (test/cart_page_test.dart):**
-- Test empty cart state, cart item display with all fields, quantity increase/decrease
-- Test remove button confirmation dialog and item removal, checkout button SnackBar and cart clear
-- Test total amount and item count display, responsive layout changes
-- Mock Cart model for tests using Provider or test-specific cart instance
+**Test empty cart state (test/cart_page_test.dart):**
+- Test that empty cart displays shopping cart icon, "Your cart is empty" message, and "Continue Shopping" button
+- Test that Continue Shopping button navigates to home page
+
+**Test cart with items (test/cart_page_test.dart):**
+- Test that cart with items displays "Shopping Cart" title and all cart items
+- Test that each item shows image, title, size, unit price, and subtotal correctly
+
+**Test quantity controls (test/cart_page_test.dart):**
+- Test that + button increases quantity and calls cart.updateQuantity
+- Test that - button decreases quantity and calls cart.updateQuantity
+- Test that - button is disabled when quantity is 1
+
+**Test item removal (test/cart_page_test.dart):**
+- Test that remove button shows confirmation dialog
+- Test that Cancel button closes dialog without removing item
+- Test that Remove button removes item and shows SnackBar
+
+**Test cart summary and checkout (test/cart_page_test.dart):**
+- Test that cart summary displays correct item count and total amount
+- Test that checkout button is disabled when cart is empty
+- Test that checkout button shows success SnackBar and clears cart when pressed
