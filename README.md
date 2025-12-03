@@ -1,16 +1,18 @@
 # Union Shop 🛍️
 
-A modern, responsive Flutter e-commerce application for the University of Portsmouth Students' Union Shop, featuring university-branded merchandise and personalized products.
+A modern, responsive Flutter e-commerce application for the Students' Union Shop, featuring university-branded merchandise and personalized products.
 
 ## 📋 Overview
 
-Union Shop is a cross-platform mobile and web application built with Flutter that showcases and sells University of Portsmouth branded products. The app provides an intuitive shopping experience with responsive design, custom typography, and comprehensive product catalog featuring clothing, accessories, and personalized items.
+Union Shop is a cross-platform mobile and web application built with Flutter that showcases and sells Student Union branded products. The app provides an intuitive shopping experience with responsive design, custom typography, and comprehensive product catalog featuring clothing, accessories, and personalized items.
 
 ## ✨ Key Features
 
 ### 🏪 Core Functionality
 - **Product Catalog**: Browse university-branded clothing and merchandise
 - **Product Details**: View detailed product information and pricing
+- **Shopping Cart**: Add items to cart, manage quantities, and proceed to checkout
+  - State management powered by Provider for real-time cart updates
 - **Personalization Service**: Custom text personalization starting from £3
 - **Responsive Design**: Optimized for both desktop and mobile devices
 
@@ -128,19 +130,27 @@ flutter build ios --release
 #### Desktop Experience (≥800px width)
 - **Header Navigation**: Click navigation buttons (Home, Shop, The Print Shack, SALE!, About, UPSU.net)
 - **Logo**: Click the UPSU logo to return to home
-- **Search & Account**: Access search, user account, and shopping bag icons
+- **Shopping Bag**: Click the shopping bag icon to view your cart
+- **Search & Account**: Access search and user account icons
 
 #### Mobile Experience (<800px width)
 - **Modal Navbar**: Tap the menu icon (☰) to open bottom sheet navigation
 - **Navigation Items**: Tap any item to navigate with Material Design ripple feedback
 - **Auto-close**: Modal automatically closes after navigation
 - **Placeholders**: "Coming soon!" notifications for unimplemented routes
+- **Shopping Bag**: Click the shopping bag icon to view your cart
+- **Search & Account**: Access search and user account icons
 
 ### Main Features
 
 #### 🏠 Home Page
 - **Sale Banner**: Prominent display of current promotions with click-to-navigate
-- **Hero Section**: "The Print Shack" personalization service promotion with CTA button
+- **Hero Carousel**: Rotating promotional slides featuring:
+  - The Print Shack personalization service
+  - Sale promotions
+  - Graduation collection
+  - Student accommodation offers
+  - Pagination controls for manual slide navigation
 - **Product Grid**: Browse featured products (Rainbow Hoodies, Graduation Hoodies, Classic Cap, Heavyweight Shorts)
 - **Product Cards**: Tap any product to view details with dynamic routing
 
@@ -168,6 +178,24 @@ flutter build ios --release
 - **Add to Cart**: Select size and quantity, add items to shopping cart
 - **Size Selection**: Dropdown for available sizes (S, M, L, XL)
 - **Quantity Control**: Numeric input for quantity selection
+
+#### 🛍️ Cart Page
+- **Shopping Cart**: View all items added to cart with images, titles, sizes, and prices
+- **Empty State**: Friendly message with "Continue Shopping" button when cart is empty
+- **Quantity Management**: 
+  - Increase/decrease item quantities with +/- buttons
+  - Minus button disabled when quantity is 1
+  - Real-time subtotal updates per item
+- **Item Removal**: Delete items with confirmation dialog to prevent accidental removal
+- **Cart Summary**:
+  - Item count display (e.g., "2 items")
+  - Total amount calculation
+  - Checkout button (disabled when cart is empty)
+- **Checkout Process**: Clear cart and show success notification
+- **Responsive Layout**:
+  - Desktop: Horizontal item cards with side-by-side layout
+  - Mobile: Vertical item cards with stacked layout
+- **Navigation**: Access cart via shopping bag icon in header
 
 #### 📄 About Page
 - **Company Information**: Learn about the Union Shop mission and values
@@ -207,6 +235,9 @@ flutter test test/about_test.dart
 
 # Product page tests
 flutter test test/product_test.dart
+
+# Cart page tests
+flutter test test/cart_page_test.dart
 ```
 
 ### Test Coverage
@@ -225,10 +256,19 @@ The test suite includes:
   - Header functionality
   - Mobile responsiveness
 
+- **Cart Page Tests**:
+  - Empty cart state display and navigation
+  - Cart with items display (titles, sizes, prices, images)
+  - Quantity controls (increase/decrease, button states)
+  - Item removal with confirmation dialog
+  - Cart summary and checkout functionality
+  - Responsive layout (desktop/mobile)
+
 - **Header Widget Tests**:
   - Banner and logo display
   - Navigation buttons visibility (desktop/mobile)
   - Menu button conditional rendering
+  - Cart icon navigation
   - Modal bottom sheet functionality
   - Icon buttons and styling
 
@@ -251,6 +291,7 @@ union_shop/
 │   ├── main.dart              # App entry point and home screen
 │   ├── about_page.dart        # About page implementation
 │   ├── product_page.dart      # Product details page
+│   ├── cart_page.dart         # Shopping cart page
 │   ├── collections.dart       # Collections/categories page
 │   ├── collection_page.dart   # Individual collection view
 │   ├── sale_page.dart         # Sale products page
@@ -258,7 +299,8 @@ union_shop/
 │   ├── models/
 │   │   ├── product.dart       # Product data model
 │   │   ├── collection.dart    # Collection data model
-│   │   └── cart.dart          # Shopping cart model
+│   │   ├── cart.dart          # Shopping cart state management
+│   │   └── cart_item.dart     # Cart item data model
 │   ├── data/
 │   │   ├── products.dart      # Product data source
 │   │   └── collections.dart   # Collections data source
@@ -270,6 +312,7 @@ union_shop/
 │   ├── home_test.dart         # Home page widget tests
 │   ├── about_test.dart        # About page widget tests
 │   ├── product_test.dart      # Product page widget tests
+│   ├── cart_page_test.dart    # Cart page widget tests
 │   ├── sale_page_test.dart    # Sale page widget tests
 │   ├── login_page_test.dart   # Login page widget tests
 │   ├── models/                # Model tests
