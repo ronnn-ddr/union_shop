@@ -121,16 +121,71 @@ class CartPage extends StatelessWidget {
     );
   }
 
-  /// Builds a single cart item card - placeholder for next subtask
+  /// Builds a single cart item card
   Widget _buildCartItemCard(BuildContext context, item, bool isDesktop) {
     return Card(
       elevation: 2.0,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Text(
-          '${item.title} - Size: ${item.size} - Qty: ${item.quantity}',
-          style: const TextStyle(fontFamily: 'WorkSans'),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Product image
+            _buildProductImage(item.imageUrl),
+            const SizedBox(width: 16),
+            // Product details
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    item.title,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontFamily: 'WorkSans',
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Size: ${item.size}',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[600],
+                      fontFamily: 'WorkSans',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
+      ),
+    );
+  }
+
+  /// Builds product image with error handling
+  Widget _buildProductImage(String imageUrl) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: Image.asset(
+        imageUrl,
+        width: 100,
+        height: 100,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            width: 100,
+            height: 100,
+            color: Colors.grey[300],
+            child: const Icon(
+              Icons.image_not_supported,
+              color: Colors.grey,
+              size: 40,
+            ),
+          );
+        },
       ),
     );
   }
