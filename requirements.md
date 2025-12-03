@@ -934,3 +934,73 @@ The Cart Page UI feature introduces a new screen in `lib/cart_page.dart` that di
 - Test that cart summary displays correct item count and total amount
 - Test that checkout button is disabled when cart is empty
 - Test that checkout button shows success SnackBar and clears cart when pressed
+
+### Feature Requirements Document: Cart Model Unit Tests
+
+#### 1. Feature Description and Purpose
+The Cart Model Unit Tests feature creates comprehensive unit tests for the `Cart` model class (`lib/models/cart.dart`) to verify all state management functionality, business logic, and ChangeNotifier behavior. The Cart model manages shopping cart state including adding items, removing items, updating quantities, calculating totals, and clearing the cart. The tests ensure the model works correctly in isolation without UI dependencies, covering edge cases and listener notifications.
+
+#### 2. User Stories
+- Verify Add Item Functionality
+	- As a developer, I want tests that verify adding items to the cart works correctly, including handling duplicate items with quantity increases.
+
+- Verify Update and Remove Functionality
+	- As a developer, I want tests that verify quantity updates and automatic removal when quantity reaches 0 or negative values.
+
+- Verify Clear and Notifications
+	- As a developer, I want tests that verify clearing the cart removes all items and that ChangeNotifier properly notifies listeners of state changes.
+
+- Ensure Reliable Cart State
+	- As a developer, I want comprehensive test coverage so I can refactor the Cart model with confidence that functionality won't break.
+
+#### 3. Acceptance Criteria
+
+##### Test Coverage
+- [ ] Test file created at `test/models/cart_test.dart`.
+- [ ] All tests use `setUp()` to create a fresh Cart instance before each test.
+- [ ] Tests are organized into 3 groups: "Add Item Tests", "Update Quantity and Remove Tests", "Clear Cart and Listener Notifications".
+
+##### Add Item Tests
+- [ ] Test adding single item to empty cart verifies itemCount = 1, totalAmount correct, and item in items list.
+- [ ] Test adding same item with same size twice increases quantity (not duplicate), itemCount stays 1, quantity = 3, totalAmount reflects combined.
+- [ ] Tests use sample data: id 'p1', title 'Test Product', price '£25.00', imageUrl 'test.jpg', size 'M', quantity 1.
+
+##### Update Quantity and Remove Tests
+- [ ] Test increasing quantity from 1 to 3 verifies quantity updates and totalAmount recalculates correctly.
+- [ ] Test decreasing quantity from 3 to 1 verifies quantity decreases and totalAmount recalculates.
+- [ ] Test updating quantity to 0 removes item from cart (itemCount = 0).
+- [ ] Test updating quantity to negative number (e.g., -1) removes item from cart.
+
+##### Clear Cart and Listener Notifications
+- [ ] Test adding multiple items (at least 2), then calling clear() verifies itemCount = 0, totalAmount = 0.0, items list empty.
+- [ ] Test listener notifications by setting up listener, then verifying addItem() triggers notification.
+- [ ] Test updateQuantity() and clear() also trigger listener notifications.
+
+##### Test Quality
+- [ ] All tests pass without errors.
+- [ ] Tests are independent with no dependencies between them.
+- [ ] Tests use descriptive names that clearly indicate what is being tested.
+- [ ] Tests include brief comments explaining test logic where helpful.
+
+#### 4. Subtasks
+
+**Create test file structure (test/models/cart_test.dart):**
+- Create test file with imports for flutter_test and cart model
+- Add setUp() method that creates fresh Cart instance before each test
+- Create 3 test groups for organizing related tests
+
+**Implement Add Item Tests:**
+- Test adding single item to empty cart, verify itemCount, items list, totalAmount
+- Test adding same item with same size twice increases quantity (not duplicate)
+- Verify itemCount stays 1, quantity increases to 3, totalAmount reflects combined quantity
+
+**Implement Update Quantity and Remove Tests:**
+- Test increasing quantity from 1 to 3, verify quantity and totalAmount update
+- Test decreasing quantity from 3 to 1, verify quantity and totalAmount update
+- Test updating quantity to 0 removes item (itemCount = 0)
+- Test updating quantity to negative removes item
+
+**Implement Clear Cart and Listener Notifications:**
+- Test adding multiple items, calling clear(), verify all items removed
+- Test listener notifications using addListener() for addItem()
+- Test listener notifications for updateQuantity() and clear()
