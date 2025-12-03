@@ -31,61 +31,63 @@ class CartPage extends StatelessWidget {
 
   /// Builds the empty cart state with message and continue shopping button
   Widget _buildEmptyCart(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.shopping_cart_outlined,
-              size: 120,
-              color: Colors.grey[400],
-            ),
-            const SizedBox(height: 24),
-            const Text(
-              'Your cart is empty',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-                fontFamily: 'WorkSans',
+    return SingleChildScrollView(
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.shopping_cart_outlined,
+                size: 120,
+                color: Colors.grey[400],
               ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Add some items to get started!',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[600],
-                fontFamily: 'WorkSans',
-              ),
-            ),
-            const SizedBox(height: 32),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/');
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF4d2963),
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 32,
-                  vertical: 16,
-                ),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.zero,
-                ),
-              ),
-              child: const Text(
-                'Continue Shopping',
+              const SizedBox(height: 24),
+              const Text(
+                'Your cart is empty',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                   fontFamily: 'WorkSans',
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 16),
+              Text(
+                'Add some items to get started!',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                  fontFamily: 'WorkSans',
+                ),
+              ),
+              const SizedBox(height: 32),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4d2963),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 16,
+                  ),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                ),
+                child: const Text(
+                  'Continue Shopping',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'WorkSans',
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
