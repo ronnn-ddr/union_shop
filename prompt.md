@@ -442,3 +442,28 @@ Additional requirements:
 
 Provide the new code for `lib/cart_page.dart`, updated code for `lib/widgets/header_widget.dart` (to navigate to cart page from cart icon), any necessary changes to `lib/main.dart` for routing, and ensure the app builds and runs without errors. Create unit tests for the cart page functionality in `test/cart_page_test.dart`, testing empty state, item display, quantity updates, removals, and checkout. Add brief comments explaining the changes and how they integrate with the existing cart model and provider pattern.
 
+# Cart Model Unit Tests
+
+Create comprehensive unit tests for the Cart model class in the Union Shop app. The Cart model is located in `lib/models/cart.dart` and is a ChangeNotifier class that manages shopping cart state. The cart supports adding items, removing items, updating quantities, calculating totals, and clearing all items. The cart handles items with different sizes as separate entries.
+
+The test file should be created in `test/models/cart_test.dart` to match the existing test structure. The tests should verify all core functionality of the Cart model, including state management, business logic, and ChangeNotifier behavior.
+
+Specifically:
+
+1. **Add Item Tests**: Create a test group that verifies adding items to the cart. Test adding a single item to an empty cart and verify itemCount, items list, and totalAmount are correct. Test adding the same item with the same size twice - this should increase the quantity of the existing item rather than creating a duplicate. Verify itemCount stays 1, quantity increases to 3 (1 + 2), and totalAmount reflects the combined quantity. Use sample data like: id 'p1', title 'Test Product', price '£25.00', imageUrl 'test.jpg', size 'M', quantity 1.
+
+2. **Update Quantity and Remove Tests**: Create a test group for updating quantities and implicit removal. Test increasing quantity from 1 to 3 and verify the quantity updates and totalAmount recalculates correctly. Test decreasing quantity back to 1. Test that updating quantity to 0 removes the item from the cart (itemCount becomes 0). Test that updating quantity to a negative number (e.g., -1) also removes the item. Verify cart state changes appropriately in each case.
+
+3. **Clear Cart and Listener Notifications**: Create a test group that tests clearing the cart and verifying ChangeNotifier behavior. Add multiple different items (at least 2), verify itemCount and totalAmount are correct, then call clear() and verify all items are removed (itemCount = 0, totalAmount = 0.0, items list empty). Also test listener notifications by setting up a listener that tracks if notifyListeners() was called, then verify addItem(), updateQuantity(), and clear() all trigger notifications.
+
+Additional requirements:
+- Use Flutter's test framework with `flutter_test` package
+- Use `setUp()` to create a fresh Cart instance before each test
+- Use descriptive test names that clearly indicate what is being tested
+- Group related tests using `group()` for organization
+- Test only Cart model logic, not Flutter framework behavior
+- Ensure tests are independent with no dependencies between them
+- Use `addListener()` to verify ChangeNotifier notifications
+- Include sample code snippets in comments showing expected usage
+
+Provide the complete test file `test/models/cart_test.dart` with all 3 test groups, proper setup, and clear assertions. Ensure all tests pass and cover the core Cart functionality. Add brief comments explaining the test logic where helpful.
