@@ -389,3 +389,56 @@ Additional requirements:
 - Use the modern Flutter test API consistently (tester.view instead of window)
 
 Provide updated code for all affected files, ensuring the app builds and runs without errors. After changes, `flutter analyze` should report 0 issues. Add brief comments only if clarification is needed for non-obvious fixes.
+
+# Cart Page UI Feature
+
+Create a detailed Flutter cart page for the Union Shop app, allowing users to view, manage, and checkout their shopping cart. The app already has a fully implemented cart model (`lib/models/cart.dart`) with ChangeNotifier/Provider pattern that handles add, remove, update quantity, and clear operations. The cart model is integrated with the ProductPage which adds items to cart with a success SnackBar.
+
+The cart page should be a new screen in `lib/cart_page.dart`; create it to display the current cart items with full management capabilities. The page should integrate with the existing cart model and be accessible via navigation from the header's cart icon.
+
+Specifically:
+
+1. **Page Layout**: Use a Scaffold with HeaderWidget and FooterWidget (like other pages). Display cart items in a scrollable list with SingleChildScrollView and Column. Show "Your cart is empty" message with an icon when cart has no items, and a "Continue Shopping" button that navigates to '/'.
+
+2. **Cart Item Display**: For each cart item, create a Card showing:
+   - Product image (using Image.asset with error handling)
+   - Product title and size (e.g., "Rainbow Hoodie - Size: L")
+   - Price per unit and subtotal (price × quantity)
+   - Quantity controls: TextField or Row with IconButtons (- and +) to decrease/increase quantity
+   - Remove button (IconButton with delete icon) to remove the item from cart
+   - Layout: Use Row for horizontal arrangement on desktop (image left, details center, controls right), Column for mobile stacking
+
+3. **Cart Summary Section**: Below the items list, display:
+   - Subtotal showing total amount from `cart.totalAmount`
+   - Item count (e.g., "3 items")
+   - Large "Checkout" ElevatedButton with theme color (Color(0xFF4d2963))
+   - On checkout button press: Show SnackBar with "Order placed successfully!" message and clear the cart using `cart.clear()`
+
+4. **Cart Integration**: 
+   - Use Provider to access Cart model: `Provider.of<Cart>(context)` or `context.watch<Cart>()`
+   - Use cart methods: `cart.updateQuantity(id, size, newQuantity)` for quantity changes, `cart.removeItem(id, size)` for removals
+   - Display `cart.items`, `cart.itemCount`, and `cart.totalAmount`
+   - Ensure UI rebuilds automatically when cart changes (Provider handles this)
+
+5. **Navigation Integration**: 
+   - Add '/cart' route to `lib/main.dart` routes
+   - Update HeaderWidget cart icon to navigate to '/cart' when tapped (currently shows SnackBar "Cart clicked")
+   - Consider adding a cart badge showing item count on the header cart icon (optional enhancement)
+
+6. **Interactive Elements**:
+   - Quantity controls: + button increases quantity, - button decreases (minimum 1), calls `cart.updateQuantity()`
+   - Remove button: Shows confirmation dialog ("Remove item from cart?") before calling `cart.removeItem()`
+   - Checkout button: Only enabled when cart has items, shows success SnackBar and clears cart
+   - Empty cart button: Optional "Clear Cart" button that shows confirmation before calling `cart.clear()`
+
+Additional requirements:
+- Use Flutter widgets like Container, Padding, SizedBox, Card, Row, Column for layout
+- Ensure the page is responsive: Use MediaQuery for padding adjustments and layout changes (stacked on mobile, side-by-side on desktop, breakpoint at 800px)
+- Styling: Use 'WorkSans' font family, background color white, text colors black for titles and grey for descriptions, theme color (Color(0xFF4d2963)) for buttons
+- Handle edge cases: Disable quantity decrease when quantity is 1, validate numeric input, handle empty cart state gracefully
+- Integrate seamlessly with existing code: Match styling of other pages, use existing HeaderWidget and FooterWidget
+- Formatting: Ensure prices display with £ symbol and 2 decimal places (e.g., £30.00)
+- Accessibility: Add semantic labels for buttons and interactive elements
+
+Provide the new code for `lib/cart_page.dart`, updated code for `lib/widgets/header_widget.dart` (to navigate to cart page from cart icon), any necessary changes to `lib/main.dart` for routing, and ensure the app builds and runs without errors. Create unit tests for the cart page functionality in `test/cart_page_test.dart`, testing empty state, item display, quantity updates, removals, and checkout. Add brief comments explaining the changes and how they integrate with the existing cart model and provider pattern.
+
