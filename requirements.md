@@ -608,3 +608,75 @@ Adding comprehensive test coverage addresses the gap in test coverage for critic
 
 #####5. Note
 - Implement integration test when cart is functional
+
+### Feature Requirements Document: Homepage Hero Carousel with Promotions
+
+#### 1. Feature Description and Purpose
+The Homepage Hero Carousel with Promotions feature replaces the current static "The Print Shack" hero section on the home page (`lib/main.dart` HomeScreen) with an interactive carousel displaying 4 promotional slides. Each slide maintains the same visual format as the current hero section (background image, title, description, call-to-action button) but showcases different promotions: The Print Shack, Sale, Graduation, and Student Accommodation. Users can navigate between slides using the existing `PaginationWidget`, and each slide's button links to relevant pages. The goal is to increase engagement with multiple promotions while maintaining the app's existing design language and responsive behavior.
+
+#### 2. User Stories
+- View Multiple Promotions
+	- As a customer, I want to see different promotional content on the homepage so I can discover various offerings beyond just The Print Shack.
+
+- Navigate Between Promotions
+	- As a customer, I want to manually click through promotional slides using pagination controls so I can view promotions at my own pace.
+
+- Access Promoted Content
+	- As a customer, I want to click the call-to-action button on each promotion slide so I can navigate to the relevant page (sale, graduation collection, etc.).
+
+- Responsive Design
+	- As a customer, I want the carousel to display properly on both mobile and desktop devices with appropriate sizing and spacing.
+
+- Consistent Experience
+	- As a customer, I want the carousel to maintain the same visual style as the rest of the app (WorkSans font, theme colors, layout patterns).
+
+#### 3. Acceptance Criteria
+
+##### UI and Display
+- [ ] Hero section displays one promotion slide at a time from a set of 4 promotions.
+- [ ] Each slide maintains the current hero section structure: background image (or color), title text (bold, ~32px desktop, ~24px mobile), description paragraph (~16px), and call-to-action button.
+- [ ] Slide 1 (The Print Shack): Title "The Print Shack", description about printing services, button "FIND OUT MORE".
+- [ ] Slide 2 (Sale): Title "Limited Time Sale", description about discounts up to 50%, button "SHOP SALE" linking to '/sale'.
+- [ ] Slide 3 (Graduation): Title "Celebrate Your Achievement", description about graduation merchandise, button "VIEW COLLECTION" linking to '/shop/graduation'.
+- [ ] Slide 4 (Student Accommodation): Title "Find Your Perfect Home", description about student housing, button "EXPLORE HOUSING" (shows SnackBar "Coming soon!" for now).
+
+##### Interactive Elements
+- [ ] `PaginationWidget` from `lib/widgets/pagination_widget.dart` is displayed below the carousel, centered with appropriate spacing (~20px vertical).
+- [ ] PaginationWidget receives `currentPage` (1-4), `totalPages` (4), and callbacks for `onPageChanged`.
+- [ ] Clicking Previous/Next in PaginationWidget updates the displayed slide.
+- [ ] Each slide's call-to-action button navigates to the correct route using `Navigator.pushNamed`.
+
+##### Structure and State Management
+- [ ] HomeScreen carousel section is implemented as a StatefulWidget or uses state management to track current slide index (0-3).
+- [ ] State updates when user interacts with PaginationWidget, causing the displayed slide to change.
+- [ ] Slide transitions use `AnimatedSwitcher` or similar widget with smooth animation (Curves.easeInOut, ~500ms duration).
+
+##### Styling and Responsiveness
+- [ ] All text uses `fontFamily: 'WorkSans'`.
+- [ ] Titles are bold, descriptions are regular weight, buttons use theme color `Color(0xFF4d2963)`.
+- [ ] Text color is white on dark overlay for readability (matching existing hero section).
+- [ ] Responsive padding: 16px on mobile (<800px), 32px on desktop (>=800px).
+- [ ] Text sizes scale appropriately: titles ~24px mobile, ~32px desktop; descriptions ~14px mobile, ~16px desktop.
+- [ ] Button sizing adapts for touch targets on mobile vs desktop.
+
+##### Integration and Testing
+- [ ] Carousel integrates with existing HomeScreen in `lib/main.dart` without breaking existing functionality.
+- [ ] HeaderWidget and FooterWidget remain unchanged and functional.
+- [ ] Graduation collection ('/shop/graduation') exists in collections data or is created.
+- [ ] No new dependencies required; uses existing PaginationWidget.
+- [ ] App builds and runs; `flutter analyze` succeeds.
+- [ ] Unit/widget tests in `test/home_test.dart` cover carousel rendering, slide transitions, PaginationWidget integration, button navigation.
+
+#### 4. Subtasks
+- Create a data structure (list of maps or class) for the 4 promotion slides with title, description, button text, button action/route, and background image path (using 'Personalisation.png' for Print Shack, 'SalePromotion.png' for Sale, 'GraduateCollectionPromotion.png' for Graduation, and 'AccommodationPromotion.png' for Student Accommodation).
+- Update assets to use promotion images: The Print Shack uses the existing `assets/images/Personalisation.png`, Sale uses `assets/images/SalePromotion.png`, Graduation uses `assets/images/GraduateCollectionPromotion.png`, and Student Accommodation uses `assets/images/AccommodationPromotion.png`.
+- Convert the static hero section in HomeScreen to a stateful carousel that tracks the current slide index.
+- Implement slide rendering logic that displays one slide at a time based on current index, rendering the appropriate background image for each slide.
+- Add `AnimatedSwitcher` or `PageView` for smooth transitions between slides with appropriate animation curves.
+- Integrate `PaginationWidget` below the carousel with proper callbacks to update slide index.
+- Implement button onPressed handlers for each slide (navigate to routes or show placeholder SnackBar).
+- Add responsive sizing for text and padding based on MediaQuery width (<800px breakpoint).
+- Extract carousel logic into a separate widget (`lib/widgets/hero_carousel_widget.dart`) if the code becomes complex.
+- Add unit tests in `test/home_test.dart` for carousel state management, slide transitions, and navigation.
+- Create '/shop/graduation' collection in collections data if it doesn't exist.
+- Verify all existing home page tests still pass and update if necessary.
