@@ -123,6 +123,11 @@ class CartPage extends StatelessWidget {
 
   /// Builds a single cart item card
   Widget _buildCartItemCard(BuildContext context, item, bool isDesktop) {
+    // Parse price to calculate subtotal
+    final priceValue =
+        double.tryParse(item.price.replaceAll('£', '').trim()) ?? 0.0;
+    final subtotal = priceValue * item.quantity;
+
     return Card(
       elevation: 2.0,
       child: Padding(
@@ -153,6 +158,25 @@ class CartPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey[600],
+                      fontFamily: 'WorkSans',
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    '£${priceValue.toStringAsFixed(2)} each',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[600],
+                      fontFamily: 'WorkSans',
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Subtotal: £${subtotal.toStringAsFixed(2)}',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                       fontFamily: 'WorkSans',
                     ),
                   ),
