@@ -6,9 +6,9 @@ void main() {
   group('MobileNavbarWidget Tests', () {
     testWidgets('should render all navigation items', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
-            body: const MobileNavbarWidget(),
+            body: MobileNavbarWidget(),
           ),
         ),
       );
@@ -24,9 +24,9 @@ void main() {
 
     testWidgets('should render all navigation icons', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
-            body: const MobileNavbarWidget(),
+            body: MobileNavbarWidget(),
           ),
         ),
       );
@@ -43,9 +43,9 @@ void main() {
     testWidgets('should have WorkSans font family for all text',
         (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
-            body: const MobileNavbarWidget(),
+            body: MobileNavbarWidget(),
           ),
         ),
       );
