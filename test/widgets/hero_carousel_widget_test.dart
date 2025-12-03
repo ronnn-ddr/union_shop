@@ -236,21 +236,23 @@ void main() {
       // On mobile, title should be 24px
       expect(titleWidget.style?.fontSize, equals(24.0));
 
-      // Find a Padding widget in the carousel
-      final paddingFinder = find.descendant(
+      // Find the Positioned widget that contains the content with horizontal padding
+      final positionedFinder = find.descendant(
         of: find.byType(HeroCarouselWidget),
-        matching: find.byType(Padding),
+        matching: find.byType(Positioned),
       );
 
-      expect(paddingFinder, findsWidgets);
+      expect(positionedFinder, findsWidgets);
 
-      // Get the first Padding widget and check it uses mobile padding (16px)
-      final paddingWidget = tester.widget<Padding>(paddingFinder.first);
-      final edgeInsets = paddingWidget.padding as EdgeInsets;
+      // Get the Positioned widget that has left/right properties set (content overlay)
+      // There are 4 Positioned widgets: 3 Positioned.fill widgets and 1 Positioned with left/right
+      // The content overlay is the last one (index 3)
+      final positionedWidget =
+          tester.widget<Positioned>(positionedFinder.at(3));
 
-      // Mobile should use 16px padding
-      expect(edgeInsets.left, equals(16.0));
-      expect(edgeInsets.right, equals(16.0));
+      // Mobile should use 16px horizontal padding
+      expect(positionedWidget.left, equals(16.0));
+      expect(positionedWidget.right, equals(16.0));
     });
 
     testWidgets('uses desktop text sizes and padding on wide screens',
@@ -272,21 +274,23 @@ void main() {
       // On desktop, title should be 32px
       expect(titleWidget.style?.fontSize, equals(32.0));
 
-      // Find a Padding widget in the carousel
-      final paddingFinder = find.descendant(
+      // Find the Positioned widget that contains the content with horizontal padding
+      final positionedFinder = find.descendant(
         of: find.byType(HeroCarouselWidget),
-        matching: find.byType(Padding),
+        matching: find.byType(Positioned),
       );
 
-      expect(paddingFinder, findsWidgets);
+      expect(positionedFinder, findsWidgets);
 
-      // Get the first Padding widget and check it uses desktop padding (32px)
-      final paddingWidget = tester.widget<Padding>(paddingFinder.first);
-      final edgeInsets = paddingWidget.padding as EdgeInsets;
+      // Get the Positioned widget that has left/right properties set (content overlay)
+      // There are 4 Positioned widgets: 3 Positioned.fill widgets and 1 Positioned with left/right
+      // The content overlay is the last one (index 3)
+      final positionedWidget =
+          tester.widget<Positioned>(positionedFinder.at(3));
 
-      // Desktop should use 32px padding
-      expect(edgeInsets.left, equals(32.0));
-      expect(edgeInsets.right, equals(32.0));
+      // Desktop should use 32px horizontal padding
+      expect(positionedWidget.left, equals(32.0));
+      expect(positionedWidget.right, equals(32.0));
     });
   });
 }

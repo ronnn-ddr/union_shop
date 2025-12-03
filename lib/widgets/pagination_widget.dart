@@ -14,6 +14,10 @@ class PaginationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Check if narrow screen (< 500px) to use compact layout
+    final isNarrow = MediaQuery.of(context).size.width < 500;
+    final spacing = isNarrow ? 8.0 : 16.0;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -26,21 +30,25 @@ class PaginationWidget extends StatelessWidget {
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.zero,
             ),
+            // Use compact padding on narrow screens
+            padding: isNarrow
+                ? const EdgeInsets.symmetric(horizontal: 12, vertical: 8)
+                : null,
           ),
-          child: const Text(
-            'Previous',
-            style: TextStyle(fontFamily: 'WorkSans'),
+          child: Text(
+            isNarrow ? 'Prev' : 'Previous',
+            style: const TextStyle(fontFamily: 'WorkSans'),
           ),
         ),
-        const SizedBox(width: 16),
+        SizedBox(width: spacing),
         Text(
           'Page $currentPage of $totalPages',
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'WorkSans',
-            fontSize: 14,
+            fontSize: isNarrow ? 12 : 14,
           ),
         ),
-        const SizedBox(width: 16),
+        SizedBox(width: spacing),
         ElevatedButton(
           onPressed: currentPage < totalPages
               ? () => onPageChanged(currentPage + 1)
@@ -51,6 +59,10 @@ class PaginationWidget extends StatelessWidget {
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.zero,
             ),
+            // Use compact padding on narrow screens
+            padding: isNarrow
+                ? const EdgeInsets.symmetric(horizontal: 12, vertical: 8)
+                : null,
           ),
           child: const Text(
             'Next',
