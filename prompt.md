@@ -343,3 +343,49 @@ Additional requirements:
 - Accessibility: Add semantic labels for carousel navigation.
 
 Provide the updated code for the HomeScreen in `lib/main.dart`, any new helper widgets if extracted (e.g., `lib/widgets/hero_carousel_widget.dart`), and ensure the app builds and runs without errors. Create unit tests for the carousel functionality in `test/home_test.dart`, including tests for manual navigation using the PaginationWidget. Add brief comments explaining the changes and how they integrate with the existing code.
+
+# Code Quality Improvements: Fix Lint Issues
+
+Fix all lint issues reported by `flutter analyze` in the Union Shop app. The app currently has 47 lint issues across multiple files that need to be addressed to improve code quality, maintainability, and follow Flutter best practices.
+
+The main issues are:
+1. **Missing const constructors**: 43 instances where constructors should be marked as `const` for better performance (prefer_const_constructors, prefer_const_declarations)
+2. **Missing key parameter**: 1 widget constructor missing a named 'key' parameter (use_key_in_widget_constructors)
+3. **Deprecated API usage**: 5 instances of deprecated test APIs (window.physicalSizeTestValue, window.devicePixelRatioTestValue) that should use tester.view instead
+4. **Deprecated Form API**: 1 instance of deprecated 'value' parameter in SortWidget that should use 'initialValue'
+5. **Widget property ordering**: 1 instance where 'child' property should be last in constructor (sort_child_properties_last)
+6. **Layout best practice**: 1 instance where Container for whitespace should be replaced with SizedBox (sized_box_for_whitespace)
+
+Files affected:
+- `lib/sale_page.dart`: 19 prefer_const_constructors issues, 1 sort_child_properties_last issue, 1 use_key_in_widget_constructors issue
+- `lib/widgets/sort_widget.dart`: 1 sized_box_for_whitespace issue, 1 deprecated_member_use issue
+- `test/sale_page_test.dart`: 6 deprecated_member_use issues, 2 prefer_const_constructors issues
+- `test/models/collection_test.dart`: 2 prefer_const_constructors issues
+- `test/models/product_model_test.dart`: 3 prefer_const_constructors issues, 1 prefer_const_declarations issue
+- `test/widgets/header_test.dart`: 3 prefer_const_constructors issues
+- `test/widgets/mobile_navbar_widget_test.dart`: 6 prefer_const_constructors issues
+
+Specifically:
+
+1. **SalePage Fixes** (`lib/sale_page.dart`):
+   - Add `const` keyword to all widget constructors where possible (Padding, Column, SizedBox, Text, Row, etc.)
+   - Add `key` parameter to SalePage constructor: `const SalePage({super.key});`
+   - Move `child` parameter to be last in the ElevatedButton constructor at line 155
+
+2. **SortWidget Fixes** (`lib/widgets/sort_widget.dart`):
+   - Replace `Container(width: 16)` with `const SizedBox(width: 16)`
+   - Replace deprecated `value:` parameter with `initialValue:` in DropdownButtonFormField
+
+3. **Test File Fixes**:
+   - In `test/sale_page_test.dart`: Replace all instances of `window.physicalSizeTestValue` with `tester.view.physicalSize`, and `window.devicePixelRatioTestValue` with `tester.view.devicePixelRatio`. Add `const` to Size constructors.
+   - In `test/models/collection_test.dart`, `test/models/product_model_test.dart`, `test/widgets/header_test.dart`, `test/widgets/mobile_navbar_widget_test.dart`: Add `const` keyword to all widget and model constructors where applicable
+
+Additional requirements:
+- Maintain all existing functionality - only add `const` keywords and fix API usage
+- Ensure responsive behavior and styling remain unchanged
+- Verify all tests still pass after changes with `flutter test`
+- Verify no new lint issues are introduced with `flutter analyze`
+- Do not change any business logic or widget structure
+- Use the modern Flutter test API consistently (tester.view instead of window)
+
+Provide updated code for all affected files, ensuring the app builds and runs without errors. After changes, `flutter analyze` should report 0 issues. Add brief comments only if clarification is needed for non-obvious fixes.
