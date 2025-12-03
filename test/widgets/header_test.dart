@@ -7,8 +7,8 @@ void main() {
     testWidgets('should display header with basic elements', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: Scaffold(
-            body: HeaderWidget(),
+          home: const Scaffold(
+            body: const HeaderWidget(),
           ),
         ),
       );
@@ -122,9 +122,9 @@ void main() {
       });
 
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: HeaderWidget(),
+        const MaterialApp(
+          home: const Scaffold(
+            body: const HeaderWidget(),
           ),
         ),
       );
