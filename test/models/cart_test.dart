@@ -146,6 +146,68 @@ void main() {
   });
 
   group('Clear Cart and Listener Notifications', () {
-    // Tests for clearing cart and listener notifications will go here
+    test('clear removes all items from cart', () {
+      // Add multiple different items
+      cart.addItem(
+        id: 'p1',
+        title: 'Product 1',
+        price: '£20.00',
+        imageUrl: 'test1.jpg',
+        size: 'M',
+        quantity: 2,
+      );
+
+      cart.addItem(
+        id: 'p2',
+        title: 'Product 2',
+        price: '£15.00',
+        imageUrl: 'test2.jpg',
+        size: 'L',
+        quantity: 1,
+      );
+
+      // Verify cart has items
+      expect(cart.itemCount, 2);
+      expect(cart.totalAmount, 55.0); // (2 * £20) + (1 * £15) = £55
+
+      // Call clear()
+      cart.clear();
+
+      // Verify all items removed
+      expect(cart.itemCount, 0);
+      expect(cart.totalAmount, 0.0);
+      expect(cart.items, isEmpty);
+    });
+
+    test('cart notifies listeners on state changes', () {
+      int notificationCount = 0;
+
+      // Set up listener to track notifications
+      cart.addListener(() {
+        notificationCount++;
+      });
+
+      // Verify addItem() triggers notification
+      cart.addItem(
+        id: 'p1',
+        title: 'Test Product',
+        price: '£25.00',
+        imageUrl: 'test.jpg',
+        size: 'M',
+        quantity: 1,
+      );
+
+      expect(notificationCount, 1);
+
+      // Verify updateQuantity() triggers notification
+      cart.updateQuantity('p1', 'M', 3);
+
+      expect(notificationCount, 2);
+
+      // Verify clear() triggers notification
+      cart.clear();
+
+      expect(notificationCount, 3);
+    });
   });
 }
