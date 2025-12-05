@@ -243,5 +243,46 @@ void main() {
       // Check for home page specific content
       expect(find.text('PRODUCTS SECTION'), findsOneWidget);
     });
+
+    testWidgets('should display all content sections and be scrollable',
+        (tester) async {
+      tester.view.physicalSize = const Size(1200, 800); // Set desktop size
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
+      await tester.pumpWidget(const UnionShopApp());
+      await tester.pump();
+
+      // Navigate to about page
+      await tester.tap(find.text('About'));
+      await tester.pumpAndSettle();
+
+      // Verify the page uses SingleChildScrollView (scrollable)
+      expect(find.byType(SingleChildScrollView), findsOneWidget);
+
+      // Verify header section is visible
+      expect(
+        find.text(
+            'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!'),
+        findsOneWidget,
+      );
+
+      // Verify main content is visible
+      expect(find.text('About us'), findsOneWidget);
+      expect(find.textContaining('Welcome to the Union Shop'), findsOneWidget);
+      expect(find.textContaining('hello@upsu.net'), findsOneWidget);
+
+      // Scroll to ensure footer is accessible
+      await tester.drag(
+          find.byType(SingleChildScrollView), const Offset(0, -200));
+      await tester.pumpAndSettle();
+
+      // Verify footer section is now visible
+      expect(find.text('Powered by Flutter'), findsOneWidget);
+      expect(find.text('Opening Hours'), findsOneWidget);
+    });
   });
 }
