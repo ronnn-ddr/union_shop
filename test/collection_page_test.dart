@@ -9,7 +9,28 @@ import 'package:union_shop/product_page.dart';
 
 void main() {
   group('CollectionPage Rendering Tests', () {
-    // Basic rendering tests will go here
+    testWidgets('displays HeaderWidget, FooterWidget, and product grid',
+        (WidgetTester tester) async {
+      // Set screen size for consistent testing
+      tester.view.physicalSize = const Size(1080, 1920);
+      tester.view.devicePixelRatio = 1.0;
+
+      // Build the CollectionPage with MaterialApp wrapper
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: CollectionPage(collectionId: 'clothing'),
+        ),
+      );
+
+      // Verify HeaderWidget is present
+      expect(find.byType(HeaderWidget), findsOneWidget);
+
+      // Verify FooterWidget is present
+      expect(find.byType(FooterWidget), findsOneWidget);
+
+      // Verify GridView is present for displaying products
+      expect(find.byType(GridView), findsOneWidget);
+    });
   });
 
   group('CollectionPage Product Display Tests', () {
