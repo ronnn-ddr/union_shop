@@ -34,7 +34,8 @@ void main() {
   });
 
   group('CollectionPage Product Display Tests', () {
-    testWidgets('displays products from clothing collection with names and prices',
+    testWidgets(
+        'displays products from clothing collection with names and prices',
         (WidgetTester tester) async {
       // Set screen size for consistent testing
       tester.view.physicalSize = const Size(1080, 1920);
@@ -55,7 +56,7 @@ void main() {
 
       // Products are sorted by name A-Z and paginated (4 per page)
       // First page should show: Classic Sweatshirt, Graduation Hoodies, Graduation Zipped Sweatshirt, Heavyweight Shorts
-      
+
       // Classic Sweatshirt - price 28.0, salePrice 12.99
       expect(find.text('Classic Sweatshirt'), findsOneWidget);
       expect(find.text('£12.99'), findsOneWidget);
@@ -78,7 +79,59 @@ void main() {
   });
 
   group('CollectionPage Navigation Tests', () {
-    // Navigation tests will go here
+    testWidgets('tapping product card navigates to ProductPage',
+        (WidgetTester tester) async {
+      // Set screen size for consistent testing
+      tester.view.physicalSize = const Size(1080, 1920);
+      tester.view.devicePixelRatio = 1.0;
+
+      // Track if navigation occurred
+      bool navigationOccurred = false;
+
+      // Build the CollectionPage with navigation handling
+      await tester.pumpWidget(
+        MaterialApp(
+          home: const CollectionPage(collectionId: 'clothing'),
+          onGenerateRoute: (settings) {
+            final uri = Uri.parse(settings.name ?? '/');
+            if (uri.path.startsWith('/product')) {
+              navigationOccurred = true;
+              final id =
+                  uri.pathSegments.length > 1 ? uri.pathSegments[1] : null;
+              final product = id != null
+                  ? products.firstWhere((p) => p.id == id,
+                      orElse: () => products[0])
+                  : products[0];
+              return MaterialPageRoute(
+                builder: (context) => ProductPage(product: product),
+                settings: RouteSettings(name: settings.name, arguments: product),
+              );
+            }
+            return null;
+          },
+        ),
+      );
+
+      // Wait for widget to settle
+      await tester.pumpAndSettle();
+
+      // Find the first product card (Classic Sweatshirt should be first alphabetically)
+      final productCard = find.text('Classic Sweatshirt');
+      expect(productCard, findsOneWidget);
+
+      // Tap on the product card
+      await tester.tap(productCard);
+      await tester.pumpAndSettle();
+
+      // Verify navigation occurred
+      expect(navigationOccurred, isTrue);
+
+      // Verify ProductPage is displayed
+      expect(find.byType(ProductPage), findsOneWidget);
+
+      // Verify product details are shown on the ProductPage
+      expect(find.text('Classic Sweatshirt'), findsWidgets);
+    });
   });
 
   group('CollectionPage Mobile Features Tests', () {
