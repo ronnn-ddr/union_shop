@@ -1004,3 +1004,99 @@ The Cart Model Unit Tests feature creates comprehensive unit tests for the `Cart
 - Test adding multiple items, calling clear(), verify all items removed
 - Test listener notifications using addListener() for addItem()
 - Test listener notifications for updateQuantity() and clear()
+
+### Feature Requirements Document: Collection Page Tests
+
+#### 1. Feature Description and Purpose
+The Collection Page Tests feature creates comprehensive widget tests for the `CollectionPage` (`lib/collection_page.dart`) to verify correct rendering, product display, navigation, and mobile functionality. The CollectionPage displays products filtered by collection ID and includes a header, footer, and product grid. These tests ensure the page works correctly across different scenarios including product display, navigation to product details, mobile drawer functionality, and empty collection handling.
+
+#### 2. User Stories
+- Verify Page Rendering
+	- As a developer, I want tests that verify the CollectionPage renders with HeaderWidget, FooterWidget, and product grid so I can ensure the page structure is correct.
+
+- Verify Product Display
+	- As a developer, I want tests that verify products from the correct collection are displayed with names, prices, and images so I can ensure filtering works correctly.
+
+- Verify Navigation
+	- As a developer, I want tests that verify tapping product cards navigates to ProductPage with correct data so I can ensure navigation works properly.
+
+- Verify Mobile Functionality
+	- As a developer, I want tests that verify the mobile drawer appears on small screens and contains navigation items so I can ensure mobile UX works correctly.
+
+- Verify Edge Cases
+	- As a developer, I want tests that verify empty collections are handled gracefully so I can ensure the app doesn't crash with missing data.
+
+#### 3. Acceptance Criteria
+
+##### Test Coverage
+- [ ] Test file created at `test/collection_page_test.dart`.
+- [ ] Tests organized into logical groups for rendering, product display, navigation, mobile features, and edge cases.
+- [ ] All tests use `testWidgets` with proper async/await handling.
+
+##### Basic Rendering Test
+- [ ] Test verifies CollectionPage displays HeaderWidget, FooterWidget, and GridView.
+- [ ] Test uses MaterialApp wrapper with routes for proper context.
+- [ ] Test passes a valid collectionId (e.g., 'clothing') to CollectionPage constructor.
+
+##### Product Display Test
+- [ ] Test verifies products from specified collection are displayed in grid.
+- [ ] Test checks for product names, prices (formatted as £X.XX), and images using `find.text()`.
+- [ ] Test uses real product data from `lib/data/products.dart` or consistent test data.
+
+##### Product Card Navigation Test
+- [ ] Test sets up routes including '/product/:id' for navigation.
+- [ ] Test taps on a product card using `tester.tap()`.
+- [ ] Test verifies navigation to ProductPage with correct product data using `pumpAndSettle()`.
+
+##### Mobile Drawer Test
+- [ ] Test sets screen size to mobile (width < 800) using `tester.view.physicalSize`.
+- [ ] Test opens drawer by tapping menu button or using scaffold key.
+- [ ] Test verifies drawer items like "Home", "Shop", "About" are present using `find.text()`.
+
+##### Empty Collection Test
+- [ ] Test passes collectionId that doesn't match any products (e.g., 'nonexistent').
+- [ ] Test verifies product grid is empty or appropriate message displayed.
+- [ ] Test ensures no errors or crashes occur with empty data.
+
+##### Test Quality
+- [ ] All tests pass without errors or warnings.
+- [ ] Tests follow existing test style from `test/cart_page_test.dart`, `test/product_test.dart`, `test/collections_test.dart`.
+- [ ] Tests use clear descriptions and arrange-act-assert structure.
+- [ ] Tests include brief comments explaining key steps.
+- [ ] Tests use appropriate matchers: `findsOneWidget`, `findsNothing`, `findsWidgets`, `findsNWidgets(n)`.
+
+#### 4. Subtasks
+
+**Create test file structure (test/collection_page_test.dart):**
+- Create test file with imports for flutter_test, collection_page, header/footer widgets
+- Import product data and models for test data consistency
+- Set up test groups for organizing related tests
+
+**Implement Basic Rendering Test:**
+- Create MaterialApp wrapper with routes
+- Pass valid collectionId (e.g., 'clothing') to CollectionPage
+- Verify HeaderWidget, FooterWidget, and GridView are present using find.byType()
+
+**Implement Product Display Test:**
+- Pass specific collectionId (e.g., 'clothing')
+- Pump widget and verify product names from that collection appear
+- Verify prices formatted correctly (e.g., '£30.00')
+- Verify images are displayed (check for Image widgets or specific image assets)
+
+**Implement Product Card Navigation Test:**
+- Set up MaterialApp with routes including product page route
+- Tap on first product card in grid
+- Use pumpAndSettle() to wait for navigation
+- Verify ProductPage is displayed with correct product data
+
+**Implement Mobile Drawer Test:**
+- Set tester.view.physicalSize to mobile dimensions (e.g., 400x800)
+- Pump CollectionPage widget
+- Open drawer by tapping menu icon or using scaffold key
+- Verify drawer items ("Home", "Shop", "About") are present
+
+**Implement Empty Collection Test:**
+- Pass collectionId that doesn't match any products (e.g., 'nonexistent')
+- Pump widget and verify no crashes
+- Verify product grid is empty (findsNothing for product cards)
+- Verify appropriate empty state handling (if implemented)
