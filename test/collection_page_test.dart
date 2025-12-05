@@ -172,6 +172,36 @@ void main() {
   });
 
   group('CollectionPage Edge Cases Tests', () {
-    // Empty collection tests will go here
+    testWidgets('handles empty collection gracefully without crashes',
+        (WidgetTester tester) async {
+      // Set screen size for consistent testing
+      tester.view.physicalSize = const Size(1080, 1920);
+      tester.view.devicePixelRatio = 1.0;
+
+      // Build the CollectionPage with a non-existent collection
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: CollectionPage(collectionId: 'nonexistent'),
+        ),
+      );
+
+      // Wait for widget to settle - should not crash
+      await tester.pumpAndSettle();
+
+      // Verify the page still renders basic structure
+      expect(find.byType(HeaderWidget), findsOneWidget);
+      expect(find.byType(FooterWidget), findsOneWidget);
+      expect(find.byType(GridView), findsOneWidget);
+
+      // Verify no product cards are displayed
+      // (GridView should be empty or have no children)
+      expect(find.text('Rainbow Hoodie'), findsNothing);
+      expect(find.text('Classic Cap'), findsNothing);
+      expect(find.text('Union T-Shirt'), findsNothing);
+
+      // Verify the app doesn't crash and renders without errors
+      // The test passing means no exceptions were thrown
+    });
   });
 }
+
