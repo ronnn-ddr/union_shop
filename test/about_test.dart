@@ -284,5 +284,52 @@ void main() {
       expect(find.text('Powered by Flutter'), findsOneWidget);
       expect(find.text('Opening Hours'), findsOneWidget);
     });
+
+    testWidgets('should display about page with correct text styling',
+        (tester) async {
+      tester.view.physicalSize = const Size(1200, 800); // Set desktop size
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
+      await tester.pumpWidget(const UnionShopApp());
+      await tester.pump();
+
+      // Navigate to about page
+      await tester.tap(find.text('About'));
+      await tester.pumpAndSettle();
+
+      // Find the "About us" heading text widget
+      final aboutUsText = tester.widget<Text>(find.text('About us'));
+
+      // Verify heading styling
+      expect(aboutUsText.style?.fontSize, 50);
+      expect(aboutUsText.style?.fontWeight, FontWeight.bold);
+      expect(aboutUsText.style?.color, Colors.black);
+      expect(aboutUsText.style?.fontFamily, 'WorkSans');
+
+      // Find the main content text widget
+      final contentText = tester
+          .widget<Text>(find.textContaining('Welcome to the Union Shop!'));
+
+      // Verify content text styling
+      expect(contentText.style?.fontSize, 18);
+      expect(contentText.style?.height, 1.6);
+      expect(contentText.style?.color, Colors.black87);
+      expect(contentText.style?.fontFamily, 'WorkSans');
+
+      // Verify the content container has white background and padding
+      final container = tester.widget<Container>(find
+          .ancestor(
+            of: find.text('About us'),
+            matching: find.byType(Container),
+          )
+          .first);
+
+      expect(container.color, Colors.white);
+      expect(container.padding, const EdgeInsets.all(40.0));
+    });
   });
 }
