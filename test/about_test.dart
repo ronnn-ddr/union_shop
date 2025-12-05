@@ -206,5 +206,42 @@ void main() {
       // Reset for other tests
       addTearDown(() => tester.view.reset());
     });
+
+    testWidgets('should navigate to home page from drawer on mobile',
+        (tester) async {
+      tester.view.physicalSize = const Size(600, 800); // Set mobile size
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
+      await tester.pumpWidget(const UnionShopApp());
+      await tester.pump();
+
+      // Navigate to about page via drawer
+      await tester.tap(find.byIcon(Icons.menu));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('About'));
+      await tester.pumpAndSettle();
+
+      // Verify we're on the about page
+      expect(find.text('About us'), findsOneWidget);
+      expect(find.textContaining('Welcome to the Union Shop'), findsOneWidget);
+
+      // Open the drawer
+      await tester.tap(find.byIcon(Icons.menu));
+      await tester.pumpAndSettle();
+
+      // Tap "Home" in the drawer
+      final homeButton = find.text('Home').last;
+      await tester.tap(homeButton);
+      await tester.pumpAndSettle();
+
+      // Verify we navigated back to home page
+      expect(find.text('About us'), findsNothing);
+      // Check for home page specific content
+      expect(find.text('PRODUCTS SECTION'), findsOneWidget);
+    });
   });
 }
