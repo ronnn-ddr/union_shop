@@ -216,7 +216,7 @@ flutter build ios --release
 
 ## 🧪 Running Tests
 
-The project includes comprehensive widget tests covering UI components, navigation, and responsive behavior.
+The project includes comprehensive test coverage across UI components, state management, data validation, navigation, and responsive behavior.
 
 ### Run All Tests
 
@@ -224,64 +224,195 @@ The project includes comprehensive widget tests covering UI components, navigati
 flutter test
 ```
 
+### Run Tests with Coverage
+
+```bash
+flutter test --coverage
+```
+
+This generates a coverage report in `coverage/lcov.info` that can be viewed with tools like `lcov` or VS Code extensions.
+
 ### Run Specific Test Files
 
 ```bash
-# Home page tests
+# Page tests
 flutter test test/home_test.dart
-
-# About page tests
 flutter test test/about_test.dart
-
-# Product page tests
 flutter test test/product_test.dart
-
-# Cart page tests
 flutter test test/cart_page_test.dart
+flutter test test/collections_test.dart
+flutter test test/collection_page_test.dart
+flutter test test/sale_page_test.dart
+flutter test test/login_page_test.dart
+
+# Widget tests
+flutter test test/widgets/header_test.dart
+flutter test test/widgets/mobile_navbar_widget_test.dart
+flutter test test/widgets/footer_test.dart
+flutter test test/widgets/hero_carousel_widget_test.dart
+flutter test test/widgets/pagination_widget_test.dart
+flutter test test/widgets/filter_widget_test.dart
+flutter test test/widgets/sort_widget_test.dart
+
+# Model tests
+flutter test test/models/cart_test.dart
+flutter test test/models/product_model_test.dart
+flutter test test/models/collection_test.dart
+
+# Data validation tests
+flutter test test/data_validation_test.dart
 ```
 
 ### Test Coverage
 
-The test suite includes:
-- **Home Page Tests**:
-  - Basic UI elements display
-  - Product card rendering
-  - Header icons functionality
-  - Navigation bar behavior
-  - Mobile responsiveness
+The test suite includes **comprehensive coverage** across all application layers:
 
-- **About Page Tests**:
-  - Page navigation
-  - Content display
-  - Header functionality
-  - Mobile responsiveness
+#### 📄 Page Tests
+- **Home Page Tests**:
+  - UI elements rendering (hero carousel, product grid)
+  - Product card display and interaction
+  - Header and navigation functionality
+  - Mobile responsiveness (<800px breakpoint)
+  - Hero carousel auto-rotation and manual navigation
+
+- **Collections Page Tests**:
+  - Collections grid rendering
+  - Category display (Clothing, Accessories, etc.)
+  - Navigation to individual collection pages
+  - Responsive layout (4 columns desktop / 2 columns mobile)
+
+- **Collection Page Tests**:
+  - Product filtering by collection
+  - Sort functionality (name, price)
+  - Filter controls (size, price range)
+  - Pagination (4 items per page)
+  - Product navigation to detail page
+
+- **Product Page Tests**:
+  - Dynamic product data rendering
+  - Size selection dropdown
+  - Add to cart functionality
+  - Quantity controls
+  - Image and detail display
 
 - **Cart Page Tests**:
-  - Empty cart state display and navigation
-  - Cart with items display (titles, sizes, prices, images)
-  - Quantity controls (increase/decrease, button states)
+  - Empty cart state with "Continue Shopping" button
+  - Cart items display (title, size, price, image)
+  - Quantity controls (increase/decrease with validation)
   - Item removal with confirmation dialog
-  - Cart summary and checkout functionality
-  - Responsive layout (desktop/mobile)
+  - Cart summary (item count, total amount)
+  - Checkout functionality
+  - Responsive layout (horizontal desktop / vertical mobile)
 
+- **Sale Page Tests**:
+  - Sale products display with discount badges
+  - Price display (original and sale price)
+  - Product grid layout (3 columns desktop / 2 columns mobile)
+  - Navigation to product details
+
+- **About Page Tests**:
+  - Content display and structure
+  - Header and footer integration
+  - Contact information rendering
+  - Mobile responsiveness
+
+- **Login Page Tests**:
+  - Tab switching (Login/Sign-Up)
+  - Form validation (email format, password length)
+  - User feedback with SnackBar
+  - Responsive form layout
+
+#### 🧩 Widget Tests
 - **Header Widget Tests**:
-  - Banner and logo display
-  - Navigation buttons visibility (desktop/mobile)
-  - Menu button conditional rendering
-  - Cart icon navigation
-  - Modal bottom sheet functionality
-  - Icon buttons and styling
+  - Logo and banner display
+  - Navigation buttons (desktop/mobile visibility)
+  - Shopping cart icon with badge
+  - Search and account icons
+  - Mobile menu button conditional rendering
+  - Modal bottom sheet navigation
+  - Responsive breakpoint behavior (800px)
+
+- **Footer Widget Tests**:
+  - Footer content rendering
+  - Link display and organization
+  - Consistent styling across pages
 
 - **Mobile Navbar Widget Tests**:
-  - Navigation items rendering with icons
-  - Placeholder SnackBar behavior
-  - Navigation functionality and modal closure
-  - WorkSans font styling verification
+  - Navigation items with icons
+  - Material Design ripple animations
+  - Navigation and auto-close behavior
+  - Placeholder SnackBar for unimplemented routes
+  - WorkSans font styling
 
-- **Product, Sale, Login Page Tests**:
-  - Dynamic product data rendering
-  - Form validation
-  - Responsive layouts
+- **Hero Carousel Widget Tests**:
+  - Slide rendering and content display
+  - Auto-rotation functionality (4-second intervals)
+  - Manual navigation (previous/next buttons)
+  - Pagination indicator
+  - Button navigation and SnackBar feedback
+  - Responsive image sizing
+
+- **Pagination Widget Tests**:
+  - Page navigation controls
+  - Previous/Next button states
+  - Page number display
+  - Edge case handling (first/last page)
+
+- **Filter Widget Tests**:
+  - Size filter checkboxes
+  - Price range slider
+  - Filter application and clearing
+  - UI state updates
+
+- **Sort Widget Tests**:
+  - Sort dropdown options (name, price)
+  - Sort order application
+  - Default state handling
+
+#### 🔧 Model Tests
+- **Cart Model Tests**:
+  - Add item to cart (single and multiple items)
+  - Quantity updates (same product with same size)
+  - Separate entries for different sizes
+  - Remove item functionality
+  - Increase/decrease quantity
+  - Total amount calculation
+  - Item count tracking
+  - Edge cases (empty cart, invalid operations)
+
+- **Product Model Tests**:
+  - Product data structure validation
+  - Property access and methods
+  - Sale price calculations
+  - Size availability checks
+
+- **Collection Model Tests**:
+  - Collection data structure
+  - Product associations
+  - Collection metadata
+
+#### 📊 Data Validation Tests
+- **Product Data Validation**:
+  - Required fields presence (id, name, image, description, material)
+  - Price validation (positive values)
+  - Sizes list validation (not empty)
+  - Collections assignment (not empty)
+  - Unique ID constraint
+  - Unique name constraint
+  - Image path format validation
+  - Size value validation (S, M, L, XL)
+
+- **Collections Data Validation**:
+  - Collection ID uniqueness
+  - Collection name validity
+  - Product-collection relationships
+  - Image path validation
+
+### Test Statistics
+- **Total Test Files**: 18+
+- **Test Categories**: Page tests, Widget tests, Model tests, Data validation tests
+- **Coverage Areas**: UI rendering, state management, navigation, responsiveness, data integrity
+- **Responsive Testing**: Tests verify 800px breakpoint behavior
 
 ## 🏗️ Project Structure
 
@@ -309,16 +440,27 @@ union_shop/
 │       ├── footer_widget.dart        # Reusable footer component
 │       └── mobile_navbar_widget.dart # Mobile navigation modal
 ├── test/
-│   ├── home_test.dart         # Home page widget tests
-│   ├── about_test.dart        # About page widget tests
-│   ├── product_test.dart      # Product page widget tests
-│   ├── cart_page_test.dart    # Cart page widget tests
-│   ├── sale_page_test.dart    # Sale page widget tests
-│   ├── login_page_test.dart   # Login page widget tests
-│   ├── models/                # Model tests
+│   ├── home_test.dart                # Home page widget tests
+│   ├── about_test.dart               # About page widget tests
+│   ├── product_test.dart             # Product page widget tests
+│   ├── cart_page_test.dart           # Cart page widget tests
+│   ├── collections_test.dart         # Collections page tests
+│   ├── collection_page_test.dart     # Individual collection page tests
+│   ├── sale_page_test.dart           # Sale page widget tests
+│   ├── login_page_test.dart          # Login page widget tests
+│   ├── data_validation_test.dart     # Product and collection data validation
+│   ├── models/
+│   │   ├── cart_test.dart            # Cart state management tests
+│   │   ├── product_model_test.dart   # Product model tests
+│   │   └── collection_test.dart      # Collection model tests
 │   └── widgets/
-│       ├── header_test.dart           # Header widget tests
-│       └── mobile_navbar_widget_test.dart # Mobile navbar tests
+│       ├── header_test.dart                # Header widget tests
+│       ├── footer_test.dart                # Footer widget tests
+│       ├── mobile_navbar_widget_test.dart  # Mobile navbar tests
+│       ├── hero_carousel_widget_test.dart  # Hero carousel tests
+│       ├── pagination_widget_test.dart     # Pagination controls tests
+│       ├── filter_widget_test.dart         # Filter controls tests
+│       └── sort_widget_test.dart           # Sort dropdown tests
 ├── assets/
 │   ├── fonts/                 # WorkSans font files
 │   └── images/                # Product images
