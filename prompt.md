@@ -467,3 +467,37 @@ Additional requirements:
 - Include sample code snippets in comments showing expected usage
 
 Provide the complete test file `test/models/cart_test.dart` with all 3 test groups, proper setup, and clear assertions. Ensure all tests pass and cover the core Cart functionality. Add brief comments explaining the test logic where helpful.
+
+# Collection Page Tests Feature
+
+Create unit tests for the CollectionPage in the Union Shop app (`lib/collection_page.dart`). The main entry point is in `lib/main.dart`, which sets up a MaterialApp with routes. The app has screens like home screen (`lib/main.dart` HomeScreen), product page (`lib/product_page.dart`), about page (`lib/about_page.dart`), collections page (`lib/collections.dart`), collection page (`lib/collection_page.dart`), sale page (`lib/sale_page.dart`), and login page (`lib/login_page.dart`). The app uses header and footer widgets for consistency.
+
+The CollectionPage is a StatefulWidget that displays products from a specific collection. It receives a collectionId parameter via constructor and filters the products list accordingly. The page includes a header (HeaderWidget), footer (FooterWidget), and a product grid displaying all products in that collection.
+
+Create comprehensive unit tests in `test/collection_page_test.dart` following the existing test style seen in `test/cart_page_test.dart`, `test/product_test.dart`, and `test/collections_test.dart`. Tests should verify widget rendering, navigation, and product display for key functionality without being exhaustive.
+
+Specifically:
+
+1. **Basic Rendering Test**: Create a test that verifies the CollectionPage displays correctly with collection products. Check that the page shows the HeaderWidget, FooterWidget, and product grid with products from the specified collection. Use a MaterialApp wrapper with routes and pump the widget.
+
+2. **Product Display Test**: Create a test that verifies products from the correct collection are displayed. Pass a specific collectionId (e.g., 'clothing'), pump the widget, and verify that product names, prices, and images for products in that collection are displayed in the grid.
+
+3. **Product Card Navigation Test**: Create a test that verifies tapping a product card navigates to the ProductPage. Set up routes including '/product/:id', tap on a product card, pump and settle, and verify navigation occurred to the product page with the correct product data.
+
+4. **Mobile Drawer Test**: Create a test that verifies the mobile drawer appears on small screens. Set the screen size to mobile (width < 800), pump the widget, open the drawer using the scaffold key or menu button, and verify drawer items like "Home", "Shop", "About" are present.
+
+5. **Empty Collection Test**: Create a test for a collection with no products. Pass a collectionId that doesn't match any products (e.g., 'nonexistent'), pump the widget, and verify that the product grid is empty or shows an appropriate message.
+
+Additional requirements:
+- Use Flutter test widgets like `testWidgets`, `WidgetTester`, `find`, `expect`.
+- Use `MaterialApp` wrapper for all tests to provide navigation and theme context.
+- Use `pumpAndSettle()` after interactions to wait for animations/rebuilds.
+- Follow the testing style of existing tests: clear test descriptions, arrange-act-assert structure, comments explaining key steps.
+- Test widget rendering with `find.byType()`, `find.text()`, `find.byIcon()`.
+- Test interactions with `tester.tap()`, `tester.ensureVisible()`.
+- Handle asynchronous operations properly with `async` and `await`.
+- Use appropriate matchers like `findsOneWidget`, `findsNothing`, `findsWidgets`, `findsNWidgets(n)`.
+- Group related tests using `group()` for organization.
+- Mock or use real data from `lib/data/products.dart` as needed; ensure test data is consistent.
+
+Provide the new code for `test/collection_page_test.dart`, and ensure the tests run successfully with `flutter test`. Add brief comments explaining what each test verifies and how it integrates with the existing test suite.
