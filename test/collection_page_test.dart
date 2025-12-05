@@ -104,7 +104,8 @@ void main() {
                   : products[0];
               return MaterialPageRoute(
                 builder: (context) => ProductPage(product: product),
-                settings: RouteSettings(name: settings.name, arguments: product),
+                settings:
+                    RouteSettings(name: settings.name, arguments: product),
               );
             }
             return null;
@@ -135,7 +136,39 @@ void main() {
   });
 
   group('CollectionPage Mobile Features Tests', () {
-    // Mobile drawer tests will go here
+    testWidgets('displays mobile drawer on small screens with navigation items',
+        (WidgetTester tester) async {
+      // Set mobile screen size (width < 800 to trigger mobile layout)
+      tester.view.physicalSize = const Size(600, 1200);
+      tester.view.devicePixelRatio = 1.0;
+
+      // Build the CollectionPage
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: CollectionPage(collectionId: 'clothing'),
+        ),
+      );
+
+      // Wait for widget to settle
+      await tester.pumpAndSettle();
+
+      // Open the drawer using ScaffoldState
+      final scaffoldState = tester.state<ScaffoldState>(find.byType(Scaffold));
+      scaffoldState.openDrawer();
+      await tester.pumpAndSettle();
+
+      // Verify drawer is opened (now it should be found)
+      expect(find.byType(Drawer), findsOneWidget);
+
+      // Verify drawer contains navigation items
+      expect(find.text('Union Shop'), findsOneWidget); // Drawer header
+      expect(find.text('Home'), findsOneWidget);
+      expect(find.text('Shop'), findsOneWidget);
+      expect(find.text('The Print Shack'), findsOneWidget);
+      expect(find.text('SALE!'), findsOneWidget);
+      expect(find.text('About'), findsOneWidget);
+      expect(find.text('UPSU.net'), findsOneWidget);
+    });
   });
 
   group('CollectionPage Edge Cases Tests', () {
