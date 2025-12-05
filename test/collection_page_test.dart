@@ -34,7 +34,47 @@ void main() {
   });
 
   group('CollectionPage Product Display Tests', () {
-    // Product display tests will go here
+    testWidgets('displays products from clothing collection with names and prices',
+        (WidgetTester tester) async {
+      // Set screen size for consistent testing
+      tester.view.physicalSize = const Size(1080, 1920);
+      tester.view.devicePixelRatio = 1.0;
+
+      // Build the CollectionPage with clothing collection
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: CollectionPage(collectionId: 'clothing'),
+        ),
+      );
+
+      // Wait for widget to settle
+      await tester.pumpAndSettle();
+
+      // Check if GridView exists
+      expect(find.byType(GridView), findsOneWidget);
+
+      // Products are sorted by name A-Z and paginated (4 per page)
+      // First page should show: Classic Sweatshirt, Graduation Hoodies, Graduation Zipped Sweatshirt, Heavyweight Shorts
+      
+      // Classic Sweatshirt - price 28.0, salePrice 12.99
+      expect(find.text('Classic Sweatshirt'), findsOneWidget);
+      expect(find.text('£12.99'), findsOneWidget);
+
+      // Graduation Hoodies - price 35.0 (no sale)
+      expect(find.text('Graduation Hoodies'), findsOneWidget);
+      expect(find.text('£35.00'), findsOneWidget);
+
+      // Heavyweight Shorts - price 20.0 (no sale)
+      expect(find.text('Heavyweight Shorts'), findsOneWidget);
+      expect(find.text('£20.00'), findsOneWidget);
+
+      // Verify images are displayed (check for Image widgets)
+      expect(find.byType(Image), findsWidgets);
+
+      // Verify non-clothing products are NOT displayed on this page
+      expect(find.text('Classic Cap'), findsNothing); // accessories
+      expect(find.text('Sticker Pack'), findsNothing); // accessories
+    });
   });
 
   group('CollectionPage Navigation Tests', () {
