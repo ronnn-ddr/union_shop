@@ -12,10 +12,11 @@ class SortWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 200,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 200, minWidth: 150),
       child: DropdownButtonFormField<String>(
         initialValue: selectedSort,
+        isExpanded: true,
         decoration: const InputDecoration(
           border: OutlineInputBorder(),
           contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -27,6 +28,7 @@ class SortWidget extends StatelessWidget {
             child: Text(
               'Name A-Z',
               style: TextStyle(fontFamily: 'WorkSans', fontSize: 14),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           DropdownMenuItem(
@@ -34,6 +36,7 @@ class SortWidget extends StatelessWidget {
             child: Text(
               'Price Low-High',
               style: TextStyle(fontFamily: 'WorkSans', fontSize: 14),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           DropdownMenuItem(
@@ -41,6 +44,7 @@ class SortWidget extends StatelessWidget {
             child: Text(
               'Price High-Low',
               style: TextStyle(fontFamily: 'WorkSans', fontSize: 14),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],
